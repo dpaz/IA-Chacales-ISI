@@ -1,6 +1,6 @@
-IA-Chacales-ISI
+﻿IA-Chacales-ISI
 ===============
 
 Inteligencia artificial para carcassone Ingeniería de Sistemas de Información
-
-pitu
+Integrantes del grupo:
+Jesus Alberto Saiz Cano
