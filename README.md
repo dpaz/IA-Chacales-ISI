@@ -6,3 +6,4 @@ Integrantes del grupo:
 Jesus Alberto Saiz Cano
 David Moreno Lumbreras
 Alejandro Lorenzo Caro
+Fernando Yustas Ruiz
