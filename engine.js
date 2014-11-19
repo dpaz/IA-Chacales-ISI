@@ -78,5 +78,9 @@ var Tablero = new function(){
 	this.piezas = recto.concat(curva,cruce3,cruce4,moncamino,mongranja,ciudadc,ciudadd,ciudade,ciudadf,
 							   ciudadg,ciudadh,ciudadi,ciudadj,ciudadk,ciudadl,ciudadm,ciudadn,ciudado,
 							   ciudadp,ciudadq,ciudadr,ciudads,ciudadt);
+	// Método dentro de Tablero??						   
+	this.saca_pieza = function (){
+		return this.piezas.pop(Math.floor(Math.random*fichas.length + 1))		
+	}
 }
 
