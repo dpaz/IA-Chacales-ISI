@@ -54,14 +54,15 @@ var ciudadt = [TPiezas.CiudadT];
 
 
 
-var Jugador = new function(user_id){
+var Jugador = function(user_id){
 	this.puntuacion = 0;
 	this.seguidores = 8;
 	this.id = user_id;
 }
 
-var Juego = new function(jugadores,numeroIAS){
-	if(jugadores.length + numeroIAS <5){
+var Juego = function(jugadores,numeroIAS){
+	this.jugadores = new Array(jugadores.length+numeroIAS);
+	if(jugadores.length + numeroIAS <=5){
 		for(i = 0; i<jugadores.length ;i++){
 			this.jugadores[i] = new Jugador(jugadores[i].name);
 		}
@@ -69,11 +70,14 @@ var Juego = new function(jugadores,numeroIAS){
 		/*for(i = jugadores.length-1 ; i< 5 ; i++){
 			this.jugadores[i] = new IA();
 		}*/
+	}else{
+		this.jugadores = undefined;
+		console.log("El numero de jugadores es incorrecto");
 	}
 	this.tablero = new Tablero;
 }
 
-var Tablero = new function(){
+var Tablero = function(){
 
 	this.piezas = recto.concat(curva,cruce3,cruce4,moncamino,mongranja,ciudadc,ciudadd,ciudade,ciudadf,
 							   ciudadg,ciudadh,ciudadi,ciudadj,ciudadk,ciudadl,ciudadm,ciudadn,ciudado,
