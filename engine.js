@@ -77,14 +77,20 @@ var Juego = function(jugadores,numeroIAS){
 	this.tablero = new Tablero;
 }
 
-var Tablero = function(){
+var Tablero = function(piezas){
 
-	this.piezas = recto.concat(curva,cruce3,cruce4,moncamino,mongranja,ciudadc,ciudadd,ciudade,ciudadf,
+	this.piezas = piezas || recto.concat(curva,cruce3,cruce4,moncamino,mongranja,ciudadc,ciudadd,ciudade,ciudadf,
 							   ciudadg,ciudadh,ciudadi,ciudadj,ciudadk,ciudadl,ciudadm,ciudadn,ciudado,
 							   ciudadp,ciudadq,ciudadr,ciudads,ciudadt);
 	// Método dentro de Tablero??						   
 	this.saca_pieza = function (){
-		return this.piezas.pop(Math.floor(Math.random*fichas.length + 1))		
+		if(piezas.length>0){
+			return this.piezas.pop(Math.floor(Math.random()*piezas.length))		
+		}
+		else{
+			console.log("No quedan piezas");
+			return undefined;
+		}
 	}
 }
 
