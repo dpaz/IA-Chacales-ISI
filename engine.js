@@ -51,10 +51,10 @@ var Juego = function(jugadores,numeroIAS){
 	this.tablero = new Tablero;
 }
 
-var Pieza = function(x,y,tipo){
+var Pieza = function(tipo,x,y){
 
-	this.x = x;
-	this.y = y;
+	this.x = x || undefined;
+	this.y = y || undefined;
 
 	this.Abajo = TPiezas[tipo].Abajo;
 	this.Arriba = TPiezas[tipo].Arriba;
@@ -91,15 +91,22 @@ var Piezas = function(piezas,npiezas){
 }
 
 var Tablero = function(piezas,npiezas){
-
-	this.piezas = new Piezas();
-	// Método dentro de Tablero??						   
+	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
+	else { this.piezas = new Piezas();}
+	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
+	// cuando el recto tendria que tener inicialmente 4 veces más probabilidad						   
 	this.saca_pieza = function (){
-		if(piezas.length>0){
-			random_num = Math.floor(Math.random()*piezas.length
-			return this.piezas.pop())		
+		if(piezas.totalPiezas>0){
+			random_num = Math.floor(Math.random()*piezas.totalPiezas);
+			piezas.totalPiezas--;	
+			piezas.npiezas(piezas.piezas[i])--;
+			if(piezas.npiezas(piezas.piezas[i])<=0){
+				piezas.piezas.pop(i);	
+			}
+			return new Pieza(piezas.piezas[i]);
 		}
-		else{
+				
+		}else{
 			console.log("No quedan piezas");
 			return undefined;
 		}
