@@ -22,7 +22,7 @@ var TPiezas = {
 	CiudadQ:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
 	CiudadR:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
 	CiudadS:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadT:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadT:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0}
 
 }
 
@@ -48,7 +48,7 @@ var Juego = function(jugadores,numeroIAS){
 		this.jugadores = undefined;
 		console.log("El numero de jugadores es incorrecto");
 	}
-	this.tablero = new Tablero;
+	this.tablero = new Tablero();
 }
 
 var Pieza = function(tipo,x,y){
@@ -96,16 +96,19 @@ var Tablero = function(piezas,npiezas){
 	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
 	// cuando el recto tendria que tener inicialmente 4 veces más probabilidad						   
 	this.saca_pieza = function (){
-		if(piezas.totalPiezas>0){
-			random_num = Math.floor(Math.random()*piezas.totalPiezas);
-			piezas.totalPiezas--;	
-			piezas.npiezas(piezas.piezas[i])--;
-			if(piezas.npiezas(piezas.piezas[i])<=0){
-				piezas.piezas.pop(i);	
+		if(this.piezas.totalPiezas>0){
+			random_num = Math.floor(Math.random()*this.piezas.piezas.length);
+			var pieza = new Pieza(this.piezas.piezas[random_num]);
+
+			//restamos del total de piezas y de las piezas restantes de ese tipo
+			this.piezas.totalPiezas--;
+			this.piezas.npiezas[this.piezas.piezas[random_num]]--;
+
+			//Si no quedan de ese tipo las eliminamos
+			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
+				this.piezas.piezas.pop(random_num);	
 			}
-			return new Pieza(piezas.piezas[i]);
-		}
-				
+			return pieza
 		}else{
 			console.log("No quedan piezas");
 			return undefined;
