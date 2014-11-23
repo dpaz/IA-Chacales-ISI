@@ -26,32 +26,6 @@ var TPiezas = {
 
 }
 
-var recto = [TPiezas.Recto,TPiezas.Recto,TPiezas.Recto,TPiezas.Recto,TPiezas.Recto,TPiezas.Recto,TPiezas.Recto,TPiezas.Recto];
-var curva = [TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva,TPiezas.Curva];
-var cruce3 = [TPiezas.Cruce3,TPiezas.Cruce3,TPiezas.Cruce3,TPiezas.Cruce3];
-var cruce4 = [TPiezas.Cruce4];
-var mongranja = [TPiezas.monGranja,TPiezas.monGranja];
-var moncamino = [TPiezas.MonCamino,TPiezas.MonCamino];
-var ciudadc = [TPiezas.CiudadC];
-var ciudadd = [TPiezas.CiudadD,TPiezas.CiudadD,TPiezas.CiudadD,TPiezas.CiudadD];
-var ciudade = [TPiezas.CiudadE,TPiezas.CiudadE,TPiezas.CiudadE,TPiezas.CiudadE,TPiezas.CiudadE];
-var ciudadf = [TPiezas.CiudadF,TPiezas.CiudadF];
-var ciudadg = [TPiezas.CiudadG];
-var ciudadh = [TPiezas.CiudadH,TPiezas.CiudadH,TPiezas.CiudadH];
-var ciudadi = [TPiezas.CiudadI,TPiezas.CiudadI];
-var ciudadj = [TPiezas.CiudadJ,TPiezas.CiudadJ,TPiezas.CiudadJ];
-var ciudadk = [TPiezas.CiudadK,TPiezas.CiudadK,TPiezas.CiudadK];
-var ciudadl = [TPiezas.CiudadL,TPiezas.CiudadL,TPiezas.CiudadL];
-var ciudadm = [TPiezas.CiudadM,TPiezas.CiudadM];
-var ciudadn = [TPiezas.CiudadN,TPiezas.CiudadN,TPiezas.CiudadN];
-var ciudado = [TPiezas.CiudadO,TPiezas.CiudadO];
-var ciudadp = [TPiezas.CiudadP,TPiezas.CiudadP,TPiezas.CiudadP];
-var ciudadq = [TPiezas.CiudadQ];
-var ciudadr = [TPiezas.CiudadR,TPiezas.CiudadR,TPiezas.CiudadR];
-var ciudads = [TPiezas.CiudadS,TPiezas.CiudadS];
-var ciudadt = [TPiezas.CiudadT];
-
-
 
 
 var Jugador = function(user_id){
@@ -77,10 +51,17 @@ var Juego = function(jugadores,numeroIAS){
 	this.tablero = new Tablero;
 }
 
-var Piezas = function(){
-	this.piezas = recto.concat(curva,cruce3,cruce4,moncamino,mongranja,ciudadc,ciudadd,ciudade,ciudadf,
-							   ciudadg,ciudadh,ciudadi,ciudadj,ciudadk,ciudadl,ciudadm,ciudadn,ciudado,
-							   ciudadp,ciudadq,ciudadr,ciudads,ciudadt);
+var Pieza = function(x,y,tipo){
+
+	this.x = x;
+	this.y = y;
+
+	this.Abajo = TPiezas[tipo].Abajo;
+	this.Arriba = TPiezas[tipo].Arriba;
+	this.Derecha = TPiezas[tipo].Derecha;
+	this.Izquierda = TPiezas[tipo].Izquierda;
+
+	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
 	this.girar = function(pieza){
 		var aux = pieza;
 		aux.Abajo = pieza.Izquierda;
@@ -89,16 +70,34 @@ var Piezas = function(){
 		aux.Izquierda = pieza.Arriba;
 		return aux;
 	}
+}
+
+var Piezas = function(piezas,npiezas){
+	
+	//Tipos de pieza
+	this.piezas =piezas || Object.keys(TPiezas)
+	//Numero de piezas por Tipo
+	this.npiezas =npiezas || {Recto: 8, Curva: 9, Cruce3: 4, Cruce4: 1, MonCamino: 2, MonGranja: 2, CiudadC: 1, CiudadD: 4,    
+				 			 CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
+				   			 CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2, CiudadT:1};		   			 
+
+    //Total de piezas
+    this.totalPiezas = 0;
+    for(i=0;i<this.piezas.length;i++){
+    	this.totalPiezas += this.npiezas[this.piezas[i]];
+    } 
+     
 
 }
 
-var Tablero = function(piezas){
+var Tablero = function(piezas,npiezas){
 
-	this.piezas = piezas || new Piezas();
+	this.piezas = new Piezas();
 	// Método dentro de Tablero??						   
 	this.saca_pieza = function (){
 		if(piezas.length>0){
-			return this.piezas.pop(Math.floor(Math.random()*piezas.length))		
+			random_num = Math.floor(Math.random()*piezas.length
+			return this.piezas.pop())		
 		}
 		else{
 			console.log("No quedan piezas");
