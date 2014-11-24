@@ -3,7 +3,7 @@
 Meteor.methods({
 	//Prototipo de nueva partida
 	nuevaPartida: function(id_game){
-		partida = new Juego(id_game);
+		partida = new Juego(id_game, ['david','fernando','jesus','alejandro','david'], 0);
 		//Ahora habría que iniciar el juego
 	};
 	
