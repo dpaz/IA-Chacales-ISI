@@ -49,7 +49,7 @@ var Juego = function(id_game,jugadores,numeroIAS){
 		this.jugadores = undefined;
 		console.log("El numero de jugadores es incorrecto");
 	}
-	this.tablero = new Tablero();
+	this.tablero = new Tablero(jugadores.length);
 }
 
 var Pieza = function(tipo,x,y){
@@ -91,9 +91,12 @@ var Piezas = function(piezas,npiezas){
 
 }
 
-var Tablero = function(piezas,npiezas){
+var Tablero = function(njugadores,piezas,npiezas){
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
+
+	this.azar = Math.floor(Math.random()*njugadores);
+	
 	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
 	// cuando el recto tendria que tener inicialmente 4 veces más probabilidad						   
 	this.saca_pieza = function (){
@@ -109,6 +112,12 @@ var Tablero = function(piezas,npiezas){
 			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
 				this.piezas.piezas.pop(random_num);	
 			}
+			if(this.azar===4){
+				this.azar=0;
+			}else{
+				this.azar++;
+			}
+				
 			return pieza
 		}else{
 			console.log("No quedan piezas");
