@@ -18,4 +18,15 @@ describe("Pruebas relacionadas con las piezas",function(){
 		expect(ran4).toBe(undefined);
 		
 	});
+	it("Posiciones de tablero creadas",function(){
+		piezas = ["Recto","Curva","Cruce4"];
+		npiezas = {"Recto": 1,"Curva":1,"Cruce4":1};
+		var tablero = new Tablero(piezas,npiezas);
+				
+		expect(tablero.posiciones[5][8].ocupado).toBe(false);
+		tablero.posiciones[5][8].ocupado=true;
+		expect(tablero.posiciones[5][8].ocupado).toBe(true);		
+		
+		
+	});
 });

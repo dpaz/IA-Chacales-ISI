@@ -114,5 +114,15 @@ var Tablero = function(piezas,npiezas){
 			return undefined;
 		}
 	}
+	// ARRAY M*N CON COORDENADAS PARA TABLERO
+	this.posiciones = []
+	this.posiciones = new Array(15)
+	for(var i=0;i<15;i++){
+		this.posiciones[i]=new Array(15)
+		for(var k=0;k<15;k++){
+			this.posiciones[i][k]=[]	//sin esto me explota
+			this.posiciones[i][k].ocupado=false; 	//cuando se ocupe una coordenada, a true
+		}
+	}
 }
 
