@@ -90,7 +90,8 @@ var Piezas = function(piezas,npiezas){
 
 }
 
-var Tablero = function(piezas,npiezas){
+var Tablero = function(id_game,piezas,npiezas){
+	this.id = id_game;
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
 	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
