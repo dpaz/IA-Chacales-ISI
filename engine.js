@@ -71,6 +71,8 @@ var Pieza = function(tipo,x,y){
 		aux.Izquierda = pieza.Arriba;
 		return aux;
 	}
+	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza
+	
 }
 
 var Piezas = function(piezas,npiezas){
@@ -135,4 +137,3 @@ var Tablero = function(njugadores,piezas,npiezas){
 		}
 	}
 }
-
