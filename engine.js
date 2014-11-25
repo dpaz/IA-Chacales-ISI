@@ -117,7 +117,7 @@ var Tablero = function(id_game, npiezas, piezas){
 	this.posiciones = [] //relaci�n de piezas con coordenadas puestas
 	this.sacopieza = function(x,y){
 		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
-			return (pieza.x =x && pieza.y = y);
+			return ((pieza.x==x) && (pieza.y==y));
 		})
 	}
 	

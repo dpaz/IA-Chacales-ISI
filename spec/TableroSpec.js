@@ -18,11 +18,28 @@ describe("Pruebas relacionadas con las piezas",function(){
 		//expect(ran4).toBe(undefined);
 		
 	});
-	it("Pieza correcta",function(){
-		/*
+	
+	it("Método saca pieza",function(){
 		tablero = new Tablero(5);
+		var pieza_inicial = new Pieza(tablero.piezas.piezas[1],5,5);
 		
-		tablero.pos
+		tablero.posiciones.push(pieza_inicial);
+		
+		expect(tablero.sacopieza(5,5)).toBe(true); //mal aquí el método sacapieza
+		//expect(tablero.sacopieza(8,6)).toBe(undefined);
+		
+	});
+	
+	it("Pieza correcta",function(){
+		/*tablero = new Tablero(5);
+		pieza_inicial = new Pieza(Recto,5,5);
+		
+		tablero.posiones.push(pieza_inicial);
+		
+		pieza_prueba = new Pieza(Recto)
+		
+		expect(tablero.coloco(pieza_prueba,5,4)).toBe(true)
+		expect(tablero.coloco(pieza_prueba,12,12)).toBe(false)
 		*/
 		
 	});
