@@ -28,28 +28,44 @@ var TPiezas = {
 
 
 
-var Jugador = function(user_id){
+var Jugador = function(user_id,nombre){
 	this.puntuacion = 0;
+	this.nombre = nombre;
 	this.seguidores = 8;
 	this.id = user_id;
 }
 
-var Juego = function(id_game,jugadores,numeroIAS){
+var Juego = function(id_game){//,jugadores,numeroIAS){
 	this.id_game = id_game;
-	this.jugadores = new Array(jugadores.length+numeroIAS);
-	if(jugadores.length + numeroIAS <=5){
-		for(i = 0; i<jugadores.length ;i++){
-			this.jugadores[i] = new Jugador(jugadores[i].name);
-		}
-		//Esto sera mas adelante para aÃ±adir las IAs
-		/*for(i = jugadores.length-1 ; i< 5 ; i++){
-			this.jugadores[i] = new IA();
-		}*/
-	}else{
-		this.jugadores = undefined;
-		console.log("El numero de jugadores es incorrecto");
-	}
-	this.tablero = new Tablero(jugadores.length);
+	this.listaJugadores = [];
+	this.tablero = new Tablero(); 
+  
+	
+	
+	
+	
+	
+	/* ESTO ES TODO LO QUE ESTABA DE ANTES
+		this.jugadores = new Array(jugadores.length+numeroIAS); 
+ 	if(jugadores.length + numeroIAS <=5){ 
+ 		for(i = 0; i<jugadores.length ;i++){ 
+ 			this.jugadores[i] = new Jugador(jugadores[i].name); 
+ 		} 
+ 		//Esto sera mas adelante para añadir las IAs 
+ 		/*for(i = jugadores.length-1 ; i< 5 ; i++){ 
+ 			this.jugadores[i] = new IA(); 
+ 		} 
+ 	}else{ 
+ 		this.jugadores = undefined; 
+ 		console.log("El numero de jugadores es incorrecto"); 
+ 	} 
+ 	this.tablero = new Tablero(jugadores.length); 
+
+	
+	
+	
+	
+	*/  this.tablero =  new Tablero();
 }
 
 var Pieza = function(tipo,x,y){
