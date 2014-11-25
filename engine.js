@@ -71,7 +71,7 @@ var Tablero = function(id_game, npiezas, piezas){
 	}
 	
 	
-	this.posiciones = [] //relación de piezas con coordenadas puestas
+	this.posiciones = [] //relaciï¿½n de piezas con coordenadas puestas
 	this.sacopieza = function(x,y){
 		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
 			return (pieza.x && pieza.y);
@@ -92,23 +92,24 @@ var Tablero = function(id_game, npiezas, piezas){
 			
 			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}	//ninguna pieza cercana
 			
-			if(dummyU.Abajo!=pieza.Arriba){return false}	//algún conflicto; false
+			if(dummyU.Abajo!=pieza.Arriba){return false}	//algï¿½n conflicto; false
 			if(dummyD.Arriba!=pieza.Abajo){return false}
 			if(dummyR.Izquierda!=pieza.Derecha){return false}
 			if(dummyL.Derecha!=pieza.Izquierda){return false}
+			return true
 		}
-		/*
-		if((comparo)&&(haypieza==undefined)){ 	//éxito en la comparación
+		
+		if((comparo)&&(haypieza==undefined)){ 	//ï¿½xito en la comparaciï¿½n
 			// coordenadas
 			pieza.x=x;
 			pieza.y=y;
 			Tablero.posiciones.push(pieza)
 			
-			return{true}	// éxito en colocar ficha
+			return true	// ï¿½xito en colocar ficha
 			
 		}else{
-			return{false}	// fallo en colocar ficha
-		}*/	
+			return false	// fallo en colocar ficha
+		}
 	}	
  }
 
