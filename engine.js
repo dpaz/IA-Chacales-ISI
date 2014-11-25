@@ -65,8 +65,8 @@ var Piezas = function(piezas,npiezas){
 	this.piezas =piezas || Object.keys(TPiezas)
 	//Numero de piezas por Tipo
 	this.npiezas =npiezas || {Recto: 8, Curva: 9, Cruce3: 4, Cruce4: 1, MonCamino: 2, MonGranja: 2, CiudadC: 1, CiudadD: 4,    
-				 			 CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
-				   			 CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2, CiudadT:1};		   			 
+				 CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
+				 CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2, CiudadT:1};		   			 
 
     //Total de piezas
     this.totalPiezas = 0;
@@ -77,13 +77,24 @@ var Piezas = function(piezas,npiezas){
 
 }
 
+
+
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
 	this.listaJugadores = [];
-	 
 	
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
+
+	this.aleatorio = function(numero){
+		for(i=0; i< this.piezas.piezas.length;i++){
+			if(piezas.npiezas[i].length > numero){
+				return i;
+			}else{
+				numero=numero - piezas.npiezas[i].length;
+			}
+		}
+	}
 
 	//Eleccion de primer turno
 	this.azar = Math.floor(Math.random()*listaJugadores.length);
@@ -92,16 +103,17 @@ var Tablero = function(id_game, npiezas, piezas){
 	// cuando el recto tendria que tener inicialmente 4 veces más probabilidad						   
 	this.saca_pieza = function (){
 		if(this.piezas.totalPiezas>0){
-			random_num = Math.floor(Math.random()*this.piezas.piezas.length);
-			var pieza = new Pieza(this.piezas.piezas[random_num]);
+			indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas));
+
+			var pieza = new Pieza(this.piezas.piezas[indice]);
 
 			//restamos del total de piezas y de las piezas restantes de ese tipo
 			this.piezas.totalPiezas--;
-			this.piezas.npiezas[this.piezas.piezas[random_num]]--;
+			this.piezas.npiezas[this.piezas.piezas[indice]]--;
 
 			//Si no quedan de ese tipo las eliminamos
-			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
-				this.piezas.piezas.pop(random_num);	
+			if(this.piezas.npiezas[this.piezas.piezas[indice]]<=0){
+				this.piezas.piezas.pop(indice);	
 			}
 			//Pasar el turno al siguiente
 			if(this.azar===4){
