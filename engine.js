@@ -73,9 +73,13 @@ var Pieza = function(tipo,x,y){
 
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
-	this.listaJugadores = [];	
+    this.listaJugadores = [];	
+    this.turno = 0;
+	
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
+						   
+    	
 	this.aleatorio = function(numero){
  		for(i=0; i< this.piezas.piezas.length;i++){ 
  			if(this.piezas.npiezas[this.piezas.piezas[i]] > numero){ 
@@ -85,14 +89,12 @@ var Tablero = function(id_game, npiezas, piezas){
  			} 
  		} 
 	} 
-
-	
+			       
 	this.saca_pieza = function (){
 		if(this.piezas.totalPiezas>0){
 			indice = this.aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas));
 	 		var pieza = new Pieza(this.piezas.piezas[indice]);
 			 
-
 			//restamos del total de piezas y de las piezas restantes de ese tipo
 			this.piezas.totalPiezas--;
 			this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
@@ -101,6 +103,7 @@ var Tablero = function(id_game, npiezas, piezas){
 			if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
 				this.piezas.piezas.pop(this.piezas.piezas[indice]);	
 			}
+			//Pasar el turno al siguiente
 			
 			return pieza
 		}else{
