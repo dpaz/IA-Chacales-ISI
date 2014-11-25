@@ -30,7 +30,7 @@ var TPiezas = {
 var Jugador = function(user_id,nombre){
 	this.puntuacion = 0;
 	this.nombre = nombre;
-	this.seguidores = 8;
+	this.seguidores = 7;
 	this.id = user_id;
 	this.IA = false;
 }
