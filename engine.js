@@ -35,38 +35,6 @@ var Jugador = function(user_id,nombre){
 	this.id = user_id;
 }
 
-var Juego = function(id_game){//,jugadores,numeroIAS){
-	this.id_game = id_game;
-	this.listaJugadores = [];
-	this.tablero = new Tablero(); 
-  
-	
-	
-	
-	
-	
-	/* ESTO ES TODO LO QUE ESTABA DE ANTES
-		this.jugadores = new Array(jugadores.length+numeroIAS); 
- 	if(jugadores.length + numeroIAS <=5){ 
- 		for(i = 0; i<jugadores.length ;i++){ 
- 			this.jugadores[i] = new Jugador(jugadores[i].name); 
- 		} 
- 		//Esto sera mas adelante para añadir las IAs 
- 		/*for(i = jugadores.length-1 ; i< 5 ; i++){ 
- 			this.jugadores[i] = new IA(); 
- 		} 
- 	}else{ 
- 		this.jugadores = undefined; 
- 		console.log("El numero de jugadores es incorrecto"); 
- 	} 
- 	this.tablero = new Tablero(jugadores.length); 
-
-	
-	
-	
-	
-	*/  this.tablero =  new Tablero();
-}
 
 var Pieza = function(tipo,x,y){
 
@@ -109,12 +77,16 @@ var Piezas = function(piezas,npiezas){
 
 }
 
-var Tablero = function(njugadores,piezas,npiezas){
+var Tablero = function(id_game, npiezas, piezas){
+	this.id_game = id_game;
+	this.listaJugadores = [];
+	 
+	
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
 
 	//Eleccion de primer turno
-	this.azar = Math.floor(Math.random()*njugadores);
+	this.azar = Math.floor(Math.random()*listaJugadores.length);
 	
 	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
 	// cuando el recto tendria que tener inicialmente 4 veces mÃ¡s probabilidad						   

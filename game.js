@@ -3,8 +3,9 @@
 Meteor.methods({
 	//Prototipo de nueva partida
 	nuevaPartida: function(id_game){
-		jugadores=new Array('david','fernando','jesus','alejandro','david');
-		partida = new Juego(id_game, jugadores, 0);
+		
+		partida = new Tablero(id_game);
+		//partida.listaJugadores.push(new Jugador(
 		//Ahora habría que iniciar el juego
 	};
 	//Al extraer la ficha el turno cambia automaticamente
