@@ -38,6 +38,16 @@ var Tablero = function(id_game, npiezas, piezas){
     this.listaJugadores = [];	
 	   if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	   else { this.piezas = new Piezas();}
+	   this.aleatorio = function(numero){ 
+ 	for(i=0; i< this.piezas.piezas.length;i++){ 
+ 		if(piezas.npiezas[i].length > numero){ 
+ 				return i; 
+ 			}else{ 
+			numero=numero - piezas.npiezas[i].length; 
+ 		} 
+ 		} 
+	} 
+
 	   //Eleccion de primer turno
 	//   this.azar = Math.floor(Math.random()*listaJugadores.length);
 	   // No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un      monasterio con camino
@@ -45,16 +55,17 @@ var Tablero = function(id_game, npiezas, piezas){
     
 	this.saca_pieza = function (){
 		if(this.piezas.totalPiezas>0){
-			random_num = Math.floor(Math.random()*this.piezas.piezas.length);
-			var pieza = new Pieza(this.piezas.piezas[random_num]);
+indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas)); 
+ 
+ 		var pieza = new Pieza(this.piezas.piezas[indice]); 
 
 			//restamos del total de piezas y de las piezas restantes de ese tipo
 			this.piezas.totalPiezas--;
-			this.piezas.npiezas[this.piezas.piezas[random_num]]--;
+			this.piezas.npiezas[this.piezas.piezas[indice]]--;
 
 			//Si no quedan de ese tipo las eliminamos
-			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
-				this.piezas.piezas.pop(random_num);	
+			if(this.piezas.npiezas[this.piezas.piezas[indice]]<=0){
+				this.piezas.piezas.pop(indice);	
 			}
 			//Pasar el turno al siguiente
 			if(this.azar===4){
