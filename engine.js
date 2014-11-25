@@ -27,14 +27,90 @@ var TPiezas = {
 }
 
 
-
 var Jugador = function(user_id,nombre){
 	this.puntuacion = 0;
 	this.nombre = nombre;
 	this.seguidores = 8;
 	this.id = user_id;
 }
+var Tablero = function(id_game, npiezas, piezas){
+	this.id_game = id_game;
+    this.listaJugadores = [];	
+	   if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
+	   else { this.piezas = new Piezas();}
+	   //Eleccion de primer turno
+	//   this.azar = Math.floor(Math.random()*listaJugadores.length);
+	   // No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un      monasterio con camino
+	// cuando el recto tendria que tener inicialmente 4 veces mÃ¡s probabilidad						   
+    
+	this.saca_pieza = function (){
+		if(this.piezas.totalPiezas>0){
+			random_num = Math.floor(Math.random()*this.piezas.piezas.length);
+			var pieza = new Pieza(this.piezas.piezas[random_num]);
 
+			//restamos del total de piezas y de las piezas restantes de ese tipo
+			this.piezas.totalPiezas--;
+			this.piezas.npiezas[this.piezas.piezas[random_num]]--;
+
+			//Si no quedan de ese tipo las eliminamos
+			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
+				this.piezas.piezas.pop(random_num);	
+			}
+			//Pasar el turno al siguiente
+			if(this.azar===4){
+				this.azar=0;
+			}else{
+				this.azar++;
+			}
+				
+			return pieza
+		}else{
+			console.log("No quedan piezas");
+			return undefined;
+		}
+	}
+	
+	
+	this.posiciones = [] //relación de piezas con coordenadas puestas
+	this.sacopieza = function(x,y){
+		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
+			return (pieza.x && pieza.y);
+		})
+	}
+	
+	 var coloco = function(pieza,x,y){
+		//saco si hay ficha en cada posicion
+		var haypieza = this.sacopieza(x,y)	//si es undefined, puedo poner
+		
+		var comparo = function(){	//devuelve true si no hay conflicto con alguna pieza
+			
+				// para comparar con 4 posiciones alrededor
+			var dummyU = Tablero.sacoficha(x,y+1)
+			var dummyD = Tablero.sacoficha(x,y-1)
+			var dummyR = Tablero.sacoficha(x+1,y)
+			var dummyL = Tablero.sacoficha(x-1,y)
+			
+			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}	//ninguna pieza cercana
+			
+			if(dummyU.Abajo!=pieza.Arriba){return false}	//algún conflicto; false
+			if(dummyD.Arriba!=pieza.Abajo){return false}
+			if(dummyR.Izquierda!=pieza.Derecha){return false}
+			if(dummyL.Derecha!=pieza.Izquierda){return false}
+		}
+		/*
+		if((comparo)&&(haypieza==undefined)){ 	//éxito en la comparación
+			// coordenadas
+			pieza.x=x;
+			pieza.y=y;
+			Tablero.posiciones.push(pieza)
+			
+			return{true}	// éxito en colocar ficha
+			
+		}else{
+			return{false}	// fallo en colocar ficha
+		}*/	
+	}	
+ }
 
 var Pieza = function(tipo,x,y){
 
@@ -75,101 +151,4 @@ var Piezas = function(piezas,npiezas){
     } 
      
 
-}
-
-var Tablero = function(id_game, npiezas, piezas){
-	this.id_game = id_game;
-	this.listaJugadores = [];
-	 
-	
-	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
-	else { this.piezas = new Piezas();}
-
-	//Eleccion de primer turno
-	this.azar = Math.floor(Math.random()*listaJugadores.length);
-	
-	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
-	// cuando el recto tendria que tener inicialmente 4 veces mÃ¡s probabilidad						   
-	this.saca_pieza = function (){
-		if(this.piezas.totalPiezas>0){
-			random_num = Math.floor(Math.random()*this.piezas.piezas.length);
-			var pieza = new Pieza(this.piezas.piezas[random_num]);
-
-			//restamos del total de piezas y de las piezas restantes de ese tipo
-			this.piezas.totalPiezas--;
-			this.piezas.npiezas[this.piezas.piezas[random_num]]--;
-
-			//Si no quedan de ese tipo las eliminamos
-			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
-				this.piezas.piezas.pop(random_num);	
-			}
-			//Pasar el turno al siguiente
-			if(this.azar===4){
-				this.azar=0;
-			}else{
-				this.azar++;
-			}
-				
-			return pieza
-		}else{
-			console.log("No quedan piezas");
-			return undefined;
-		}
-	}
-	
-	
-	this.posiciones = [] //relación de piezas con coordenadas puestas
-	
-	this.sacopieza = function(x,y){
-		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
-			return (pieza.x && pieza.y);
-		})
-	}
-	
-	var coloco = function(pieza,x,y){
-		//saco si hay ficha en cada posicion
-		var haypieza = this.sacopieza(x,y)	//si es undefined, puedo poner
-		
-		var comparo = function(){	//devuelve true si no hay conflicto con alguna pieza
-			
-				// para comparar con 4 posiciones alrededor
-			var dummyU = Tablero.sacoficha(x,y+1)
-			var dummyD = Tablero.sacoficha(x,y-1)
-			var dummyR = Tablero.sacoficha(x+1,y)
-			var dummyL = Tablero.sacoficha(x-1,y)
-			
-			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}	//ninguna pieza cercana
-			
-			if(dummyU.Abajo!=pieza.Arriba){return false}	//algún conflicto; false
-			if(dummyD.Arriba!=pieza.Abajo){return false}
-			if(dummyR.Izquierda!=pieza.Derecha){return false}
-			if(dummyL.Derecha!=pieza.Izquierda){return false}
-		}()
-		
-		if((comparo)&&(haypieza==undefined)){ 	//éxito en la comparación
-			// coordenadas
-			pieza.x=x;
-			pieza.y=y;
-			Tablero.posiciones.push(pieza)
-			
-			return{true}	// éxito en colocar ficha
-			
-		}else{
-			return{false}	// fallo en colocar ficha
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
