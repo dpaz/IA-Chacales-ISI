@@ -32,30 +32,31 @@ var Jugador = function(user_id,nombre){
 	this.nombre = nombre;
 	this.seguidores = 8;
 	this.id = user_id;
+	this.IA = false;
 }
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
     this.listaJugadores = [];	
-	   if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
-	   else { this.piezas = new Piezas();}
-	   this.aleatorio = function(numero){ 
- 	for(i=0; i< this.piezas.piezas.length;i++){ 
- 		if(piezas.npiezas[i].length > numero){ 
- 				return i; 
- 			}else{ 
-			numero=numero - piezas.npiezas[i].length; 
- 		} 
- 		} 
+    this.turno = 0;
+	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
+	else { this.piezas = new Piezas();}
+	this.aleatorio = function(numero){ 
+	 	for(i=0; i< this.piezas.piezas.length;i++){ 
+	 		if(piezas.npiezas[i].length > numero){ 
+	 			return i; 
+	 		}else{ 
+				numero=numero - piezas.npiezas[i].length; 
+	 		} 
+		} 
 	} 
 
 	   //Eleccion de primer turno
-	//   this.azar = Math.floor(Math.random()*listaJugadores.length);
-	   // No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un      monasterio con camino
-	// cuando el recto tendria que tener inicialmente 4 veces más probabilidad						   
+	this.azar = Math.floor(Math.random()*listaJugadores.length);
+						   
     
 	this.saca_pieza = function (){
 		if(this.piezas.totalPiezas>0){
-indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas)); 
+		indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas)); 
  
  		var pieza = new Pieza(this.piezas.piezas[indice]); 
 
@@ -85,7 +86,7 @@ indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas));
 	this.posiciones = [] //relaci�n de piezas con coordenadas puestas
 	this.sacopieza = function(x,y){
 		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
-			return (pieza.x && pieza.y);
+			return (pieza.x  && pieza.y);
 		})
 	}
 	
