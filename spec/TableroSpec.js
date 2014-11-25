@@ -19,14 +19,14 @@ describe("Pruebas relacionadas con las piezas",function(){
 		
 	});
 	
-	it("Método saca pieza",function(){
+	it("Método pieza en posiciones",function(){
 		tablero = new Tablero(5);
-		var pieza_inicial = new Pieza(tablero.piezas.piezas[1],5,5);
+		var pieza_inicial = new Pieza(tablero.piezas.piezas[0],5,5);
 		
 		tablero.posiciones.push(pieza_inicial);
 		
-		expect(tablero.sacopieza(5,5)).toBe(true); //mal aquí el método sacapieza
-		//expect(tablero.sacopieza(8,6)).toBe(undefined);
+		expect(tablero.piezaenposiciones(5,5).tipo).toBe(pieza_inicial.tipo); //mal aquí el método sacapieza
+		//expect(tablero.piezaenposiciones(8,6)).toBe(undefined);
 		
 	});
 	

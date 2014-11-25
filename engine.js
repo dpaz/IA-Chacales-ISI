@@ -53,6 +53,7 @@ var Pieza = function(tipo,x,y){
 
 	this.x = x || undefined;
 	this.y = y || undefined;
+	this.tipo = tipo
 
 	this.Abajo = TPiezas[tipo].Abajo;
 	this.Arriba = TPiezas[tipo].Arriba;
@@ -115,23 +116,25 @@ var Tablero = function(id_game, npiezas, piezas){
 
 	
 	this.posiciones = [] //relaci�n de piezas con coordenadas puestas
-	this.sacopieza = function(x,y){
-		this.posiciones.find(function(pieza){// devuelve la pieza que hay en cierta coordenada
-			return ((pieza.x==x) && (pieza.y==y));
-		})
-	}
+	this.piezaenposiciones = function(x,y){
+		var i;
+		for(i=0;i<this.posiciones.length;i++){
+				if((this.posiciones[i].x==x)&&(this.posiciones[i].y==y))
+					return this.posiciones[i]
+			}return undefined
+		}
 	
 	 var coloco = function(pieza,x,y){
 		//saco si hay ficha en cada posicion
-		var haypieza = this.sacopieza(x,y)	//si es undefined, puedo poner
+		var haypieza = this.piezaenposiciones(x,y)	//si es undefined, puedo poner
 		
 		var comparo = function(){	//devuelve true si no hay conflicto con alguna pieza
 			
 				// para comparar con 4 posiciones alrededor
-			var dummyU = Tablero.sacoficha(x,y+1)
-			var dummyD = Tablero.sacoficha(x,y-1)
-			var dummyR = Tablero.sacoficha(x+1,y)
-			var dummyL = Tablero.sacoficha(x-1,y)
+			var dummyU = Tablero.piezaenposiciones(x,y+1)
+			var dummyD = Tablero.piezaenposiciones(x,y-1)
+			var dummyR = Tablero.piezaenposiciones(x+1,y)
+			var dummyL = Tablero.piezaenposiciones(x-1,y)
 			
 			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}//ninguna pieza cercana
 			
