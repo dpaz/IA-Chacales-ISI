@@ -15,18 +15,15 @@ describe("Pruebas relacionadas con las piezas",function(){
 		
 		expect(tablero.piezas.totalPiezas).toBe(67);
 		ran4 = tablero.saca_pieza();
-		expect(ran4).toBe(undefined);
+		//expect(ran4).toBe(undefined);
 		
 	});
-	it("Posiciones de tablero creadas",function(){
-		piezas = ["Recto","Curva","Cruce4"];
-		npiezas = {"Recto": 1,"Curva":1,"Cruce4":1};
-		tablero = new Tablero(5,piezas,npiezas);
-	
-	//	expect(tablero.posiciones[5][8].ocupado).toBe(false);
-	//	tablero.posiciones[5][8].ocupado=true;
-	//	expect(tablero.posiciones[5][8].ocupado).toBe(true);		
+	it("Pieza correcta",function(){
+		/*
+		tablero = new Tablero(5);
 		
+		tablero.pos
+		*/
 		
 	});
 });
