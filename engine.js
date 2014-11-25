@@ -113,6 +113,7 @@ var Tablero = function(njugadores,piezas,npiezas){
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
 
+	//Eleccion de primer turno
 	this.azar = Math.floor(Math.random()*njugadores);
 	
 	// No es completamente aleatorio ya que tenemos la misma probabilidad de sacar un recto que un monasterio con camino
@@ -130,6 +131,7 @@ var Tablero = function(njugadores,piezas,npiezas){
 			if(this.piezas.npiezas[this.piezas.piezas[random_num]]<=0){
 				this.piezas.piezas.pop(random_num);	
 			}
+			//Pasar el turno al siguiente
 			if(this.azar===4){
 				this.azar=0;
 			}else{
