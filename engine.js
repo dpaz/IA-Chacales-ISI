@@ -142,14 +142,60 @@ var Tablero = function(njugadores,piezas,npiezas){
 			return undefined;
 		}
 	}
-	// ARRAY M*N CON COORDENADAS PARA TABLERO
-	this.posiciones = []
-	this.posiciones = new Array(15)
-	for(var i=0;i<15;i++){
-		this.posiciones[i]=new Array(15)
-		for(var k=0;k<15;k++){
-			this.posiciones[i][k]=[]	//sin esto me explota
-			this.posiciones[i][k].ocupado=false; 	//cuando se ocupe una coordenada, a true
-		}
+	
+	
+	this.posiciones = [] //relación de piezas con coordenadas puestas
+	
+	this.sacopieza = function(x,y){
+		return _.find(this.posiciones,function(pieza){// devuelve la pieza que hay en cierta coordenada
+			return (pieza.x && pieza.y)
+		})
 	}
+	
+	var coloco = function(pieza,x,y){
+		//saco si hay ficha en cada posicion
+		var haypieza = this.sacopieza(x,y)	//si es undefined, puedo poner
+		
+		var comparo = function(){	//devuelve true si no hay conflicto con alguna pieza
+			
+				// para comparar con 4 posiciones alrededor
+			var dummyU = Tablero.sacoficha(x,y+1)
+			var dummyD = Tablero.sacoficha(x,y-1)
+			var dummyR = Tablero.sacoficha(x+1,y)
+			var dummyL = Tablero.sacoficha(x-1,y)
+			
+			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}	//ninguna pieza cercana
+			
+			if(dummyU.Abajo!=pieza.Arriba){return false}	//algún conflicto; false
+			if(dummyD.Arriba!=pieza.Abajo){return false}
+			if(dummyR.Izquierda!=pieza.Derecha){return false}
+			if(dummyL.Derecha!=pieza.Izquierda){return false}
+		}()
+		
+		if((comparo)&&(haypieza==undefined)){ 	//éxito en la comparación
+			// coordenadas
+			pieza.x=x;
+			pieza.y=y;
+			Tablero.posiciones.push(pieza)
+			
+			return{true}	// éxito en colocar ficha
+			
+		}else{
+			return{false}	// fallo en colocar ficha
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
