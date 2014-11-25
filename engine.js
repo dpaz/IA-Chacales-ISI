@@ -34,54 +34,82 @@ var Jugador = function(user_id,nombre){
 	this.id = user_id;
 	this.IA = false;
 }
+
+var Piezas = function(piezas,npiezas){	
+	//Tipos de pieza
+	this.piezas =piezas || Object.keys(TPiezas)
+	//Numero de piezas por Tipo
+	this.npiezas =npiezas || {Recto: 8, Curva: 9, Cruce3: 4, Cruce4: 1, MonCamino: 2, MonGranja: 2, CiudadC: 1, CiudadD: 4,    
+				  CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
+				  CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2,CiudadT:1};		  
+	//Total de piezas
+	this.totalPiezas = 0;
+	for(i=0;i<this.piezas.length;i++){
+		this.totalPiezas += this.npiezas[this.piezas[i]];
+	} 
+}
+
+var Pieza = function(tipo,x,y){
+
+	this.x = x || undefined;
+	this.y = y || undefined;
+
+	this.Abajo = TPiezas[tipo].Abajo;
+	this.Arriba = TPiezas[tipo].Arriba;
+	this.Derecha = TPiezas[tipo].Derecha;
+	this.Izquierda = TPiezas[tipo].Izquierda;
+
+	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
+	this.girar = function(pieza){
+		var aux = pieza;
+		aux.Abajo = pieza.Izquierda;
+		aux.Derecha = pieza.Abajo;
+		aux.Arriba = pieza.Derecha;
+		aux.Izquierda = pieza.Arriba;
+		return aux;
+	}
+	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza	
+}
+
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
-    this.listaJugadores = [];	
-    this.turno = 0;
+	this.listaJugadores = [];	
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
-	this.aleatorio = function(numero){ 
-	 	for(i=0; i< this.piezas.piezas.length;i++){ 
-	 		if(piezas.npiezas[i].length > numero){ 
-	 			return i; 
-	 		}else{ 
-				numero=numero - piezas.npiezas[i].length; 
-	 		} 
-		} 
+	this.aleatorio = function(numero){
+ 		for(i=0; i< this.piezas.piezas.length;i++){ 
+ 			if(this.piezas.npiezas[this.piezas.piezas[i]] > numero){ 
+ 				return i; 
+ 			}else{ 
+				numero=numero - this.piezas.npiezas[this.piezas.piezas[i]]; 
+ 			} 
+ 		} 
 	} 
 
-	   //Eleccion de primer turno
-	this.azar = Math.floor(Math.random()*listaJugadores.length);
-						   
-    
+	
 	this.saca_pieza = function (){
 		if(this.piezas.totalPiezas>0){
-		indice = aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas)); 
- 
- 		var pieza = new Pieza(this.piezas.piezas[indice]); 
+			indice = this.aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas));
+	 		var pieza = new Pieza(this.piezas.piezas[indice]);
+			 
 
 			//restamos del total de piezas y de las piezas restantes de ese tipo
 			this.piezas.totalPiezas--;
-			this.piezas.npiezas[this.piezas.piezas[indice]]--;
+			this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
 
 			//Si no quedan de ese tipo las eliminamos
-			if(this.piezas.npiezas[this.piezas.piezas[indice]]<=0){
-				this.piezas.piezas.pop(indice);	
+			if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
+				this.piezas.piezas.pop(this.piezas.piezas[indice]);	
 			}
-			//Pasar el turno al siguiente
-			if(this.azar===4){
-				this.azar=0;
-			}else{
-				this.azar++;
-			}
-				
+			
 			return pieza
 		}else{
 			console.log("No quedan piezas");
 			return undefined;
 		}
 	}
-	
+
+
 	
 	this.posiciones = [] //relaci�n de piezas con coordenadas puestas
 	this.sacopieza = function(x,y){
@@ -102,7 +130,7 @@ var Tablero = function(id_game, npiezas, piezas){
 			var dummyR = Tablero.sacoficha(x+1,y)
 			var dummyL = Tablero.sacoficha(x-1,y)
 			
-			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}	//ninguna pieza cercana
+			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}//ninguna pieza cercana
 			
 			if(dummyU.Abajo!=pieza.Arriba){return false}	//alg�n conflicto; false
 			if(dummyD.Arriba!=pieza.Abajo){return false}
@@ -125,43 +153,6 @@ var Tablero = function(id_game, npiezas, piezas){
 	}	
  }
 
-var Pieza = function(tipo,x,y){
 
-	this.x = x || undefined;
-	this.y = y || undefined;
 
-	this.Abajo = TPiezas[tipo].Abajo;
-	this.Arriba = TPiezas[tipo].Arriba;
-	this.Derecha = TPiezas[tipo].Derecha;
-	this.Izquierda = TPiezas[tipo].Izquierda;
 
-	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
-	this.girar = function(pieza){
-		var aux = pieza;
-		aux.Abajo = pieza.Izquierda;
-		aux.Derecha = pieza.Abajo;
-		aux.Arriba = pieza.Derecha;
-		aux.Izquierda = pieza.Arriba;
-		return aux;
-	}
-	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza
-	
-}
-
-var Piezas = function(piezas,npiezas){
-	
-	//Tipos de pieza
-	this.piezas =piezas || Object.keys(TPiezas)
-	//Numero de piezas por Tipo
-	this.npiezas =npiezas || {Recto: 8, Curva: 9, Cruce3: 4, Cruce4: 1, MonCamino: 2, MonGranja: 2, CiudadC: 1, CiudadD: 4,    
-				 			 CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
-				   			 CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2, CiudadT:1};		   			 
-
-    //Total de piezas
-    this.totalPiezas = 0;
-    for(i=0;i<this.piezas.length;i++){
-    	this.totalPiezas += this.npiezas[this.piezas[i]];
-    } 
-     
-
-}
