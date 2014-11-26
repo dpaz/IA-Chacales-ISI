@@ -133,17 +133,17 @@ var Tablero = function(id_game, npiezas, piezas){
 	this.posiblelugar= function(pieza){
 		var array= [];
 		
-		for(i=0; i<this.posiciones.length-1; i++){
+		for(i=0; i<=this.posiciones.length-1; i++){
 			var aux = this.posiciones[i];
 
-			if(this.piezaenposiciones(aux.x,aux.y+1)===undefined && pieza.Abajo===aux.Arriba)
-				array.push(new Coor(aux.x, aux.y+1));
-			if(this.piezaenposiciones(aux.x,aux.y-1)===undefined && pieza.Arriba===aux.Abajo)
-				array.push(new Coor(aux.x, aux.y-1));
-			if(this.piezaenposiciones(aux.x+1,aux.y)===undefined && pieza.Izquierda===aux.Derecha)
-				array.push(new Coor(aux.x+1, aux.y));
-			if(this.piezaenposiciones(aux.x-1,aux.y)===undefined && pieza.Derecha===aux.Izquierda)
-				array.push(new Coor(aux.x-1, aux.y)):
+			if((this.piezaenposiciones(aux.x,aux.y+1)===undefined) && (pieza.Abajo===aux.Arriba))
+				array.push(new Coor(aux.x, aux.y+1))
+			if((this.piezaenposiciones(aux.x,aux.y-1)===undefined) && (pieza.Arriba===aux.Abajo))
+				array.push(new Coor(aux.x, aux.y-1))
+			if((this.piezaenposiciones(aux.x+1,aux.y)===undefined) && (pieza.Izquierda===aux.Derecha))
+				array.push(new Coor(aux.x+1, aux.y))
+			if((this.piezaenposiciones(aux.x-1,aux.y)===undefined) && (pieza.Derecha===aux.Izquierda))
+				array.push(new Coor(aux.x-1, aux.y))
 		}return array;	
 	}
 	

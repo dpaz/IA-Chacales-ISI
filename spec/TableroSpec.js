@@ -32,26 +32,47 @@ describe("Pruebas relacionadas con las piezas",function(){
 	
 	it("Pieza correcta",function(){
 		tablero = new Tablero(5);
-		var pieza_inicial = new Pieza(tablero.piezas.piezas[0],5,5);
+		var pieza_inicial = new Pieza('Recto',5,5);
 		
 		tablero.posiciones.push(pieza_inicial);
 		
-		var pieza_prueba = new Pieza(tablero.piezas.piezas[0]); //Recto
+		var pieza_prueba = new Pieza('Recto'); //Recto
 		
 		expect(tablero.coloco(pieza_prueba,5,4)).toBe(true)    // ok
 		expect(tablero.coloco(pieza_prueba,5,5)).toBe(false)   // si existe pieza en esa posición
 		expect(tablero.coloco(pieza_prueba,15,25)).toBe(false) // si la pongo en medio de la nada
 		
-		var pieza_prueba2 = new Pieza(tablero.piezas.piezas[7],11,9); //CiudadD
-		var pieza_prueba3 = new Pieza(tablero.piezas.piezas[5],9,9); //MonjGranja
+		var pieza_prueba2 = new Pieza('CiudadD',11,9); //CiudadD
+		var pieza_prueba3 = new Pieza('MonGranja',9,9); //MonjGranja
 		
 		tablero.posiciones.push(pieza_prueba2,pieza_prueba3);
 		
-		var pieza_prueba4 = new Pieza(tablero.piezas.piezas[13]); //CiudadJ
+		var pieza_prueba4 = new Pieza('CiudadJ'); //CiudadJ
 		
 		expect(tablero.coloco(pieza_prueba4,10,9)).toBe(true) 
 		
 		
+	});
+	
+	it("Posible pieza",function(){
+		tablero = new Tablero(6);
+	
+		var pieza_1 = new Pieza('Recto',2,2);//No va con numeros negativos
+		tablero.posiciones.push(pieza_1);
+
+		var pieza_2 = new Pieza('Recto');
+		expect(tablero.coloco(pieza_2,3,2)).toBe(true); 
+
+		var pieza_3 = new Pieza('MonGranja');
+
+
+		var aux= tablero.posiblelugar(pieza_3);
+		
+		expect(aux[0].x).toBe(1);
+		expect(aux[0].y).toBe(2);
+		expect(aux[1].x).toBe(4);
+		expect(aux[1].y).toBe(2);
 		
 	});
+	
 });
