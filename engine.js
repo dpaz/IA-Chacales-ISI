@@ -178,6 +178,21 @@ var Tablero = function(id_game, npiezas, piezas){
 		}else{
 			return false	// fallo en colocar ficha
 		}
+	}
+	
+	this.colocarseguidor = function(pieza, posicion){
+		if(listaJugadores[turno].seguidores > 0){ //SIEMPRE Y CUANDO EL JUGADOR TENGA SEGUIDORES
+			//PRIMERO MONJES
+			if(pieza == MonCamino || pieza == MonGranja && posicion == "centro"){
+				pieza.seguidores.push("Monje");
+				listaJugadores[turno].seguidores--;
+			}
+			//LADRONES
+			//CABALLEROS
+			//GRANJERO
+		
+		}
+		
 	}	
  }
 
