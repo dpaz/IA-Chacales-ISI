@@ -72,6 +72,12 @@ var Pieza = function(tipo,x,y){
 	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza	
 }
 
+var Coor = function(x,y){
+
+	this.x = x || undefined;
+	this.y = y || undefined;
+}
+
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
         this.listaJugadores = [];	
@@ -122,6 +128,23 @@ var Tablero = function(id_game, npiezas, piezas){
 			if((this.posiciones[i].x==x)&&(this.posiciones[i].y==y))
 				return this.posiciones[i]
 		}return undefined
+	}
+
+	this.posiblelugar= function(pieza){
+		var array= [];
+		
+		for(i=0; i<this.posiciones.length-1; i++){
+			var aux = this.posiciones[i];
+
+			if(this.piezaenposiciones(aux.x,aux.y+1)===undefined && pieza.Abajo===aux.Arriba)
+				array.push(new Coor(aux.x, aux.y+1));
+			if(this.piezaenposiciones(aux.x,aux.y-1)===undefined && pieza.Arriba===aux.Abajo)
+				array.push(new Coor(aux.x, aux.y-1));
+			if(this.piezaenposiciones(aux.x+1,aux.y)===undefined && pieza.Izquierda===aux.Derecha)
+				array.push(new Coor(aux.x+1, aux.y));
+			if(this.piezaenposiciones(aux.x-1,aux.y)===undefined && pieza.Derecha===aux.Izquierda)
+				array.push(new Coor(aux.x-1, aux.y)):
+		}return array;	
 	}
 	
 	 this.coloco = function(pieza,x,y){
