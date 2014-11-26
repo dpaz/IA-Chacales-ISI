@@ -36,11 +36,21 @@ describe("Pruebas relacionadas con las piezas",function(){
 		
 		tablero.posiciones.push(pieza_inicial);
 		
-		var pieza_prueba = new Pieza(tablero.piezas.piezas[0]);
+		var pieza_prueba = new Pieza(tablero.piezas.piezas[0]); //Recto
 		
-		//expect(tablero.coloco(pieza_prueba,5,4)).toBe(true)
-		expect(tablero.coloco(pieza_prueba,5,5)).toBe(false)// si existe pieza en esa posición
-		expect(tablero.coloco(pieza_prueba,15,25)).toBe(false)// si la pongo en medio de la nada
+		expect(tablero.coloco(pieza_prueba,5,4)).toBe(true)    // ok
+		expect(tablero.coloco(pieza_prueba,5,5)).toBe(false)   // si existe pieza en esa posición
+		expect(tablero.coloco(pieza_prueba,15,25)).toBe(false) // si la pongo en medio de la nada
+		
+		var pieza_prueba2 = new Pieza(tablero.piezas.piezas[7],11,9); //CiudadD
+		var pieza_prueba3 = new Pieza(tablero.piezas.piezas[5],9,9); //MonjGranja
+		
+		tablero.posiciones.push(pieza_prueba2,pieza_prueba3);
+		
+		var pieza_prueba4 = new Pieza(tablero.piezas.piezas[13]); //CiudadJ
+		
+		expect(tablero.coloco(pieza_prueba4,10,9)).toBe(true) 
+		
 		
 		
 	});

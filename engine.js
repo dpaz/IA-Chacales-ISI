@@ -128,22 +128,21 @@ var Tablero = function(id_game, npiezas, piezas){
 		//saco si hay ficha en cada posicion
 		var haypieza = this.piezaenposiciones(x,y)	//si es undefined, puedo poner
 		
-		var comparo = function(){	//devuelve true si no hay conflicto con alguna pieza
-			
+			//devuelve true si no hay conflicto con alguna pieza
+		var comparo = true	
 				// para comparar con 4 posiciones alrededor
-			var dummyU = this.piezaenposiciones(x,y+1)	//AQUÍ EXPLOTA PREGUNTAR A PEDRO
-			var dummyD = this.piezaenposiciones(x,y-1)
-			var dummyR = this.piezaenposiciones(x+1,y)
-			var dummyL = this.piezaenposiciones(x-1,y)
+		var dummyU = this.piezaenposiciones(x,y+1)	//AQUÍ EXPLOTA PREGUNTAR A PEDRO
+		var dummyD = this.piezaenposiciones(x,y-1)
+		var dummyR = this.piezaenposiciones(x+1,y)
+		var dummyL = this.piezaenposiciones(x-1,y)
 			
-			if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){return false}//ninguna pieza cercana
+		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){comparo = false}//ninguna pieza cercana
 			
-			if((dummyU!=undefined)(dummyU.Abajo!=pieza.Arriba)){return false}	//alg�n conflicto; false
-			if((dummyD!=undefined)(dummyD.Arriba!=pieza.Abajo)){return false}
-			if((dummyR!=undefined)(dummyR.Izquierda!=pieza.Derecha)){return false}
-			if((dummyL!=undefined)(dummyL.Derecha!=pieza.Izquierda)){return false}	//exista y no coincida
-			return true
-		}()
+		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//alg�n conflicto; false
+		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
+		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
+		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
+		
 		
 		if((comparo)&&(haypieza==undefined)){ 	//�xito en la comparaci�n
 			// coordenadas
