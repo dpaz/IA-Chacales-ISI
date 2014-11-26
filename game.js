@@ -82,5 +82,13 @@ Meteor.methods({
 			return undefined;
 		}
 	};
+	
+	eliminarPartida: function(id_game){
+		if(ArrPartidas[id_game]){
+			delete ArrPartidas[id_game];
+		}else{
+			console.log("Partida no encontrada");
+		}
+	}
 });
 

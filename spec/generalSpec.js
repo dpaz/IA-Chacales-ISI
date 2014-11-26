@@ -19,4 +19,25 @@ describe("Funciones generales",function(){
 		expect(juego1.id_game).toBe(1);
 		expect(juego2.id_game).toBe(2);
 	});
+	
+	it("Podemos eliminar partidas", function(){
+		
+		
+		
+		var ArrPartidas = {};
+		Partida1 = new Tablero(1);
+		ArrPartidas[100]= Partida1;
+		Partida2 = new Tablero(2);
+		ArrPartidas[200]= Partida1;
+		
+		
+		if(ArrPartidas[100]){
+			delete ArrPartidas[100];
+		}else{
+			console.log("Partida no encontrada");
+		}
+		
+		
+		expect(ArrPartidas[100]).toBe(undefined);
+	});
 });
