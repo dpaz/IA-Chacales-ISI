@@ -22,8 +22,6 @@ describe("Funciones generales",function(){
 	
 	it("Podemos eliminar partidas", function(){
 		
-		
-		
 		var ArrPartidas = {};
 		Partida1 = new Tablero(1);
 		ArrPartidas[100]= Partida1;
@@ -36,8 +34,6 @@ describe("Funciones generales",function(){
 		}else{
 			console.log("Partida no encontrada");
 		}
-		
-		
 		expect(ArrPartidas[100]).toBe(undefined);
 	});
 });

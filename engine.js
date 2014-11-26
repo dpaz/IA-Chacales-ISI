@@ -74,8 +74,8 @@ var Pieza = function(tipo,x,y){
 
 var Tablero = function(id_game, npiezas, piezas){
 	this.id_game = id_game;
-    this.listaJugadores = [];	
-    this.turno = 0;
+        this.listaJugadores = [];	
+        this.turno = 0;
 	
 	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
 	else { this.piezas = new Piezas();}
@@ -119,10 +119,10 @@ var Tablero = function(id_game, npiezas, piezas){
 	this.piezaenposiciones = function(x,y){
 		var i;
 		for(i=0;i<this.posiciones.length;i++){
-				if((this.posiciones[i].x==x)&&(this.posiciones[i].y==y))
-					return this.posiciones[i]
-			}return undefined
-		}
+			if((this.posiciones[i].x==x)&&(this.posiciones[i].y==y))
+				return this.posiciones[i]
+		}return undefined
+	}
 	
 	 this.coloco = function(pieza,x,y){
 		//saco si hay ficha en cada posicion

@@ -37,7 +37,7 @@ Meteor.methods({
 					Partida.listaJugadores.push(new Jugador(-i,"IA"+i));
 					Partida.listaJugadores[i].IA = true;
 				}
-				Partida.turno = Math.floor(Math.random()*Partida.listaJugadores.length);
+				Partida.turno = Math.floor(Math.random()*(Partida.listaJugadores.length-1));
 				return Partida.listaJugadores;
 			}else{
 				console.log("Excede el numero maximo de jugadores");
@@ -72,8 +72,8 @@ Meteor.methods({
 	cambiarTurno: function(id_game){
 		if(ArrPartidas[id_game]){
 			Partida = ArrPartidas[id_game];
-			if(Partida.turno===Partida.listaJugadores.length){
-				Partida.turno=1;
+			if(Partida.turno===Partida.listaJugadores.length-1){
+				Partida.turno=0;
 			}else{
 				Partida.turno++;
 			}
