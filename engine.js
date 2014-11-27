@@ -182,14 +182,19 @@ var Tablero = function(id_game, npiezas, piezas){
 	
 	this.colocarseguidor = function(pieza, posicion){
 		if(listaJugadores[turno].seguidores > 0){ //SIEMPRE Y CUANDO EL JUGADOR TENGA SEGUIDORES
-			//PRIMERO MONJES
+			//MONJES
 			if(pieza == MonCamino || pieza == MonGranja && posicion == "centro"){
 				pieza.seguidores.push("Monje");
 				listaJugadores[turno].seguidores--;
 				return true;
 			//LADRONES	
-			}else if(pieza == MonCamino && posicion == "camino"){
-				if(otroladron(pieza)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+			}else if((pieza == MonCamino && posicion == "camino") // Camino del monasterio
+					|| ((pieza == CiudadD || pieza == CiudadJ || pieza == CiudadK || pieza == CiudadO || pieza == CiudadP || pieza == Recto || pieza == Curva) && posicion == "camino") //Solo hay un camino conectado
+					|| ((pieza == CiudadS || pieza == CiudadT) && posicion == "camino") //El camino de las ciudades conectadas con camino
+					|| ((pieza == CiudadL || pieza == Cruce3) && (posicion == "camino_izquierda" || posicion == "camino_abajo" || posicion == "camino_derecha")) //Piezas con 3 cruces
+					|| (pieza == Cruce4 && (posicion == "camino_izquierda" || posicion == "camino_abajo" || posicion == "camino_derecha" || posicion == "camino_abajo"))
+					){	
+				if(otroladron(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
 					//Hay otro ladron en el camino, por lo tanto no podemos poner otro
 					return false;
 				}else{
@@ -197,10 +202,38 @@ var Tablero = function(id_game, npiezas, piezas){
 					listaJugadores[turno].seguidores--;
 					return true;
 				}
-			}
 			//CABALLEROS
+			}else if(((pieza == CiudadC || pieza == CiudadD || pieza == CiudadE || pieza == CiudadF || pieza == CiudadG
+					|| pieza == CiudadJ || pieza == CiudadK || pieza == CiudadL || pieza == CiudadM || pieza == CiudadN
+					|| pieza == CiudadO || pieza == CiudadP || pieza == CiudadQ || pieza == CiudadR || pieza == CiudadS
+					|| pieza == CiudadT) && posicion == "ciudad") //CIUDADES CON UNA SOLA POSIBLIDAD DE CABALLERO
+					|| (pieza == CiudadH && (posicion == "ciudad_arriba" || posicion == "ciudad_abajo")) //Pieza especial
+					|| (pieza == CiudadI && (posicion == "ciudad_arriba" || posicion == "ciudad_derecha")) //Pieza especial
+					){
+				if(otrocaballero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+					//Hay otro caballero en la ciudad, por lo tanto no podemos poner otro
+					return false;
+				}else{
+					pieza.seguidores.push("Caballero");
+					listaJugadores[turno].seguidores--;
+					return true;
+				}
 			//GRANJERO
-		
+			}else if(((pieza == MonCamino || pieza == MonGranja || pieza == CiudadE || pieza == CiudadH || pieza == CiudadI
+					|| pieza == CiudadM || pieza == CiudadN || pieza == CiudadQ || pieza == CiudadR) == (posicion == "granja"))
+					){
+				if(otrogranjero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+					//Hay otro caballero en la ciudad, por lo tanto no podemos poner otro
+					return false;
+				}else{
+					pieza.seguidores.push("Granjero");
+					listaJugadores[turno].seguidores--;
+					return true;
+				}
+			}
+		}else{
+			console.log("Jugador sin seguidores!!!!");
+			return false;
 		}
 		
 	}	
