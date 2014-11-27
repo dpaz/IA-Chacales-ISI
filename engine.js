@@ -186,8 +186,18 @@ var Tablero = function(id_game, npiezas, piezas){
 			if(pieza == MonCamino || pieza == MonGranja && posicion == "centro"){
 				pieza.seguidores.push("Monje");
 				listaJugadores[turno].seguidores--;
+				return true;
+			//LADRONES	
+			}else if(pieza == MonCamino && posicion == "camino"){
+				if(otroladron(pieza)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+					//Hay otro ladron en el camino, por lo tanto no podemos poner otro
+					return false;
+				}else{
+					pieza.seguidores.push("Ladron");
+					listaJugadores[turno].seguidores--;
+					return true;
+				}
 			}
-			//LADRONES
 			//CABALLEROS
 			//GRANJERO
 		
