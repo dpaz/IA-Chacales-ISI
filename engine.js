@@ -61,12 +61,12 @@ var Pieza = function(tipo,x,y){
 	this.Izquierda = TPiezas[tipo].Izquierda;
 
 	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
-	this.girar = function(pieza){
-		var aux = pieza;
-		aux.Abajo = pieza.Izquierda;
-		aux.Derecha = pieza.Abajo;
-		aux.Arriba = pieza.Derecha;
-		aux.Izquierda = pieza.Arriba;
+	this.girar = function(){
+		var aux = new Pieza();
+		aux.Abajo = this.Izquierda;
+		aux.Derecha = this.Abajo;
+		aux.Arriba = this.Derecha;
+		aux.Izquierda = this.Arriba;
 		return aux;
 	}
 	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza	
@@ -171,8 +171,8 @@ var Tablero = function(id_game, npiezas, piezas){
 			// coordenadas
 			pieza.x=x;
 			pieza.y=y;
-			this.posiciones.push(pieza)
-			
+			this.posiciones.push(pieza)// opino que esto habria que sacarlo fuera en otra funcion que recibiera el true de esta, 
+									   // para que este metodo se pueda usar en otras partes, ya que es bastante util para el de pitu		
 			return true	// �xito en colocar ficha
 			
 		}else{

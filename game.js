@@ -47,12 +47,15 @@ Meteor.methods({
 	},
 
 
-	//Roba una ficha, si id = id_game es un juego existente, si no devuelve false, si no quedan piezas que extraer devuelve undefined
+	//Roba una ficha, si id = id_game es un juego existente, devuelve la ficha
+	// y las posicones donde se pueden colocar, si no devuelve false, si no quedan piezas que extraer devuelve undefined
 	robarFicha: function(id_game){
 		if(ArrPartidas[id_game]){
 			Partida = ArrPartidas[id_game];
 			ficha = Partida.saca_pieza();
-			return ficha;
+			lugares = Partida.posiblelugar(ficha);
+			var resultado = [ficha,lugares];
+			return resultado;
 		}else{
 			return false;
 		}
@@ -81,7 +84,25 @@ Meteor.methods({
 		}else{
 			return undefined;
 		}
-	};
+	},
+
+	//Coloca una ficha en una posición, devuelve true si se ha conseguido false si no
+	colocarFicha: function(id_game,pieza,posicion,giros){
+		if(ArrPartidas[id_game]){
+			Partida = ArrPartidas[id_game];
+			//giro la pieza
+			for(i=0;i<giros;i++){
+				pieza= pieza.girar();
+			}
+			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
+			if(Partida.posiblelugar(pieza).indexof(posicion)<=0){
+				Partida.coloco(pieza);
+			}
+			return true;
+		}else{
+			return undefined;
+		}
+	},
 	
 	eliminarPartida: function(id_game){
 		if(ArrPartidas[id_game]){
@@ -89,6 +110,6 @@ Meteor.methods({
 		}else{
 			console.log("Partida no encontrada");
 		}
-	}
+	};
 });
 
