@@ -1,3 +1,4 @@
+
 // Lós metodos van dentro de Meteor.methods ya que utilizamos Meteor para desarrollar el juego
 
 var ArrPartidas = {} // En esta coleccion guardamos las id de todas las partidas

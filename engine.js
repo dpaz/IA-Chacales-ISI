@@ -147,37 +147,45 @@ var Tablero = function(id_game, npiezas, piezas){
 		}return array;	
 	}
 	
-	 this.coloco = function(pieza,x,y){
+	 this.puedocolocar = function(pieza,x,y){
 		//saco si hay ficha en cada posicion
 		var haypieza = this.piezaenposiciones(x,y)	//si es undefined, puedo poner
 		
 			//devuelve true si no hay conflicto con alguna pieza
 		var comparo = true	
 				// para comparar con 4 posiciones alrededor
-		var dummyU = this.piezaenposiciones(x,y+1)	//AQUÍ EXPLOTA PREGUNTAR A PEDRO
+		var dummyU = this.piezaenposiciones(x,y+1)	
 		var dummyD = this.piezaenposiciones(x,y-1)
 		var dummyR = this.piezaenposiciones(x+1,y)
 		var dummyL = this.piezaenposiciones(x-1,y)
 			
 		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){comparo = false}//ninguna pieza cercana
 			
-		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//alg�n conflicto; false
+		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//algun conflicto; false
 		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
 		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
 		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
 		
 		
-		if((comparo)&&(haypieza==undefined)){ 	//�xito en la comparaci�n
-			// coordenadas
-			pieza.x=x;
-			pieza.y=y;
-			this.posiciones.push(pieza)// opino que esto habria que sacarlo fuera en otra funcion que recibiera el true de esta, 
-									   // para que este metodo se pueda usar en otras partes, ya que es bastante util para el de pitu		
-			return true	// �xito en colocar ficha
+		if((comparo)&&(haypieza==undefined)){ 	//exito en la comparacion
+			
+			return true	// puedo colocar ficha
 			
 		}else{
-			return false	// fallo en colocar ficha
+			return false	// no puedo colocar ficha
 		}
+	}
+	
+	this.coloco = function(pieza,x,y){
+		
+		
+		if(this.puedocolocar(pieza,x,y)){
+			pieza.x=x;
+			pieza.y=y;
+			this.posiciones.push(pieza)
+			return true
+		}
+		return false
 	}
 	
 	this.colocarseguidor = function(pieza, posicion){
