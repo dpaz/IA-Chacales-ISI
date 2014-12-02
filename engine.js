@@ -202,7 +202,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					|| ((pieza == CiudadL || pieza == Cruce3) && (posicion == "camino_izquierda" || posicion == "camino_abajo" || posicion == "camino_derecha")) //Piezas con 3 cruces
 					|| (pieza == Cruce4 && (posicion == "camino_izquierda" || posicion == "camino_abajo" || posicion == "camino_derecha" || posicion == "camino_abajo"))
 					){	
-				if(otroladron(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+				if(otroladron(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCION
 					//Hay otro ladron en el camino, por lo tanto no podemos poner otro
 					return false;
 				}else{
@@ -218,7 +218,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					|| (pieza == CiudadH && (posicion == "ciudad_arriba" || posicion == "ciudad_abajo")) //Pieza especial
 					|| (pieza == CiudadI && (posicion == "ciudad_arriba" || posicion == "ciudad_derecha")) //Pieza especial
 					){
-				if(otrocaballero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+				if(otrocaballero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCION
 					//Hay otro caballero en la ciudad, por lo tanto no podemos poner otro
 					return false;
 				}else{
@@ -230,7 +230,7 @@ var Tablero = function(id_game, npiezas, piezas){
 			}else if(((pieza == MonCamino || pieza == MonGranja || pieza == CiudadE || pieza == CiudadH || pieza == CiudadI
 					|| pieza == CiudadM || pieza == CiudadN || pieza == CiudadQ || pieza == CiudadR) == (posicion == "granja"))
 					){
-				if(otrogranjero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCIÓN
+				if(otrogranjero(pieza, posicion)){ //FALTA IMPLEMENTAR ESTA FUNCION
 					//Hay otro caballero en la ciudad, por lo tanto no podemos poner otro
 					return false;
 				}else{
