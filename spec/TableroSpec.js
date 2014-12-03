@@ -60,11 +60,11 @@ describe("Pruebas relacionadas con las piezas",function(){
 		var pieza_1 = new Pieza('Recto',2,2);
 		tablero.posiciones.push(pieza_1);
 
-		var pieza_2 = new Pieza('Recto');
-		expect(tablero.coloco(pieza_2,3,2)).toBe(true); 
+		var pieza_2 = new Pieza('Recto',3,2);
+		tablero.posiciones.push(pieza_2);
 
-		var pieza_3 = new Pieza('MonGranja');
-
+		var pieza_3 = new Pieza('MonGranja',3,3);
+		tablero.posiciones.push(pieza_3);
 
 		var aux= tablero.posiblelugar(pieza_3);
 		
@@ -74,11 +74,9 @@ describe("Pruebas relacionadas con las piezas",function(){
 		expect(aux[1].y).toBe(2);
 
 		var pieza_4 = new Pieza('Recto');
-		expect(tablero.coloco(pieza_2,3,3)).toBe(true); 
 
 		aux= tablero.posiblelugar(pieza_3);
 
-		//console.log(aux);
 		expect(aux[0].x).toBe(1);
 		expect(aux[0].y).toBe(2);
 		expect(aux[1].x).toBe(4);

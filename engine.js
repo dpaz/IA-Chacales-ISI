@@ -137,7 +137,6 @@ var Tablero = function(id_game, npiezas, piezas){
 
 	this.posiblelugar= function(pieza){
 		var array= [];
-		console.log(this.posiciones);
 		for(i=0; i<=this.posiciones.length-1; i++){
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
@@ -145,32 +144,24 @@ var Tablero = function(id_game, npiezas, piezas){
 			if(this.puedocolocar(pieza,aux.x,aux.y+1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y+1;
-				if(array.indexOf(cooraux)==-1){
+				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
-					console.log(cooraux);
-				}
 			}if(this.puedocolocar(pieza,aux.x,aux.y-1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y-1;
-				if(array.indexOf(cooraux)==-1){
+				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
-					console.log(cooraux);
-				}
 			}if(this.puedocolocar(pieza,aux.x+1,aux.y)){
 				cooraux.x=aux.x+1;
 				cooraux.y=aux.y;
-				if(array.indexOf(cooraux)==-1){
+				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
-					console.log(cooraux);
-				}
 			}if(this.puedocolocar(pieza,aux.x-1,aux.y)){
 				cooraux.x=aux.x-1;
 				cooraux.y=aux.y;
-				if(array.indexOf(cooraux)==-1){
+				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
-					console.log(cooraux);
-				}
-			}//console.log(array);
+			}
 		}return array;	
 	}
 	
