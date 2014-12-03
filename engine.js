@@ -217,6 +217,81 @@ var Tablero = function(id_game, npiezas, piezas){
 		return false
 	}
 	
+	
+	// ENTRA UNA PIEZA YA COLOCADA Y DEVUELVE ARRAY CON POSIBLES SITIOS DONDE COLOCAR SEGUIDOR (ARRAY CON VALORES DE 1 A 9)
+	this.posibleseguidor= function(pieza){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
+		var array= [];
+		var correcto = 0;
+		for(i=1; i<=9; i++){		//posiciones pieza (cuadricula)
+		
+		
+			/////////// ESQUINAS ///////////////
+			if(i==1){	//superior izq 
+				
+				if (((pieza.Arriba == 'Camino')||(pieza.Arriba=='Granja')||(pieza.Arriba != pieza.Izquierda)) &&(otrogranjero(pieza,i)==false)){ array.push(1)}
+				else{ if(otrocaballero(pieza,i)==false) {array.push(1)}}	
+						//si granja o camino, 1 siempre granja. Si arriba==izquierda --> es ciudad, sino granja también
+				
+			}
+			if(i==3){	//superior dcha 
+				
+				if (((pieza.Derecha == 'Camino')||(pieza.Derecha=='Granja')||(pieza.Derecha != pieza.Arriba)) &&(otrogranjero(pieza,i)==false)){ array.push(3)}
+				else{ if(otrocaballero(pieza,i)==false) {array.push(3)}}	
+						//si granja o camino, 1 siempre granja. Si Derecha==Izquierda --> es ciudad, sino granja también
+				
+			}
+			if(i==7){	//inferior izda 
+				
+				if (((pieza.Izquierda == 'Camino')||(pieza.Izquierda=='Granja')||(pieza.Izquierda != pieza.Abajo)) &&(otrogranjero(pieza,i)==false)){ array.push(7)}
+				else{ if(otrocaballero(pieza,i)==false) {array.push(7)}}	
+						//si granja o camino, 1 siempre granja. Si Izquierda==Abajo --> es ciudad, sino granja también
+				
+			}
+			if(i==9){	//inferior izda 
+				
+				if (((pieza.Abajo == 'Camino')||(pieza.Abajo=='Granja')||(pieza.Abajo != pieza.Derecha)) &&(otrogranjero(pieza,i)==false)){ array.push(9)}
+				else{ if(otrocaballero(pieza,i)==false) {array.push(9)}}	
+						//si granja o camino, 1 siempre granja. Si Abajo==Derecha --> es ciudad, sino granja también
+				
+			}
+			
+			/////////// EJE + (cruz central) ///////////////
+			
+			if(i==2){	//superior centro 
+				
+				if (((pieza.Arriba == 'Camino')&&(otroladron(pieza,i)==false))
+					|| ((pieza.Arriba == 'Ciudad')&&(otrocaballero(pieza,i)==false))
+					|| ((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(2)}
+			}
+			if(i==4){	//medio izq
+				
+				if (((pieza.Izquierda == 'Camino')&&(otroladron(pieza,i)==false))
+					|| ((pieza.Izquierda == 'Ciudad')&&(otrocaballero(pieza,i)==false))
+					|| ((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(4)}
+			}
+			if(i==6){	//medio dcha
+				
+				if (((pieza.Derecha == 'Camino')&&(otroladron(pieza,i)==false))
+					|| ((pieza.Derecha == 'Ciudad')&&(otrocaballero(pieza,i)==false))
+					|| ((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(6)}
+			}
+			if(i==8){	//inferior centro 
+				
+				if (((pieza.Abajo == 'Camino')&&(otroladron(pieza,i)==false))
+					|| ((pieza.Abajo == 'Ciudad')&&(otrocaballero(pieza,i)==false))
+					|| ((pieza.Abajo == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(8)}
+			}
+			
+			/////////// PIEZA CENTRAL ///////////////
+
+			if(i==5){	//inferior centro 
+				
+				if ((pieza.tipo=='MonCamino')||(pieza.tipo=='MonGranja')){array.push(5)}
+			}
+		
+		}return array;	
+	}
+
 	this.colocarseguidor = function(pieza, posicion){
 		if(listaJugadores[turno].seguidores > 0){ //SIEMPRE Y CUANDO EL JUGADOR TENGA SEGUIDORES
 			//POR CADA POSICION DE LA MATRIZ DE LA PIEZA
