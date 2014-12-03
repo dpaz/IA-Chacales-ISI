@@ -57,7 +57,7 @@ describe("Pruebas relacionadas con las piezas",function(){
 	it("Posible pieza",function(){
 		tablero = new Tablero(6);
 	
-		var pieza_1 = new Pieza('Recto',2,2);//No va con numeros negativos
+		var pieza_1 = new Pieza('Recto',2,2);
 		tablero.posiciones.push(pieza_1);
 
 		var pieza_2 = new Pieza('Recto');
@@ -72,6 +72,19 @@ describe("Pruebas relacionadas con las piezas",function(){
 		expect(aux[0].y).toBe(2);
 		expect(aux[1].x).toBe(4);
 		expect(aux[1].y).toBe(2);
+
+		var pieza_4 = new Pieza('Recto');
+		expect(tablero.coloco(pieza_2,3,3)).toBe(true); 
+
+		aux= tablero.posiblelugar(pieza_3);
+
+		//console.log(aux);
+		expect(aux[0].x).toBe(1);
+		expect(aux[0].y).toBe(2);
+		expect(aux[1].x).toBe(4);
+		expect(aux[1].y).toBe(2);
+		expect(aux[2].x).toBe(4);
+		expect(aux[2].y).toBe(3);
 		
 	});
 	
