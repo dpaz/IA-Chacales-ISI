@@ -57,8 +57,17 @@ var Seguidor = function(posicion,tipo, jugador){
 
 var Pieza = function(tipo,x,y){
 
-	this.x = x || undefined;
-	this.y = y || undefined;
+	if(x!=undefined){
+		this.x=x
+	}else{
+		this.x=undefined
+	}
+	if(y!=undefined){
+		this.y=y
+	}else{
+		this.y=undefined
+	}
+	
 	this.tipo = tipo
 
 	this.Abajo = TPiezas[tipo].Abajo;
@@ -80,8 +89,16 @@ var Pieza = function(tipo,x,y){
 
 var Coor = function(x,y){
 
-	this.x = x || undefined;
-	this.y = y || undefined;
+	if(x!=undefined){
+		this.x=x
+	}else{
+		this.x=undefined
+	}
+	if(y!=undefined){
+		this.y=y
+	}else{
+		this.y=undefined
+	}
 }
 
 var Tablero = function(id_game, npiezas, piezas){
