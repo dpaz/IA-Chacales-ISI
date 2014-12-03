@@ -35,8 +35,8 @@ Meteor.methods({
 			Partida= ArrPartidas[id_game];
 			if(Partida.listaJugadores.length+nIAs<=5){
 				for(i=1;i<=nIAs;i++){
-					Partida.listaJugadores.push(new Jugador(-i,"IA"+i));
-					Partida.listaJugadores[i].IA = true;
+					Partida.listaJugadores.push(new Jugador(-i,"IA"+i)); 
+					Partida.listaJugadores[Partida.listaJugadores.length + i].IA = true;//Añado el Nuevo ID DE LA IA, para ello agregamos el .IA a true en los ultimos que hemos añadido
 				}
 				Partida.turno = Math.floor(Math.random()*(Partida.listaJugadores.length-1));
 				return Partida.listaJugadores;
@@ -111,6 +111,13 @@ Meteor.methods({
 		}else{
 			console.log("Partida no encontrada");
 		}
-	};
+	},
+
+    JugadorArtificial: function(id_partida,id_jugador){
+        Tablero = ArrPartidas[id_partida];
+        var Jugador = jugadorIA(id_jugador);
+
+    
+    }
 });
 
