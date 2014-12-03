@@ -140,27 +140,37 @@ var Tablero = function(id_game, npiezas, piezas){
 		for(i=0; i<=this.posiciones.length-1; i++){
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
-			
+			console.log(i);
 			if(this.puedocolocar(pieza,aux.x,aux.y+1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y+1;
-				if(array.indexOf(cooraux)==-1)
+				if(array.indexOf(cooraux)==-1){
 					array.push(cooraux);
+					console.log('00000');
+				}
 			}if(this.puedocolocar(pieza,aux.x,aux.y-1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y-1;
-				if(array.indexOf(cooraux)==-1)
+				if(array.indexOf(cooraux)==-1){
+					console.log('11111111');
 					array.push(cooraux);
+				}
 			}if(this.puedocolocar(pieza,aux.x+1,aux.y)){
 				cooraux.x=aux.x+1;
 				cooraux.y=aux.y;
-				if(array.indexOf(cooraux)==-1)
+				if(array.indexOf(cooraux)==-1){
 					array.push(cooraux);
+					console.log('33333');
+				}
 			}if(this.puedocolocar(pieza,aux.x-1,aux.y)){
 				cooraux.x=aux.x-1;
 				cooraux.y=aux.y;
-				if(array.indexOf(cooraux)==-1)
+				 
+
+				if(array.indexOf(cooraux)==-1){
 					array.push(cooraux);
+					console.log('444444');
+				}
 			}
 		}return array;	
 	}
