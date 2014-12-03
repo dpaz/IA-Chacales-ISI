@@ -11,12 +11,29 @@ jugadorIA=function(id_jugador){
 
     var TipoJugada = { puntos: 0, coorx: 0, coory: 0, giros: 0, }
     var ProbarColocarFicha = function (ngiros) {
+        TableroAux = new ObjTablero(10000000);
+        TableroAux.iniciar();
+        for (i in Tablero.posicion) {
+             TableroAux.posicion[i] = Tablero.posicion[i] 
+        }
+        listaPuntos = []
+        for (i in Tablero.listaJugadores) {
+            listaPuntos.push(Tablero.listaJugadores[i].puntos);
+        }
 
-
-
+        var colocando = Tablero.coloco(nuevaficha, this.nuevaficha.encajaCon[coordenadas].x, this.nuevaficha.encajaCon[coordenadas].y);
+        if (colocando)
+        {
+            //Aqui Comparo Que es la Mejor Jugada, Por ahora vamos a decidir que si que es la mejor jugada, sin añadir seguidores.
+            var jugador = _.find(Tablero.listaJugadores, function (obj) { return (obj.id.user_id == nJugador) });
+            TipoJugada = { puntos: jugador.puntos, coorx: this.nuevaficha.EncajaCon[coordenadas].x, coory: this.nuevaficha.EncajaCon[coordenadas].y, giros: ngiros, }
+            for (i in Tablero.listaJugadores) {
+                Tablero.listaJugadores[i].puntos = listaPuntos[i];
+            }
+        }
     }
 
-    for (cont in this.nuevaficha.EncajaCon) {
+    for (coordenadas in this.nuevaficha.EncajaCon) { //Esto nos sirve para ver con que piezas nos encaja la nuestra
         ProbarColocarFicha(0);
         this.nuevaficha = this.nuevaficha.girar();
         ProbarColocarFicha(1);

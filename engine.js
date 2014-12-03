@@ -85,6 +85,7 @@ var Pieza = function(tipo,x,y){
 		return aux;
 	}
 	this.seguidores = []; // Para llevar un control del numero de seguidores que hay en cada pieza	
+	this.EncajaCon = []; //Array para saber con que otras piezas puede encajar.
 }
 
 var Coor = function(x,y){
@@ -190,7 +191,9 @@ var Tablero = function(id_game, npiezas, piezas){
 					console.log('444444');
 				}
 			}
-		}return array;	
+		}
+		pieza.EncajaCon = array;
+		return array;	
 	}
 	
 	 this.puedocolocar = function(pieza,x,y){
