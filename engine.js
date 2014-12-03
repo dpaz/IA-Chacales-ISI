@@ -49,9 +49,10 @@ var Piezas = function(piezas,npiezas){
 	} 
 }
 
-var Seguidores = function(posicion,tipo){
+var Seguidor = function(posicion,tipo, jugador){
 	this.posicion = posicion || undefined;
 	this.tipo = tipo || undefined;
+	this.jugador = jugador || undefined;
 }
 
 var Pieza = function(tipo,x,y){
