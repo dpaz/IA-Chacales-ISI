@@ -49,13 +49,13 @@ piezaArriba = function(pieza,posSeg,valido){
 	if(pieza.Arriba == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Camino'){
 		//Primero compruebo que en esa pieza no hay ladrones
 		var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
-		if(aux.tipo === 'Recto'){
+		if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguiguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
 			//llamada recursiva para seguir comprobando el camino
 			valido = otroladron(aux,2);
-		}else if(aux.tipo == 'Curva'){
+		}else if(aux.tipo == 'Curva' || aux.tipo=='CiudadJ' || aux.tipo=='CiudadK' || aux.tipo=='CiudadO'|| aux.tipo=='CiudadP'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
@@ -78,13 +78,13 @@ piezaAbajo = function(pieza,posSeg,valido){
 	if(pieza.Abajo == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y-1).Arriba=='Camino'){
 		var aux =Tablero.piezaenposiciones(pieza.x,pieza.y-1);
 		//Primero compruebo que en esa pieza no hay ladrones
-		if(aux.tipo == 'Recto'){
+		if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguiguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
 			//llamada recursiva para seguir comprobando el camino
 			otroladron(aux,8);
-		}else if(aux.tipo == 'Curva'){
+		}else if(aux.tipo == 'Curva' || aux.tipo=='CiudadJ' || aux.tipo=='CiudadK' || aux.tipo=='CiudadO'|| aux.tipo=='CiudadP'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
@@ -106,13 +106,13 @@ piezaDerecha = function(pieza,posSeg,valido){
 	if(Tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Camino'){
 		var aux =Tablero.piezaenposiciones(pieza.x+1,pieza.y);
 		//Primero compruebo que en esa pieza no hay ladrones
-		if(aux.tipo == 'Recto'){
+		if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguiguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
 			//llamada recursiva para seguir comprobando el camino
 			valido = otroladron(aux,6);
-		}else if(aux.tipo == 'Curva'){
+		}else if(aux.tipo == 'Curva' || aux.tipo=='CiudadJ' || aux.tipo=='CiudadK' || aux.tipo=='CiudadO'|| aux.tipo=='CiudadP'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
@@ -123,7 +123,7 @@ piezaDerecha = function(pieza,posSeg,valido){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidres[i].posicion == 4){valido = false; return valido}
 			}
-			//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
+			//En caso de que sea uno de los cruces o el monasterio o las entradas de ciudad no hay recursividad ya
 		}
 	}
 	return valido;
@@ -133,13 +133,13 @@ piezaIzquierda = function(pieza,posSeg,valido){
 	//Pieza de la izquierda
 	if(Tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Camino'){
 		//Primero compruebo que en esa pieza no hay ladrones
-		if(aux.tipo == 'Recto'){
+		if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguiguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
 			//llamada recursiva para seguir comprobando el camino
 			valido = otroladron(aux,4);
-		}else if(aux.tipo == 'Curva'){
+		}else if(aux.tipo == 'Curva' || aux.tipo=='CiudadJ' || aux.tipo=='CiudadK' || aux.tipo=='CiudadO'|| aux.tipo=='CiudadP'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
