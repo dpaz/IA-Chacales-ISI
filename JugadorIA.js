@@ -25,6 +25,12 @@ jugadorIA=function(id_jugador){
         if (colocando)
         {
             //Aqui Comparo Que es la Mejor Jugada, Por ahora vamos a decidir que si que es la mejor jugada, sin añadir seguidores.
+
+           //Comprobamos cuando los tengamos hechos si cerramos algun camino, Ciudad o convento
+            // CierroCamino(colocando);
+            // CierroConvento(colocando);
+            // CierroCiudad(colocando);
+
             var jugador = _.find(Tablero.listaJugadores, function (obj) { return (obj.id.user_id == nJugador) });
             TipoJugada = { puntos: jugador.puntos, coorx: this.nuevaficha.EncajaCon[coordenadas].x, coory: this.nuevaficha.EncajaCon[coordenadas].y, giros: ngiros, }
             for (i in Tablero.listaJugadores) {
