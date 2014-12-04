@@ -97,7 +97,33 @@ describe("Pruebas relacionadas con las piezas",function(){
 
 		var aux= tablero.posiblelugar(pieza_4);
 
-		console.log(aux)
 	});
 	
+	it("Verificar coloco funciona",function(){
+		tablero = new Tablero(5);
+		
+		var pieza_ini = new Pieza('CiudadE',3,3)
+		var pieza_2 = new Pieza('CiudadC')
+		var pieza_3 = new Pieza('CiudadF')
+		
+		var pieza_4 = new Pieza('CiudadT')
+		var pieza_5 = new Pieza('CiudadO')
+		var pieza_6 = new Pieza('CiudadH')
+		var pieza_7 = new Pieza('MonCamino')
+		
+		tablero.posiciones.push(pieza_ini)
+		tablero.coloco(pieza_2,3,4)
+		tablero.coloco(pieza_3,4,4)
+		
+		console.log(pieza_5)
+		expect(tablero.coloco(pieza_4,4,5)).toBe(false) 
+		expect(tablero.coloco(pieza_5,5,4)).toBe(true) 
+		expect(tablero.coloco(pieza_6,4,4)).toBe(false) 
+		expect(tablero.coloco(pieza_7,3,2)).toBe(true) 
+		
+		console.log(tablero.posiciones)
+		 
+		
+		
+	});
 });
