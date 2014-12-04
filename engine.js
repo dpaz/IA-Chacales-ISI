@@ -159,36 +159,32 @@ var Tablero = function(id_game, npiezas, piezas){
 		for(i=0; i<=this.posiciones.length-1; i++){
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
+			var cooraux1 = new Coor();
+			var cooraux2 = new Coor();
+			var cooraux3 = new Coor();
 			if(this.puedocolocar(pieza,aux.x,aux.y+1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y+1;
-				if(array.indexOf(cooraux)==-1){
+				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
-				}
 			}if(this.puedocolocar(pieza,aux.x,aux.y-1)){
-				cooraux.x=aux.x;
-				cooraux.y=aux.y-1;
-				if(array.indexOf(cooraux)==-1){
-					array.push(cooraux);
-				}
+				cooraux1.x=aux.x;
+				cooraux1.y=aux.y-1;
+				if(array.indexOf(cooraux1)==-1)
+					array.push(cooraux1);
 			}if(this.puedocolocar(pieza,aux.x+1,aux.y)){
-				cooraux.x=aux.x+1;
-				cooraux.y=aux.y;
-				if(array.indexOf(cooraux)==-1){
-					array.push(cooraux);
-				}
+				cooraux2.x=aux.x+1;
+				cooraux2.y=aux.y;
+				if(array.indexOf(cooraux2)==-1)
+					array.push(cooraux2);
 			}if(this.puedocolocar(pieza,aux.x-1,aux.y)){
-				cooraux.x=aux.x-1;
-				cooraux.y=aux.y;
-				 
-
-				if(array.indexOf(cooraux)==-1){
-					array.push(cooraux);
-				}
+				cooraux3.x=aux.x-1;
+				cooraux3.y=aux.y;
+				if(array.indexOf(cooraux3)==-1)
+					array.push(cooraux3);
 			}
-		}
-		pieza.EncajaCon = array;
-		return array;	
+		}return array;	
+		pieza.EncajaCon = array;	
 	}
 	
 	 this.puedocolocar = function(pieza,x,y){

@@ -56,34 +56,7 @@ describe("Pruebas relacionadas con las piezas",function(){
 	
 	it("Posible pieza",function(){
 		tablero = new Tablero(6);
-	
-		/*var pieza_1 = new Pieza('Recto',2,2);
-		tablero.posiciones.push(pieza_1);
-
-		var pieza_2 = new Pieza('Recto',3,2);
-		tablero.posiciones.push(pieza_2);
-
-		var pieza_3 = new Pieza('MonGranja',3,3);
-		tablero.posiciones.push(pieza_3);
-
-		var aux= tablero.posiblelugar(pieza_3);
 		
-		expect(aux[0].x).toBe(1);
-		expect(aux[0].y).toBe(2);
-		expect(aux[1].x).toBe(4);
-		expect(aux[1].y).toBe(2);
-
-		var pieza_4 = new Pieza('Recto');
-
-		aux= tablero.posiblelugar(pieza_3);
-
-		expect(aux[0].x).toBe(1);
-		expect(aux[0].y).toBe(2);
-		expect(aux[1].x).toBe(4);
-		expect(aux[1].y).toBe(2);
-		expect(aux[2].x).toBe(4);
-		expect(aux[2].y).toBe(3);
-		*/
 		var pieza_1 = new Pieza('Recto',2,2);
 		tablero.posiciones.push(pieza_1);
 
@@ -97,6 +70,12 @@ describe("Pruebas relacionadas con las piezas",function(){
 
 		var aux= tablero.posiblelugar(pieza_4);
 
+		expect(aux[0].x).toBe(2);
+		expect(aux[0].y).toBe(1);
+		expect(aux[1].x).toBe(1);
+		expect(aux[1].y).toBe(2);
+		expect(aux[2].x).toBe(4);
+		expect(aux[2].y).toBe(2);
 	});
 	
 	it("Verificar coloco funciona",function(){
@@ -121,9 +100,6 @@ describe("Pruebas relacionadas con las piezas",function(){
 		expect(tablero.coloco(pieza_6,4,4)).toBe(false) 
 		expect(tablero.coloco(pieza_7,3,2)).toBe(true) 
 		
-		console.log(tablero.posiciones)
-		 
-		
-		
+		console.log(tablero.posiciones)			
 	});
 });
