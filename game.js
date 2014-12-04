@@ -115,8 +115,18 @@ Meteor.methods({
 
     JugadorArtificial: function(id_partida,id_jugador){
         Tablero = ArrPartidas[id_partida];
-        var Jugador = jugadorIA(id_jugador);
-
+        
+        var ColocoFicha = false;
+        while (ColocoFicha == false)
+        { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
+            var Jugador = jugadorIA(id_jugador);
+            var Piezanueva = new Pieza(0, 0, 0, x[0]);
+            for (var i = 0; i < Jugador[1].giros; i++) {
+                Piezanueva = Piezanueva.girar()
+            }
+            ColocoFicha = Tablero.coloco(Piezanueva, Jugador[1].coorx, Jugador[1].coory);
+            console.log("¿Ha sido Colocada?", ColocoFicha);
+        }
     
     }
 });
