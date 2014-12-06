@@ -75,6 +75,9 @@ var Pieza = function(tipo,x,y){
 	this.Derecha = TPiezas[tipo].Derecha;
 	this.Izquierda = TPiezas[tipo].Izquierda;
 
+	this.caminoCerrado = false;
+	this.ciudadCerrada = false;
+
 	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
 	this.girar = function(){
 		var aux = new Pieza();

@@ -18,22 +18,17 @@ Meteor.methods({
 	},
 
 	//Los jugadores se añaden de uno en 1 y solo se podran meter en partidas ya creadas devuelve true si se consiguio, false si no
-	nuevoJugador: function(id_game,id_jugador,nombre){
-		if(ArrPartidas[id_game]){
-			Partida = ArrPartidas[id_game];
-			Partida.listaJugadores.push(new Jugador(id_jugador,nombre));
-			return true;
-		}else{
-			return false;
-		}
-	},
+	
 	/*Se comprueba que la partida tiene menos de 5 jugadores entre las IAS y los jugadores reales, se devuelve false si
 	  el numero excede el maximo. Se devuelve la lista de jugadores si es correcto. Ademas elige aleatoriamente quien
 	  comienza el juego */
-	comenzar: function(id_game,nIAs){
+	comenzar: function(id_game,jugadores,nIAs){
 		if(ArrPartidas[id_game]){
 			Partida= ArrPartidas[id_game];
-			if(Partida.listaJugadores.length+nIAs<=5){
+			if(jugadores.length+nIAs<=5){
+				for(i=0;i<jugadores.length,i++){
+					Partida.listaJugadores.push(new Jugador(jugadores[i][0],jugadores[i][1]));//El 0 es la id el 1 es el nombre
+				}
 				for(i=1;i<=nIAs;i++){
 					Partida.listaJugadores.push(new Jugador(-i,"IA"+i)); 
 					Partida.listaJugadores[Partida.listaJugadores.length + i].IA = true;//Añado el Nuevo ID DE LA IA, para ello agregamos el .IA a true en los ultimos que hemos añadido

@@ -1,5 +1,3 @@
-
-
 // Le paso por parametro la pieza que acabamos de colocar, la posicon donde colocar el seguidor
 otroladron= function(pieza,posSeg){
 	var valido = true;
@@ -83,7 +81,7 @@ piezaAbajo = function(pieza,posSeg,valido){
 				if(aux.seguiguidores[i].tipo== 'ladron'){valido = false; return valido}
 			}
 			//llamada recursiva para seguir comprobando el camino
-			otroladron(aux,8);
+			valido = otroladron(aux,8);
 		}else if(aux.tipo == 'Curva' || aux.tipo=='CiudadJ' || aux.tipo=='CiudadK' || aux.tipo=='CiudadO'|| aux.tipo=='CiudadP'){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguidores[i].tipo== 'ladron'){valido = false; return valido}
