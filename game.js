@@ -25,9 +25,11 @@ Meteor.methods({
 	comenzar: function(id_game,jugadores,nIAs){
 		if(ArrPartidas[id_game]){
 			Partida= ArrPartidas[id_game];
-			if(jugadores.length+nIAs<=5){
-				for(i=0;i<jugadores.length,i++){
-					Partida.listaJugadores.push(new Jugador(jugadores[i][0],jugadores[i][1]));//El 0 es la id el 1 es el nombre
+			if(jugadores.length+nIAs<=5)
+			{
+			    for (i = 0; i < jugadores.length; i++)
+			    {
+					Partida.listaJugadores.push(new Jugador(jugadores[i][0],jugadores[i][1])); //El 0 es la id el 1 es el nombre
 				}
 				for(i=1;i<=nIAs;i++){
 					Partida.listaJugadores.push(new Jugador(-i,"IA"+i)); 
@@ -35,7 +37,8 @@ Meteor.methods({
 				}
 				Partida.turno = Math.floor(Math.random()*(Partida.listaJugadores.length-1));
 				return Partida.listaJugadores;
-			}else{
+			}
+			else{
 				console.log("Excede el numero maximo de jugadores");
 				return false;
 			}
@@ -122,7 +125,9 @@ Meteor.methods({
             ColocoFicha = Tablero.coloco(Piezanueva, Jugador[1].coorx, Jugador[1].coory);
             console.log("¿Ha sido Colocada?", ColocoFicha);
         }
-    
+        var nuevoSeguidor = {tipoSeguidor:undefined, PosEnFicha:undefined, IdJugador:undefined, TipoFicha:undefined}
+
+        return [Piezanueva.tipo, Jugador[1].giros, Jugador[1].coorx, Jugador[1].coory, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
     }
 });
 
