@@ -126,8 +126,31 @@ Meteor.methods({
             console.log("¿Ha sido Colocada?", ColocoFicha);
         }
         var nuevoSeguidor = {tipoSeguidor:undefined, PosEnFicha:undefined, IdJugador:undefined, TipoFicha:undefined}
-
-        return [Piezanueva.tipo, Jugador[1].giros, Jugador[1].coorx, Jugador[1].coory, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
+        var jugador = _.find(Tablero.listaJugadores, function (obj) { return (obj.id.user_id == id_jugador) })
+        if (jugador.seguidores > 0)
+        {
+            if (ColocoFicha.tipo == "MonCamino" || ColocoFicha.tipo == "MonGranja")
+            {
+                nuevoSeguidor = { tipoSeguidor: "monje", PosEnFicha: 5, IdJugador: jugador.id, TipoFicha: ColocoFicha }
+                Tablero.colocarseguidor(ColocoFicha, nuevoSeguidor.PosEnFicha);
+            }
+            else
+            {
+                var posiciones = posibleseguidor(ColocoFicha);
+                if (posiciones.length > 0)
+                {
+                    var Pos_Aleatorio = Math.floor(Math.random() * posiciones.length);
+                    seguidor = posiciones[Pos_Aleatorio];
+                    nuevoSeguidor = { tipoSeguidor: seguidor.tipo, PosEnFicha: seguidor.posicion, IdJugador: jugador.numero, TipoFicha: fichaColocada }
+                    Tablero.colocarseguidor(ColocoFicha, nuevoSeguidor.PosEnFicha);
+                }
+            }
+        }
+        // CierroCamino(ColocoFicha);
+        // CierroConvento(ColocoFicha);
+        // CierroCiudad(ColocoFicha);
+        ArrPartidas[id_partida] = Tablero;
+        return [Piezanueva.tipo, jugador[1].giros, jugador[1].coorx, jugador[1].coory, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
     }
 });
 

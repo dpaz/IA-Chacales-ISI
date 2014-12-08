@@ -242,31 +242,55 @@ var Tablero = function(id_game, npiezas, piezas){
 			/////////// ESQUINAS ///////////////
 			if(i==1){	//superior izq 
 				
-				if (((pieza.Arriba == 'Camino')||(pieza.Arriba=='Granja')||(pieza.Arriba != pieza.Izquierda)) &&(otrogranjero(pieza,i)==false)){ array.push(1)}
-				else{ if(otrocaballero(pieza,i)==false) {array.push(1)}}	
+			    if (((pieza.Arriba == 'Camino') || (pieza.Arriba == 'Granja') || (pieza.Arriba != pieza.Izquierda)) && (otrogranjero(pieza, i) == false)) 
+			    {
+			        if (pieza.Arriba == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
+			        else if (pieza.Arriba == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			    }
+			    else {
+			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			    }
 						//si granja o camino, 1 siempre granja. Si arriba==izquierda --> es ciudad, sino granja también
 				
 			}
 			if(i==3){	//superior dcha 
 				
-				if (((pieza.Derecha == 'Camino')||(pieza.Derecha=='Granja')||(pieza.Derecha != pieza.Arriba)) &&(otrogranjero(pieza,i)==false)){ array.push(3)}
-				else{ if(otrocaballero(pieza,i)==false) {array.push(3)}}	
+			    if (((pieza.Derecha == 'Camino') || (pieza.Derecha == 'Granja') || (pieza.Derecha != pieza.Arriba)) && (otrogranjero(pieza, i) == false))
+			    {
+			        if (pieza.Derecha == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
+			        else if (pieza.Derecha == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			    }
+			    else {
+			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			    }
 						//si granja o camino, 1 siempre granja. Si Derecha==Izquierda --> es ciudad, sino granja también
 				
 			}
 			if(i==7){	//inferior izda 
 				
-				if (((pieza.Izquierda == 'Camino')||(pieza.Izquierda=='Granja')||(pieza.Izquierda != pieza.Abajo)) &&(otrogranjero(pieza,i)==false)){ array.push(7)}
-				else{ if(otrocaballero(pieza,i)==false) {array.push(7)}}	
+			    if (((pieza.Izquierda == 'Camino') || (pieza.Izquierda == 'Granja') || (pieza.Izquierda != pieza.Abajo)) && (otrogranjero(pieza, i) == false))
+			    {
+			        if (pieza.Izquierda == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
+			        else if (pieza.Izquierda == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			    }
+			    else {
+			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			    }
 						//si granja o camino, 1 siempre granja. Si Izquierda==Abajo --> es ciudad, sino granja también
 				
 			}
 			if(i==9){	//inferior izda 
 				
-				if (((pieza.Abajo == 'Camino')||(pieza.Abajo=='Granja')||(pieza.Abajo != pieza.Derecha)) &&(otrogranjero(pieza,i)==false)){ array.push(9)}
-				else{ if(otrocaballero(pieza,i)==false) {array.push(9)}}	
+			    if (((pieza.Abajo == 'Camino') || (pieza.Abajo == 'Granja') || (pieza.Abajo != pieza.Derecha)) && (otrogranjero(pieza, i) == false))
+			    {
+			        if (pieza.Abajo == 'Camino') {array.push({ tipo: "ladron", posicion: i });}
+			        else if (pieza.Abajo == 'Granja') {array.push({ tipo: "granjero", posicion: i });}
+			    }
+			    else
+			    {
+			        if (otrocaballero(pieza, i) == false) {array.push({ tipo: "caballero", posicion: i });}
+			    }
 						//si granja o camino, 1 siempre granja. Si Abajo==Derecha --> es ciudad, sino granja también
-				
 			}
 			
 			/////////// EJE + (cruz central) ///////////////
@@ -275,32 +299,56 @@ var Tablero = function(id_game, npiezas, piezas){
 				
 				if (((pieza.Arriba == 'Camino')&&(otroladron(pieza,i)==false))
 					|| ((pieza.Arriba == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(2)}
+					|| ((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,i)==false)))
+				{
+				    if(pieza.Arriba == 'Camino'){array.push({tipo: "ladron",posicion:i});}
+				    else if(pieza.Arriba == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
+				    else if(pieza.Arriba == 'Granja'){array.push({tipo: "granjero",posicion:i});}
+				}
 			}
 			if(i==4){	//medio izq
 				
 				if (((pieza.Izquierda == 'Camino')&&(otroladron(pieza,i)==false))
 					|| ((pieza.Izquierda == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(4)}
+					|| ((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,i)==false)))
+				{
+				    if(pieza.Izquierda == 'Camino'){array.push({tipo: "ladron",posicion:i});}
+				    else if(pieza.Izquierda == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
+				    else if(pieza.Izquierda == 'Granja'){array.push({tipo: "granjero",posicion:i});}
+				}
 			}
 			if(i==6){	//medio dcha
 				
 				if (((pieza.Derecha == 'Camino')&&(otroladron(pieza,i)==false))
 					|| ((pieza.Derecha == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(6)}
+					|| ((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,i)==false)))
+				{
+				    if(pieza.Derecha == 'Camino'){array.push({tipo: "ladron",posicion:i});}
+				    else if(pieza.Derecha == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
+				    else if(pieza.Derecha == 'Granja'){array.push({tipo: "granjero",posicion:i});}
+				}
 			}
 			if(i==8){	//inferior centro 
 				
 				if (((pieza.Abajo == 'Camino')&&(otroladron(pieza,i)==false))
 					|| ((pieza.Abajo == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Abajo == 'Granja')&&(otrogranjero(pieza,i)==false))){array.push(8)}
+					|| ((pieza.Abajo == 'Granja')&&(otrogranjero(pieza,i)==false)))
+				{
+				    if(pieza.Abajo == 'Camino'){array.push({tipo: "ladron",posicion:i});}
+				    else if(pieza.Abajo == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
+				    else if(pieza.Abajo == 'Granja'){array.push({tipo: "granjero",posicion:i});}
+				}
 			}
 			
 			/////////// PIEZA CENTRAL ///////////////
 
 			if(i==5){	//inferior centro 
 				
-				if ((pieza.tipo=='MonCamino')||(pieza.tipo=='MonGranja')){array.push(5)}
+			    if ((pieza.tipo=='MonCamino')||(pieza.tipo=='MonGranja'))			    
+			    {
+			        array.push({tipo: "monje",posicion:i});
+			    }			       
+			    
 			}
 		
 		}return array;	

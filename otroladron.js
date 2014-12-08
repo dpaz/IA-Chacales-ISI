@@ -2,7 +2,7 @@
 var valido = true;
 
 otroladron= function(pieza,posSeg,vengode){
-	if(pieza.tipo == 'Cruce4' || pieza.tipo== 'Cruce3' || pieza.tipo='CiudadL'){
+	if(pieza.tipo == 'Cruce4' || pieza.tipo== 'Cruce3' || pieza.tipo=='CiudadL'){
 		if(posSeg==2){
 			//Pieza de arriba
 			valido = piezaArriba(pieza,posSeg,valido,vengode);
