@@ -359,62 +359,110 @@ var Tablero = function(id_game, npiezas, piezas){
 			//POR CADA POSICION DE LA MATRIZ DE LA PIEZA
 			if(posicion == 1){
 				if(pieza.Arriba == "Granja" || pieza.Izquierda == "Granja" || pieza.Izquierda == "Camino" || pieza.Arriba == "Camino"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 1)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Izquierda == "Ciudad" && pieza.Arriba == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 1)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Izquierda == "Ciudad" && pieza.Arriba == "Ciudad" && pieza.tipo == "CiudadI"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 1)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}
 				
 			}else if(posicion == 2){
 				if(pieza.Arriba == "Camino"){
-					var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
-					pieza.seguidores.push(ladron);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otroladron(pieza, 2)){
+						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
+						pieza.seguidores.push(ladron);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Arriba == "Ciudad"){
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 2)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Arriba == "Granja"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 2)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}
 				
 			}else if(posicion == 3){
 				if(pieza.Derecha == "Granja" || pieza.Arriba == "Granja" || pieza.Arriba == "Camino" || pieza.Derecha == "Camino"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 3)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Arriba == "Ciudad" && pieza.Derecha == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 3)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Arriba == "Ciudad" && pieza.Derecha == "Ciudad" && pieza.tipo == "CiudadI"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 3)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}
 			
 			}else if(posicion == 4){
 				if(pieza.Izquierda == "Camino"){
-					var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
-					pieza.seguidores.push(ladron);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otroladron(pieza, 4)){
+						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
+						pieza.seguidores.push(ladron);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Izquierda == "Ciudad"){
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 4)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Izquierda == "Granja"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 4)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}				
 				
 			}else if(posicion == 5){
@@ -423,17 +471,29 @@ var Tablero = function(id_game, npiezas, piezas){
 					pieza.seguidores.push(monje);
 					listaJugadores[turno]=seguidores--; return true;
 				}else if(pieza.tipo == "CiudadE" || pieza.tipo == "CiudadH" || pieza.tipo == "CiudadI" || pieza.tipo == "CiudadM" || pieza.tipo == "CiudadN"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 5)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.tipo == "CiudadC" || pieza.tipo == "CiudadF" || pieza.tipo == "CiudadG" || pieza.tipo == "CiudadQ" || pieza.tipo == "CiudadR" || pieza.tipo == "CiudadS" || pieza.tipo == "CiudadT"){
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 5)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.tipo == "CiudadD" || pieza.tipo == "CiudadJ" || pieza.tipo == "CiudadK" || pieza.tipo == "CiudadO" || pieza.tipo == "CiudadP" || pieza.tipo == "Recto" || pieza.tipo == "Curva"){
-					var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
-					pieza.seguidores.push(ladron);
-					listaJugadores[turno]=seguidores--; return true; 
+					if(!otroladron(pieza, 5){
+						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
+						pieza.seguidores.push(ladron);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.tipo == "CiudadL" || pieza.tipo == "Cruce3" || pieza.tipo == "Cruce4"){
 					console.log("AHI NO PUEDES COLOCAR EL SEGUIDOR QUE ES UN CRUCE¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
 					return false;
@@ -441,59 +501,107 @@ var Tablero = function(id_game, npiezas, piezas){
 								
 			}else if(posicion == 6){
 				if(pieza.Derecha == "Camino"){
-					var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
-					pieza.seguidores.push(ladron);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otroladron(pieza, 6)){
+						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
+						pieza.seguidores.push(ladron);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Derecha == "Ciudad"){
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 6)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Derecha == "Granja"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 6)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}	
 			}else if(posicion == 7){
 				if(pieza.Izquierda == "Granja" || pieza.Abajo == "Granja" || pieza.Abajo == "Camino" || pieza.Izquierda == "Camino"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 7)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Abajo == "Ciudad" && pieza.Izquierda == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 7)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Abajo == "Ciudad" && pieza.Izquierda == "Ciudad" && pieza.tipo == "CiudadI"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 7)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}			
 			}else if(posicion == 8){
 				if(pieza.Abajo == "Camino"){
-					var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
-					pieza.seguidores.push(ladron);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otroladron(pieza, 8)){
+						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
+						pieza.seguidores.push(ladron);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Abajo == "Ciudad"){
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 8)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Abajo == "Granja"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 8)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}
 			}else if(posicion == 9){
 				if(pieza.Abajo == "Granja" || pieza.Derecha == "Granja" || pieza.Derecha == "Camino" || pieza.Abajo == "Camino"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 9)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Derecha == "Ciudad" && pieza.Abajo == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
-					pieza.seguidores.push(caballero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrocaballero(pieza, 9)){
+						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
+						pieza.seguidores.push(caballero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 				}else if(pieza.Derecha == "Ciudad" && pieza.Abajo == "Ciudad" && pieza.tipo == "CiudadI"){
-					var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
-					pieza.seguidores.push(granjero);
-					listaJugadores[turno]=seguidores--; return true;
+					if(!otrogranjero(pieza, 9)){
+						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
+						pieza.seguidores.push(granjero);
+						listaJugadores[turno]=seguidores--; return true;
+					}else{
+						return false;
+					}
 					
 				}
 			}
