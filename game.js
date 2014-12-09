@@ -147,10 +147,9 @@ Meteor.methods({
             }
         }
         // CierroCamino(ColocoFicha);
-        // CierroConvento(ColocoFicha);
+        // CierroMonasterio(colocando);
         // CierroCiudad(ColocoFicha);
         ArrPartidas[id_partida] = Tablero;
         return [Piezanueva.tipo, jugador[1].giros, jugador[1].coorx, jugador[1].coory, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
     }
 });
-

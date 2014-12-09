@@ -28,7 +28,7 @@ jugadorIA=function(id_jugador){
 
            //Comprobamos cuando los tengamos hechos si cerramos algun camino, Ciudad o convento
             // CierroCamino(colocando);
-            // CierroConvento(colocando);
+            // CierroMonasterio(colocando);
             // CierroCiudad(colocando);
 
             var jugador = _.find(Tablero.listaJugadores, function (obj) { return (obj.id.user_id == nJugador) });
