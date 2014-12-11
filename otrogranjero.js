@@ -20,6 +20,20 @@ otrogranjero= function(pieza,posSeg,vengode){
 	return valido;
 }
 
+compruebaSeg = function(aux,a,b,c,d,e,f,g,h,i){
+	for(i=0;i<aux.seguidores.length;i++){
+		if(aux.seguidores[i].tipo== 'granjero' ){
+			if(aux.seguidores[i].posicion== a ||aux.seguidores[i].posicion== b  ||aux.seguidores[i].posicion== c ||
+			   aux.seguidores[i].posicion== d ||aux.seguidores[i].posicion== e  ||aux.seguidores[i].posicion== f ||
+			   aux.seguidores[i].posicion== g ||aux.seguidores[i].posicion== h  ||aux.seguidores[i].posicion== i){ 
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+}
+
 piezaArriba = function(pieza,posSeg,otro,vengode){
 	var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
 	if(pieza.Arriba != 'Ciudad' && vengode !='Arriba' && aux.Abajo != 'Ciudad'){
@@ -51,61 +65,23 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 							}
 						//solo granja 3ª fila
 						}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='Cruce3'){
-							for(i=0;i<aux.seguidores.length;i++){
-								if(aux.seguidores[i].tipo== 'granjero' ){
-									if(aux.seguidores[i].posicion== 7 ||aux.seguidores[i].posicion== 8 
-									 ||aux.seguidores[i].posicion== 9){
-										otro = true; 
-										return otro;
-									}
-								}
-							}
+							otro=compruebaSeg(aux,7,8,9);
 						}else if(aux.tipo == 'CiudadJ'){
-							for(i=0;i<aux.seguidores.length;i++){
-								if(aux.seguidores[i].tipo== 'granjero' ){
-////////crear funcion para hacer simple los seguidores
-									if(aux.seguidores[i].posicion== 1 ||aux.seguidores[i].posicion== 5 
-									 ||aux.seguidores[i].posicion== 7 ||aux.seguidores[i].posicion== 8 
-									 ||aux.seguidores[i].posicion== 9){
-										otro = true; 
-										return otro;
-									}
-								}
-							}
+							otro=compruebaSeg(aux,1,5,7,8,9);			
+//falta meter la recursividad
+//crear metodo que sepa si la pieza es de una granja 2 3 o 4
 						}else if(aux.tipo == 'CiudadK'){
-							for(i=0;i<aux.seguidores.length;i++){
-								if(aux.seguidores[i].tipo== 'granjero' ){
-									if(aux.seguidores[i].posicion== 3 ||aux.seguidores[i].posicion== 5 
-									 ||aux.seguidores[i].posicion== 7 ||aux.seguidores[i].posicion== 8 
-									 ||aux.seguidores[i].posicion== 9){
-										otro = true; 
-										return otro;
-									}
-								}
-							}
+							otro=compruebaSeg(aux,3,5,7,8,9);
 						}else if(aux.tipo == 'Curva'){
-							for(i=0;i<aux.seguidores.length;i++){
-								if(aux.seguidores[i].tipo== 'granjero' ){
-									if(aux.Izquierda == 'Camino'){
-									if(aux.seguidores[i].posicion== 3 ||aux.seguidores[i].posicion== 6 
-									 ||aux.seguidores[i].posicion== 7 ||aux.seguidores[i].posicion== 8 
-									 ||aux.seguidores[i].posicion== 9){
-										otro = true; 
-										return otro;
-									}
-									}else if(aux.Derecha == 'Camino'){
-									if(aux.seguidores[i].posicion== 1 ||aux.seguidores[i].posicion== 4 
-									 ||aux.seguidores[i].posicion== 7 ||aux.seguidores[i].posicion== 8 
-									 ||aux.seguidores[i].posicion== 9){
-										otro = true; 
-										return otro;
-									}
-									}
-								}
+							if(aux.Izquierda == 'Camino'){
+								otro=compruebaSeg(aux,3,6,7,8,9);
+							}else if(aux.Derecha == 'Camino'){
+								otro=compruebaSeg(aux,1,4,7,8,9);
 							}
 						}	
+				}else if(){
 				}
-			}else//ahora abajo camino{
+			}else{//aqui abajo camino
 			}
 			
 		}
