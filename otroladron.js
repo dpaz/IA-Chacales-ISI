@@ -63,7 +63,7 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 			else{otro = otroladron(aux,4,'Abajo');}
 		}else{
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidres[i].posicion == 8){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidores[i].posicion == 8){otro = true; return otro}
 			}
 			//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 		}
@@ -92,7 +92,7 @@ piezaAbajo = function(pieza,posSeg,otro,vengode){
 			else{otro = otroladron(aux,4,'Arriba');}
 		}else{
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidres[i].posicion == 2){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidores[i].posicion == 2){otro = true; return otro}
 			}
 			//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 		}
@@ -120,7 +120,7 @@ piezaDerecha = function(pieza,posSeg,otro,vengode){
 			else{otro = otroladron(aux,8,'Izquierda');}
 		}else{
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidres[i].posicion == 4){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidores[i].posicion == 4){otro = true; return otro}
 			}
 			//En caso de que sea uno de los cruces o el monasterio o las entradas de ciudad no hay recursividad ya
 		}
@@ -147,7 +147,7 @@ piezaIzquierda = function(pieza,posSeg,otro,vengode){
 			else{otro =  otroladron(aux,8,'Derecha');}
 		}else{
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidres[i].posicion == 6){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'ladron' && aux.seguidores[i].posicion == 6){otro = true; return otro}
 			}
 			//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 		}
