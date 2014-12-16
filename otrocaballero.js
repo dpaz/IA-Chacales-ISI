@@ -51,8 +51,8 @@ piezaAbajo = function(pieza,posSeg,otro,vengode){
 				if(aux.seguiguidores[i].tipo== 'caballero'){otro = true; return otro}
 			}
 			//no hay caballeros pues recursividad
-			otro = otrocaballero(aux,4,'Arriba'); //Izquierda
-			otro = otrocaballero(aux,6,'Arriba'); //Derecha
+			otro = otrocaballero(aux,4,'Derecha'); //Izquierda
+			otro = otrocaballero(aux,6,'Izquierda'); //Derecha
 			otro = otrocaballero(aux,8,'Arriba'); //Abajo (puede estar girada) o la de todos los trozos
 			
 		 
@@ -63,9 +63,9 @@ piezaAbajo = function(pieza,posSeg,otro,vengode){
 			}
 			
 			if(aux.Derecha == 'Ciudad'){
-				otro = otrocaballero(aux,6,'Arriba');
+				otro = otrocaballero(aux,6,'Izquierda');
 			}else{
-				otro = otrocaballero(aux,4,'Arriba');
+				otro = otrocaballero(aux,4,'Derecha');
 			}
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
@@ -79,8 +79,8 @@ piezaAbajo = function(pieza,posSeg,otro,vengode){
 }
 
 piezaArriba = function(pieza,posSeg,otro,vengode){
-	//Pieza de abajo
-	if(pieza.Abajo == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y-1).Arriba=='Ciudad' && vengode !='Arriba'){
+	//Pieza de arriba
+	if(pieza.Arriba == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Ciudad' && vengode !='Arriba'){
 		var aux =Tablero.piezaenposiciones(pieza.x,pieza.y-1);
 
 		if(aux.tipo == 'CiudadG' || aux.tipo =='CiudadF'){
@@ -96,8 +96,8 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 				if(aux.seguiguidores[i].tipo== 'caballero'){otro = true; return otro}
 			}
 			//no hay caballeros pues recursividad
-			otro = otrocaballero(aux,4,'Abajo'); //Izquierda
-			otro = otrocaballero(aux,6,'Abajo'); //Derecha
+			otro = otrocaballero(aux,4,'Derecha'); //Izquierda
+			otro = otrocaballero(aux,6,'Izquierda'); //Derecha
 			otro = otrocaballero(aux,2,'Abajo'); //Arriba (puede estar girada) o la de todos los trozos
 			
 		 
@@ -108,9 +108,9 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 			}
 			
 			if(aux.Derecha == 'Ciudad'){
-				otro = otrocaballero(aux,6,'Abajo'); //Derecha
+				otro = otrocaballero(aux,6,'Izquierda'); //Derecha
 			}else{
-				otro = otrocaballero(aux,4,'Abajo'); //Izquierda
+				otro = otrocaballero(aux,4,'Derecha'); //Izquierda
 			}
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
