@@ -88,7 +88,7 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 			for(i=0;i<aux.seguidores.length;i++){
 				if(aux.seguiguidores[i].tipo== 'caballero'){otro = true; return otro}
 			}
-			//llamada recursiva para seguir comprobando la ciudad (en este caso abajo == 8)
+			//llamada recursiva para seguir comprobando la ciudad (en este caso arriba == 2)
 			otro = otrocaballero(aux,2,'Abajo');
 		}else if(aux.tipo == 'CiudadQ' || aux.tipo == 'CiudadR' || aux.tipo == 'CiudadS' || aux.tipo == 'CiudadT' || aux.tipo == 'CiudadC'){
 			//Ciudades con 3 trozos de ciudad y la de 4 cachos de ciudad
@@ -111,6 +111,51 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 				otro = otrocaballero(aux,6,'Izquierda'); //Derecha
 			}else{
 				otro = otrocaballero(aux,4,'Derecha'); //Izquierda
+			}
+		}else{
+			//El resto de ciudades que ya cierran conexiones con otras ciudades
+			for(i=0;i<aux.seguidores.length;i++){
+				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 2){otro = true; return otro}
+			}
+			//Aqui no hay mas conexiones, por lo tanto no hay recursividad
+		}
+	}
+	return otro;
+}
+
+piezaDerecha = function(pieza,posSeg,otro,vengode){
+	//Pieza de arriba
+	if(pieza.Derecha == 'Ciudad' && Tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Ciudad' && vengode !='Derecha'){
+		var aux =Tablero.piezaenposiciones(pieza.x,pieza.y-1);
+
+		if(aux.tipo == 'CiudadG' || aux.tipo =='CiudadF'){
+			//Ciudades conectadas Izquierda y Derecha only
+			for(i=0;i<aux.seguidores.length;i++){
+				if(aux.seguiguidores[i].tipo== 'caballero'){otro = true; return otro}
+			}
+			//llamada recursiva para seguir comprobando la ciudad (en este caso derecha == 6)
+			otro = otrocaballero(aux,6,'Izquierda');
+		}else if(aux.tipo == 'CiudadQ' || aux.tipo == 'CiudadR' || aux.tipo == 'CiudadS' || aux.tipo == 'CiudadT' || aux.tipo == 'CiudadC'){
+			//Ciudades con 3 trozos de ciudad y la de 4 cachos de ciudad
+			for(i=0;i<aux.seguidores.length;i++){
+				if(aux.seguiguidores[i].tipo== 'caballero'){otro = true; return otro}
+			}
+			//no hay caballeros pues recursividad
+			otro = otrocaballero(aux,8,'Arriba'); //Abajo
+			otro = otrocaballero(aux,6,'Izquierda'); //Derecha
+			otro = otrocaballero(aux,2,'Abajo'); //Arriba (puede estar girada) o la de todos los trozos
+			
+		 
+		}else if(aux.tipo == 'CiudadM' || aux.tipo=='CiudadN' || aux.tipo=='CiudadO' || aux.tipo=='CiudadP'){
+			//Ciudades con dos trozos de ciudad en modo "curva"
+			for(i=0;i<aux.seguidores.length;i++){
+				if(aux.seguidores[i].tipo== 'caballero'){otro = true; return otro}
+			}
+			
+			if(aux.Derecha == 'Ciudad'){
+				otro = otrocaballero(aux,2,'Abajo'); //Arriba
+			}else{
+				otro = otrocaballero(aux,8,'Arriba'); //Abajo
 			}
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
