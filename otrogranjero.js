@@ -1,6 +1,6 @@
 var otro=false;
 otrogranjero= function(pieza,posSeg,vengode,otro){//aux tiene que ser false
-	if(pieza.tipo== 'Cruce3' || pieza.tipo='CiudadL'){//3 campos distintos
+	/*if(pieza.tipo== 'Cruce3' || pieza.tipo='CiudadL'){//3 campos distintos
 	}else if(pieza.tipo== 'Cruce4'){//4 campos
 	}else if(pieza.tipo== 'CiudadC'){//0 campos
 		console.log("Como vas a querer granjero si es solo ciudad");
@@ -18,9 +18,13 @@ otrogranjero= function(pieza,posSeg,vengode,otro){//aux tiene que ser false
 			}	
 	}else{//2 campos
 	}
-	return valido;
+	return valido;*/
+	if(pieza.arriba!=Ciudad){
+		var valido = piezaArriba(pieza,posSeg,valido,vengode);
+	}
 }
 
+//comprueba si las posicione donde decidmos hay seguidor en la pieza de arriba 
 compruebaSeg = function(aux,a,b,c,d,e,f,g,h,i){
 	for(i=0;i<aux.seguidores.length;i++){
 		if(aux.seguidores[i].tipo== 'granjero' ){
@@ -38,7 +42,10 @@ compruebaSeg = function(aux,a,b,c,d,e,f,g,h,i){
 //comprueba que he puesto un seguidor que se comunica con el campo de arriba
 compruebaCampo = function(pieza,posSeg){
 	if(pieza.tipo == 'MonCamino' || pieza.tipo =='MonGranja'|| pieza.tipo =='CiudadE' ||
-           pieza.tipo == 'CiudadH' || pieza.tipo =='CiudadI'|| pieza.tipo == 'CiudadM'||	 				      		   pieza.tipo=='CiudadN'|| pieza.tipo == 'CiudadQ' || pieza.tipo== 'CiudadR'){
+           pieza.tipo == 'CiudadH' || pieza.tipo =='CiudadI'|| pieza.tipo == 'CiudadM'||	 				      		   pieza.tipo=='CiudadN'|| pieza.tipo == 'CiudadQ' || pieza.tipo== 'CiudadR' ||
+	   pieza.tipo=='CiudadD'|| pieza.tipo == 'CiudadJ' || pieza.tipo== 'CiudadK' ||
+	   pieza.tipo=='CiudadO'|| pieza.tipo == 'CiudadP' || pieza.tipo== 'CiudadS' ||
+	   pieza.tipo=='CiudadT'|| pieza.tipo == 'Recto'){
 			return true:
 	}else if((pieza.tipo == 'CiudadD' || pieza.tipo == 'CiudadF' || pieza.tipo == 'CiudadG' || 
 		  pieza.tipo == 'Recto' || pieza.tipo == 'Cruce3') && (pieza.arriba=='Granja') && 
@@ -48,9 +55,19 @@ compruebaCampo = function(pieza,posSeg){
 		return true;
 	}else if((pieza.tipo == 'CiudadK') &&  (PosSeg!=9)){
 		return true;
-	}else if((pieza.tipo == 'Curva') &&  (pieza.Izquierda==Camino) && (PosSeg!=7)){
+	}else if((pieza.tipo == 'Curva') &&  (pieza.Izquierda=='Camino') && (PosSeg!=7)){
 		return true;
-	}else if((pieza.tipo == 'Curva') &&  (pieza.Derecha==Camino) && (PosSeg!=9)){
+	}else if((pieza.tipo == 'Curva') &&  (pieza.Derecha=='Camino') && (PosSeg!=9)){
+		return true;
+	}else if((pieza.tipo == 'CiudadL') &&  (pieza.Derecha=='Camino') && (PosSeg!=9)){
+		return true;
+	}else if((pieza.tipo == 'CiudadL') &&  (pieza.Izquierda=='Camino') && (PosSeg!=7)){
+		return true;
+	}else if((pieza.tipo == 'Cruce3') &&  (pieza.Abajo=='Granja') && (PosSeg!=7 && PosSeg!=8 && PosSeg!=9)){
+		return true;
+	}else if((pieza.tipo == 'Cruce3') &&  (pieza.Derecha=='Granja') && (PosSeg!=7 )){
+		return true;
+	}else if((pieza.tipo == 'Cruce3') &&  (pieza.Izquierda=='Granja') && (PosSeg!=9)){
 		return true;
 	}return false;
 	
@@ -90,8 +107,6 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 				}else if(aux.tipo == 'CiudadJ'){
 					otro=compruebaSeg(aux,1,5,7,8,9);			
 					otro=otrogranjero(aux,posSeg,'Abajo',otro);
-				
-//crear metodo que sepa si la pieza es de una granja 2 3 o 4
 				}else if(aux.tipo == 'CiudadK'){
 					otro=compruebaSeg(aux,3,5,7,8,9);
 				}else if(aux.tipo == 'Curva'){
@@ -103,9 +118,43 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 						otro=otrogranjero(aux,posSeg,'Abajo',otro);
 					}
 				}	
-			}else{//aqui abajo camino
+			}else if (aux.Abajo == 'Camino' && pieza.Arriba == 'Camino' && compruebaCampo(pieza,posSeg)){
+				var auxSeg=posSeg;
+				//coloca el seguidor en 1 o 3 para comparar con la pieza de arriba
+				if ((pieza.tipo== 'CiudadJ'|| pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO' ||pieza.tipo== 'CiudadP' ||
+				     pieza.tipo== 'Curva') && pieza.Derecha == 'Camino' && posSeg== 9){
+					auxSeg=1;
+				}else if((pieza.tipo== 'CiudadJ'||pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO'||pieza.tipo=='CiudadP'      						||pieza.tipo== 'Curva') && pieza.Izquierda == 'Camino' && posSeg== 7){
+					auxSeg=3;
+				}if (auxSeg==4 || auxSeg==7){
+					auxSeg=1;
+				}else if (auxSeg==6 || auxSeg==9){
+					auxSeg=3;
+				}
+				//compruebsi hay seguidores arriba en las posicion que coinciden con la granja de auxpos
+				if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT') &&(auxSeg==1)){
+					otro=compruebaSeg(aux,1,4,7);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}else if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT')
+				       &&(auxSeg==3)){
+					otro=compruebaSeg(aux,3,6,9);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
+					  aux.tipo =='CiudadP') && (auxSeg==1)){
+					otro=compruebaSeg(aux,1,2,3,4,7);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
+					  aux.tipo =='CiudadP') &&(auxSeg==3)){
+					otro=compruebaSeg(aux,9);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') && (auxSeg==1)){
+					otro=compruebaSeg(aux,7);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') &&(auxSeg==3)){
+					otro=compruebaSeg(aux,9);
+					otro=otrogranjero(aux,posSeg,'Abajo',otro);
+				}
 			}
-			
 		}
 	}
 
