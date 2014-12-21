@@ -362,7 +362,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 1)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -370,7 +370,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 1)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -378,7 +378,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 1)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -389,7 +389,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otroladron(pieza, 2)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -397,7 +397,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 2)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -405,7 +405,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 2)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -416,7 +416,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 3)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -424,7 +424,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 3)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -432,7 +432,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 3)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -443,7 +443,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otroladron(pieza, 4)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -451,7 +451,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 4)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -459,7 +459,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 4)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -469,12 +469,12 @@ var Tablero = function(id_game, npiezas, piezas){
 				if(pieza.tipo == "MonCamino" || pieza.tipo == "MonGranja"){
 					var monje = new Seguidor(1, "monje", listaJugadores[turno]);
 					pieza.seguidores.push(monje);
-					listaJugadores[turno]=seguidores--; return true;
+					listaJugadores[turno].seguidores--; return true;
 				}else if(pieza.tipo == "CiudadE" || pieza.tipo == "CiudadH" || pieza.tipo == "CiudadI" || pieza.tipo == "CiudadM" || pieza.tipo == "CiudadN"){
 					if(!otrogranjero(pieza, 5)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -482,15 +482,15 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 5)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
 				}else if(pieza.tipo == "CiudadD" || pieza.tipo == "CiudadJ" || pieza.tipo == "CiudadK" || pieza.tipo == "CiudadO" || pieza.tipo == "CiudadP" || pieza.tipo == "Recto" || pieza.tipo == "Curva"){
-					if(!otroladron(pieza, 5){
+					if(!otroladron(pieza, 5)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -504,7 +504,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otroladron(pieza, 6)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -512,7 +512,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 6)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -520,7 +520,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 6)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -530,7 +530,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 7)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -538,7 +538,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 7)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -546,7 +546,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 7)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -556,7 +556,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otroladron(pieza, 8)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -564,7 +564,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 8)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -572,7 +572,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 8)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -582,7 +582,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 9)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -590,7 +590,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrocaballero(pieza, 9)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
@@ -598,7 +598,7 @@ var Tablero = function(id_game, npiezas, piezas){
 					if(!otrogranjero(pieza, 9)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
-						listaJugadores[turno]=seguidores--; return true;
+						listaJugadores[turno].seguidores--; return true;
 					}else{
 						return false;
 					}
