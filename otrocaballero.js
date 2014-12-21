@@ -115,7 +115,7 @@ piezaArriba = function(pieza,posSeg,otro,vengode){
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 2){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 8){otro = true; return otro}
 			}
 			//Aqui no hay mas conexiones, por lo tanto no hay recursividad
 		}
@@ -160,7 +160,7 @@ piezaDerecha = function(pieza,posSeg,otro,vengode){
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 2){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 4){otro = true; return otro}
 			}
 			//Aqui no hay mas conexiones, por lo tanto no hay recursividad
 		}
@@ -205,7 +205,7 @@ piezaIzquierda = function(pieza,posSeg,otro,vengode){
 		}else{
 			//El resto de ciudades que ya cierran conexiones con otras ciudades
 			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 2){otro = true; return otro}
+				if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 6){otro = true; return otro}
 			}
 			//Aqui no hay mas conexiones, por lo tanto no hay recursividad
 		}
