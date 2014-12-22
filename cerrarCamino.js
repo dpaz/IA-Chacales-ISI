@@ -34,7 +34,7 @@ cerrarCamino = function(pieza,final){
 					aux.seguidores.splice(i,1);
 				}
 			});
-			if(finalesCamino.indexOf(aux.tipo)){
+			if(finalesCamino.indexOf(aux.tipo)){// CREO QUE AQUÍ FALTA UN <0
 				puntos++;
 				//llamada recursiva para seguir comprobando el camino
 				return cerrarCaminoRecur(aux,'Abajo');
