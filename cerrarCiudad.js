@@ -19,11 +19,138 @@ cerrarCiudad = function(pieza,final){
 		});
 		
 	};
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	// ARRIBA-ABAJO-DCHA-IZDA
+	this.piezaArriba = function(pieza,vengode){
+		//Pieza de arriba
+		if(pieza.Arriba == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Ciudad' && vengode!='Arriba'){
+			//Primero compruebo que en esa pieza no hay caballeros
+			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			if(aux.ciudadCerrada){
+				return false;
+			}
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='caballero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+			if(finalesCiudad.indexOf(aux.tipo)<0){
+				//NO ES UN FINAL -- hay recursividad -- ojo escudo
+				if(aux.Escudo == 1){
+					puntos = puntos + 4;
+				}else{
+					puntos = puntos + 2;
+				}		
+				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
+				return cerrarCiudadRecur(aux,'Abajo');
+			}else{
+				puntos = puntos + 2;
+				cerrado++;
+				return true;
+				//En caso de que sea un final de ciudad no recursividad
+			}
+		}
+	};
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	this.piezaAbajo = function(pieza,vengode){
+		//Pieza de arriba
+		if(pieza.Abajo == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y-1).Arriba=='Ciudad' && vengode!='Abajo'){
+			//Primero compruebo que en esa pieza no hay caballeros
+			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y-1);
+			if(aux.ciudadCerrada){
+				return false;
+			}
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='caballero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+			if(finalesCiudad.indexOf(aux.tipo)<0){
+				//NO ES UN FINAL -- hay recursividad -- ojo escudo
+				if(aux.Escudo == 1){
+					puntos = puntos + 4;
+				}else{
+					puntos = puntos + 2;
+				}		
+				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
+				return cerrarCiudadRecur(aux,'Arriba');
+			}else{
+				puntos = puntos + 2;
+				cerrado++;
+				return true;
+				//En caso de que sea un final de ciudad no recursividad
+			}
+		}
+	};
+	
+	this.piezaDerecha = function(pieza,vengode){
+		//Pieza de arriba
+		if(pieza.Derecha == 'Ciudad' && Tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Ciudad' && vengode!='Derecha'){
+			//Primero compruebo que en esa pieza no hay caballeros
+			var aux =Tablero.piezaenposiciones(pieza.x+1,pieza.y);
+			if(aux.ciudadCerrada){
+				return false;
+			}
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='caballero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+			if(finalesCiudad.indexOf(aux.tipo)<0){
+				//NO ES UN FINAL -- hay recursividad -- ojo escudo
+				if(aux.Escudo == 1){
+					puntos = puntos + 4;
+				}else{
+					puntos = puntos + 2;
+				}		
+				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
+				return cerrarCiudadRecur(aux,'Izquierda');
+			}else{
+				puntos = puntos + 2;
+				cerrado++;
+				return true;
+				//En caso de que sea un final de ciudad no recursividad
+			}
+		}
+	};
+	
+	this.piezaIzquierda = function(pieza,vengode){
+		//Pieza de arriba
+		if(pieza.Izquierda == 'Ciudad' && Tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Ciudad' && vengode!='Izquierda'){
+			//Primero compruebo que en esa pieza no hay caballeros
+			var aux =Tablero.piezaenposiciones(pieza.x-1,pieza.y);
+			if(aux.ciudadCerrada){
+				return false;
+			}
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='caballero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+			if(finalesCiudad.indexOf(aux.tipo)<0){
+				//NO ES UN FINAL -- hay recursividad -- ojo escudo
+				if(aux.Escudo == 1){
+					puntos = puntos + 4;
+				}else{
+					puntos = puntos + 2;
+				}		
+				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
+				return cerrarCiudadRecur(aux,'Derecha');
+			}else{
+				puntos = puntos + 2;
+				cerrado++;
+				return true;
+				//En caso de que sea un final de ciudad no recursividad
+			}
+		}
+	};				
 	
 	
 	this.cerrarCiudadRecur = function(pieza,vengode){
