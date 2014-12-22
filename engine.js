@@ -80,7 +80,7 @@ var Pieza = function(tipo,x,y){
 
 	//Devuelvo una variable auxiliar en vez de la original girada, no se si es lo mejor
 	this.girar = function(){
-		var aux = new Pieza();
+		var aux = new Pieza(tipo,x,y);
 		aux.Abajo = this.Izquierda;
 		aux.Derecha = this.Abajo;
 		aux.Arriba = this.Derecha;
