@@ -98,7 +98,6 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 				}
 			}
 		}else{//aux abajo granja y pieza arriba granja con seguidor que comunica granja arriba y pieza moncamino
-		      //ahora hacer arriba camino abajo camino
 			if((aux.Abajo == 'Granja' && pieza.Arriba == 'Granja' && compruebaCampo(pieza,posSeg)) || (pieza.tipo == 'MonCamino')){
 				if(aux.tipo == 'MonCamino' || aux.tipo =='MonGranja'|| aux.tipo =='CiudadE' ||
 		  		   aux.tipo == 'CiudadH' || aux.tipo =='CiudadI'|| aux.tipo =='CiudadM' ||
@@ -109,18 +108,28 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 				//solo granja 3ª fila
 				}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='Cruce3'){
 					otro=compruebaSeg(aux,7,8,9);
+					if(otro==true){return otro}
 					//mas campo derecha e izquierda 
 				}else if(aux.tipo == 'CiudadJ'){
-					otro=compruebaSeg(aux,1,5,7,8,9);			
+					otro=compruebaSeg(aux,1,5,7,8,9);
+					if(otro==true){return otro}
+					//mas campo arriba(hecho) y derecha			
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if(aux.tipo == 'CiudadK'){
 					otro=compruebaSeg(aux,3,5,7,8,9);
+					if(otro==true){return otro}
+					//mas campo arriba(hecho) e izquierda			
+					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if(aux.tipo == 'Curva'){
 					if(aux.Izquierda == 'Camino'){
 						otro=compruebaSeg(aux,3,6,7,8,9);
+						if(otro==true){return otro}
+						//mas campo arriba(hecho) derecha e izquierda
 						otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 					}else if(aux.Derecha == 'Camino'){
 						otro=compruebaSeg(aux,1,4,7,8,9);
+						if(otro==true){return otro}
+						//mas campo arriba(hecho) derecha e izquierda
 						otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 					}
 				}	
