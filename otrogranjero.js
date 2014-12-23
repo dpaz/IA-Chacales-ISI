@@ -81,7 +81,6 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 		return false;
 	}
 
-	console.log('111');
 	if(pieza.Arriba != 'Ciudad' && vengode !='Arriba' && aux.Abajo != 'Ciudad'){
 		//Primero compruebo que en esa pieza no hay ladrones
 		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){//cierra con estos 
@@ -136,37 +135,47 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 			}else if (aux.Abajo == 'Camino' && pieza.Arriba == 'Camino' && compruebaCampo(pieza,posSeg)){
 				var auxSeg=posSeg;
 				//coloca el seguidor en 1 o 3 para comparar con la pieza de arriba
-				if ((pieza.tipo== 'CiudadJ'|| pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO' ||pieza.tipo== 'CiudadP' ||
-				     pieza.tipo== 'Curva') && pieza.Derecha == 'Camino' && posSeg== 9){
-					auxSeg=1;
-				}else if((pieza.tipo== 'CiudadJ'||pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO'||pieza.tipo=='CiudadP'      						||pieza.tipo== 'Curva') && pieza.Izquierda == 'Camino' && posSeg== 7){
-					auxSeg=3;
-				}if (auxSeg==4 || auxSeg==7){
+				if(pieza.tipo== 'CiudadJ'||pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO'||pieza.tipo=='CiudadP'      			         ||pieza.tipo== 'Curva'){
+					if(pieza.Izquierda == 'Camino' && posSeg== 7){
+						auxSeg=3;
+					}else if(pieza.Derecha == 'Camino' && posSeg== 9){
+						auxSeg=1;	
+					}
+				}
+				if (auxSeg==4 || auxSeg==7){
 					auxSeg=1;
 				}else if (auxSeg==6 || auxSeg==9){
 					auxSeg=3;
 				}
+
 				//compruebsi hay seguidores arriba en las posicion que coinciden con la granja de auxpos
 				if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT') &&(auxSeg==1)){
 					otro=compruebaSeg(aux,1,4,7);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT')
 				       &&(auxSeg==3)){
+					console.log('1111');
 					otro=compruebaSeg(aux,3,6,9);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					  aux.tipo =='CiudadP') && (auxSeg==1)){
 					otro=compruebaSeg(aux,1,2,3,4,7);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					  aux.tipo =='CiudadP') &&(auxSeg==3)){
 					otro=compruebaSeg(aux,9);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') && (auxSeg==1)){
 					otro=compruebaSeg(aux,7);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') &&(auxSeg==3)){
 					otro=compruebaSeg(aux,9);
+					if(otro==true){return otro}
 					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
 				}
 			}

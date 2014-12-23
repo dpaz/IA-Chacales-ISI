@@ -1,6 +1,6 @@
 describe("Pruebas relacionadas con posible granjero",function(){
 	it("Pieza arriba campo-campo",function(){
-		//segundo if
+		/*//segundo if
 		tablero = new Tablero(5);
 
 		var seguidor = new Seguidor(9,'granjero')
@@ -52,9 +52,29 @@ describe("Pruebas relacionadas con posible granjero",function(){
 		tablero.posiciones.push(pieza_3);
 		expect(otrogranjero(pieza_1,7,tablero)).toBe(false);
 		pieza_3.seguidores.push(seguidor1);
-		expect(otrogranjero(pieza_1,7,tablero)).toBe(true);
+		expect(otrogranjero(pieza_1,7,tablero)).toBe(true);*/
 	});
 
 	it("Pieza arriba camino-camino",function(){
+
+		//primer if
+
+		var tablero1 = new Tablero(1);
+
+		var seguidor = new Seguidor(3,'granjero')
+		var pieza_1 = new Pieza('CiudadJ',5,5)
+		pieza_1 = pieza_1.girar();
+		
+		var pieza_3 = new Pieza('Recto',5,6);
+
+		var pieza_2 = new Pieza('MonCamino',5,7)
+
+		tablero.posiciones.push(pieza_2);
+		tablero.posiciones.push(pieza_3);
+
+		expect(otrogranjero(pieza_1,9,tablero)).toBe(false);
+		pieza_2.seguidores.push(seguidor);
+		//expect(otrogranjero(pieza_1,7,tablero)).toBe(true);
+		
 	});
 });
