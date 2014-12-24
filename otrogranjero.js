@@ -80,7 +80,7 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 		console.log('no mas piezas');
 		return false;
 	}
-
+////////////////cuidado monCamino recursividad
 	if(pieza.Arriba != 'Ciudad' && vengode !='Arriba' && aux.Abajo != 'Ciudad'){
 		//Primero compruebo que en esa pieza no hay ladrones
 		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){//cierra con estos 
@@ -147,36 +147,63 @@ piezaArriba = function(pieza,posSeg,tablero,otro,vengode){
 				}else if (auxSeg==6 || auxSeg==9){
 					auxSeg=3;
 				}
-
 				//compruebsi hay seguidores arriba en las posicion que coinciden con la granja de auxpos
-				if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT') &&(auxSeg==1)){
-					otro=compruebaSeg(aux,1,4,7);
+				if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT'){
+					if(auxSeg==1){//pensar ciudad s y t
+						otro=compruebaSeg(aux,1,4,7);
+						if(otro==true){return otro}
+						otro=otrogranjero(aux,7,tablero,'Abajo',otro);
+					}else if(auxSeg==3){
+						otro=compruebaSeg(aux,3,6,9);
+						if(otro==true){return otro}
+						otro=otrogranjero(aux,9,tablero,'Abajo',otro);
+					}//siguen por derecha e izquierda tambien
+					
+				}else if(aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
+					 aux.tipo =='CiudadP'){  
+					if(auxSeg==1){	
+						if(aux.Izquierda=='Camino'){
+							otro=compruebaSeg(aux,7);
+							if(otro==true){return otro}
+							//solo izq
+						}else if(aux.Derecha=='Camino'){
+							otro=compruebaSeg(aux,1,2,3,4,7);
+							if(otro==true){return otro}
+							//derecha todos
+							//izq J y Curva
+							if(aux.tipo =='Curva'|| aux.tipo =='CiudadK'){
+								otro=otrogranjero(aux,1,tablero,'Abajo',otro);
+							}
+						}
+					}else if(auxSeg==3){
+						if(aux.Izquierda=='Camino'){
+							otro=compruebaSeg(aux,1,2,3,6,9);
+							if(otro==true){return otro}
+							// der todos menos O y P
+							//IZQ todos
+							if(aux.tipo =='Curva'|| aux.tipo =='CiudadJ'){
+								otro=otrogranjero(aux,1,tablero,'Abajo',otro);
+							}
+						}else if(aux.Derecha=='Camino'){
+							otro=compruebaSeg(aux,9);
+							if(otro==true){return otro}
+							//solo der
+						}
+					}
+				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4'){
+					if(auxSeg==1){
+						otro=compruebaSeg(aux,7);
+						if(otro==true){return otro}
+						//izquierda
+					}else if(auxSeg==3){
+						otro=compruebaSeg(aux,9);
+						if(otro==true){return otro}
+						//derecha
+					}
+				}else if(aux.tipo=='MonCamino'){
+					otro=compruebaSeg(aux,1,2,3,4,5,6,7,9);
 					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
-				}else if((aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='CiudadS'|| aux.tipo =='CiudadT')
-				       &&(auxSeg==3)){
-					console.log('1111');
-					otro=compruebaSeg(aux,3,6,9);
-					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
-				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
-					  aux.tipo =='CiudadP') && (auxSeg==1)){
-					otro=compruebaSeg(aux,1,2,3,4,7);
-					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
-				}else if((aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
-					  aux.tipo =='CiudadP') &&(auxSeg==3)){
-					otro=compruebaSeg(aux,9);
-					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
-				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') && (auxSeg==1)){
-					otro=compruebaSeg(aux,7);
-					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
-				}else if((aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'|| aux.tipo =='Cruce4') &&(auxSeg==3)){
-					otro=compruebaSeg(aux,9);
-					if(otro==true){return otro}
-					otro=otrogranjero(aux,posSeg,tablero,'Abajo',otro);
+					otro=otrogranjero(aux,posSeg,tablero,'',otro);//no viene de ningun lado para que vaya para abajo
 				}
 			}
 		}
