@@ -1,7 +1,7 @@
 describe("Pruebas relacionadas con posible granjero",function(){
 	//falta probar los que cierran del principio
 	//cuidado compruebacampo
-	/*it("Pieza arriba campo-campo",function(){
+	it("Pieza arriba campo-campo",function(){
 		//segundo if
 		tablero = new Tablero(5);
 
@@ -114,7 +114,7 @@ describe("Pruebas relacionadas con posible granjero",function(){
 		pieza_2.seguidores.push(seguidor1);
 		expect(otrogranjero(pieza_1,1,tablero2)).toBe(true);
 		
-	});*/
+	});
 
 	it("Pieza abajo campo-campo",function(){
 		//segundo if
@@ -256,5 +256,48 @@ describe("Pruebas relacionadas con posible granjero",function(){
 		pieza_2.seguidores.push(seguidor1);
 		expect(otrogranjero(pieza_1,1,tablero2)).toBe(true);
 		
+	});
+
+	it("Piezas arriba y abajo",function(){
+	
+		var tablero = new Tablero(2);
+
+		var seguidor1 = new Seguidor(3,'granjero')
+
+		pieza_1 = new Pieza('Recto',5,5)
+		
+		pieza_3 = new Pieza('Recto',5,4);
+
+		pieza_2 = new Pieza('MonCamino',5,3);
+		pieza_2 = pieza_2.girar();
+		pieza_2 = pieza_2.girar();
+
+		pieza_4 = new Pieza('MonGranja',5,2);
+
+		tablero.posiciones.push(pieza_2);
+		tablero.posiciones.push(pieza_3);
+		tablero.posiciones.push(pieza_4);
+		
+		pieza_5 = new Pieza('Recto',5,6);
+
+		pieza_6 = new Pieza('MonCamino',5,7);
+
+		pieza_7 = new Pieza('MonGranja',5,8);
+
+		tablero.posiciones.push(pieza_5);
+		tablero.posiciones.push(pieza_6);
+		tablero.posiciones.push(pieza_7);
+
+		expect(otrogranjero(pieza_1,3,tablero)).toBe(false);
+		pieza_7.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,3,tablero)).toBe(true);
+		pieza_7.seguidores.pop();
+		expect(otrogranjero(pieza_1,3,tablero)).toBe(false);
+		pieza_2.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,1,tablero)).toBe(true);
+		pieza_7.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,1,tablero)).toBe(true);
+
+
 	});
 });
