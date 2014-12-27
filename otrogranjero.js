@@ -101,6 +101,10 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 						auxSeg=3;
 					}else if(pieza.Derecha == 'Camino' && posSeg== 9){
 						auxSeg=1;	
+					}else if(pieza.Derecha == 'Camino' && posSeg== 8){
+						auxSeg=1;	
+					}else if(pieza.Izquierda == 'Camino' && posSeg== 8){
+						auxSeg=3;	
 					}
 				}
 				if (auxSeg==4 || auxSeg==7){
@@ -272,6 +276,10 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 						auxSeg=9;
 					}else if(pieza.Derecha == 'Camino' && posSeg== 3){
 						auxSeg=7;	
+					}else if(pieza.Derecha == 'Camino' && posSeg== 2){
+						auxSeg=7;	
+					}else if(pieza.Izquierda == 'Camino' && posSeg== 2){
+						auxSeg=9;	
 					}
 				}
 				if (auxSeg==1 || auxSeg==4){
@@ -444,6 +452,10 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 						auxSeg=3;
 					}else if(pieza.Arriba == 'Camino' && posSeg== 1){
 						auxSeg=9;	
+					}else if(pieza.Arriba == 'Camino' && posSeg== 4){
+						auxSeg=9;	
+					}else if(pieza.Abajo == 'Camino' && posSeg== 4){
+						auxSeg=3;	
 					}
 				}
 				if (auxSeg==1 || auxSeg==2){
@@ -556,4 +568,4 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 	return otro;
 }
 
-//SEGUIR POR CAMINO-CAMINO DE DERECHA. PENSAR LO DE CAMBIAR POSSEG  
+//SEGUIR POR RECURSIVIDAD . PENSAR LO DE CAMBIAR POSSEG  en todas las piezas
