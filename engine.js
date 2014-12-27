@@ -69,7 +69,7 @@ var Pieza = function(tipo,x,y){
 	}
 	
 	this.tipo = tipo
-
+	this.lleno = false;
 	this.Abajo = TPiezas[tipo].Abajo;
 	this.Arriba = TPiezas[tipo].Arriba;
 	this.Derecha = TPiezas[tipo].Derecha;
@@ -224,7 +224,8 @@ var Tablero = function(id_game, npiezas, piezas){
 		
 		if(this.puedocolocar(pieza,x,y)){
 			pieza.x=x;
-			pieza.y=y;
+			pieza.y = y;
+			pieza.lleno = true;
 			this.posiciones.push(pieza)
 			return true
 		}
