@@ -1,16 +1,16 @@
-cerrarCamino = function(pieza,final){
+cerrarCamino = function(pieza,final,tablero){
 	var finalesCamino = ['Cruce3','Cruce4','MonCamino','CiudadL','CiudadS','CiudadT'];
 	var seguidoresEncontrados = [];
 	var puntos = 0;
 	var cerrado = 0;
 	var piezasRecorridas = [];
-
+	console.log(tablero.posiciones);
 
 	this.sumar = function(){
 		var sumados = [];
 		seguidoresEncontrados.forEach(function(seguidor){
 
-			jugador = Tablero.listaSeguidores.find(function(jug){jug == seguidor.jugador;});
+			jugador = tablero.listaSeguidores.find(function(jug){jug == seguidor.jugador;});
 			if(jugador.indexOf(sumados)>=0){
 				jugador.puntuacion += puntos;
 				sumados.push(jugador);
@@ -21,9 +21,9 @@ cerrarCamino = function(pieza,final){
 	};
 	this.piezaArriba = function(pieza,vengode){
 		//Pieza de arriba
-		if(pieza.Arriba == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Camino' && vengode!='Arriba'){
+		if(pieza.Arriba == 'Camino' && tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Camino' && vengode!='Arriba'){
 			//Primero compruebo que en esa pieza no hay ladrones
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 			if(aux.caminoCerrado){
 				return false;
 			}
@@ -49,9 +49,9 @@ cerrarCamino = function(pieza,final){
 
 	this.piezaAbajo = function(pieza,vengode){
 		//Pieza de abajo
-		if(pieza.Abajo == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Arriba=='Camino' && vengode!='Abajo'){
+		if(pieza.Abajo == 'Camino' && tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Arriba=='Camino' && vengode!='Abajo'){
 			//Primero compruebo que en esa pieza no hay ladrones
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 			if(aux.caminoCerrado){
 				return false;
 			}
@@ -76,9 +76,9 @@ cerrarCamino = function(pieza,final){
 	};
 
 	this.piezaDerecha = function(pieza,vengode){
-		if(pieza.Derecha == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Izquierda=='Camino' && vengode!='Derecha'){
+		if(pieza.Derecha == 'Camino' && tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Izquierda=='Camino' && vengode!='Derecha'){
 			//Primero compruebo que en esa pieza no hay ladrones
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 			if(aux.caminoCerrado){
 				return false;
 			}
@@ -103,9 +103,9 @@ cerrarCamino = function(pieza,final){
 	};
 
 	this.piezaIzquierda = function(pieza,vengode){
-		if(pieza.Izquierda == 'Camino' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Derecha=='Camino' && vengode!='Izquierda'){
+		if(pieza.Izquierda == 'Camino' && tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Derecha=='Camino' && vengode!='Izquierda'){
 			//Primero compruebo que en esa pieza no hay ladrones
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 			if(aux.caminoCerrado){
 				return false;
 			}
@@ -167,6 +167,7 @@ cerrarCamino = function(pieza,final){
 			seguidoresEncontrados = [];
 		}
 	}
+	console.log(tablero.posiciones);
 	return [puntuacion,seguidoresEncontrados];
 }
 
