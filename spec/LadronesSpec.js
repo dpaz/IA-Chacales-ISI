@@ -161,4 +161,106 @@ describe("Pruebas relacionadas con ladrones y caminos",function(){
 
 		expect(otroladron(tablero.posiciones[0],2,tablero)).toBe(false);
 	});
+
+
+
+
+	it("Cerrar camino funciona si no  es fin de partida en caminos abiertos",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("Cruce4",0,0);
+		ladron = new Seguidor(8,"ladron",1);
+		pieza2 = new Pieza("Recto",0,1);
+		pieza3 = new Pieza("Curva",0,2);
+		pieza3.seguidores.push(ladron);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		
+		resultado = cerrarCamino(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(0);		
+	});
+
+	it("Cerrar camino funciona si no es fin de partida en caminos cerrados",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("Cruce4",0,0);
+		ladron = new Seguidor(8,"ladron",1);
+		pieza2 = new Pieza("Recto",0,1);
+		pieza3 = new Pieza("Curva",0,2);
+		pieza4 = new Pieza("Cruce4",-1,2);
+		pieza3.seguidores.push(ladron);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4)
+
+		resultado = cerrarCamino(tablero.posiciones[0],false,tablero);
+		console.log(resultado);
+		expect(resultado[0]).toBe(4);
+	});
+
+	it("Cerrar camino funciona si fin de partida en caminos abiertos",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("Cruce4",0,0);
+		ladron = new Seguidor(8,"ladron",1);
+		pieza2 = new Pieza("Recto",0,1);
+		pieza3 = new Pieza("Curva",0,2);
+		pieza3.seguidores.push(ladron);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		
+		resultado = cerrarCamino(tablero.posiciones[0],true,tablero);	
+		expect(resultado[0]).toBe(3);	
+	});
+
+	it("Cerrar camino funciona si  es fin de partida en caminos cerrados",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("Cruce4",0,0);
+		ladron = new Seguidor(8,"ladron",1);
+		pieza2 = new Pieza("Recto",0,1);
+		pieza3 = new Pieza("Curva",0,2);
+		pieza4 = new Pieza("Cruce4",-1,2);
+		pieza3.seguidores.push(ladron);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4)
+
+		resultado = cerrarCamino(tablero.posiciones[0],false,tablero);
+		console.log(resultado);
+		expect(resultado[0]).toBe(4);
+	});
+
+	it("Cerrar camino funciona si cierra dos caminos a la vez",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("Cruce4",0,0);
+		pieza2 = new Pieza("Recto",0,1);
+		pieza3 = new Pieza("Curva",0,2);
+		pieza4 = new Pieza("Cruce4",-1,2);
+		pieza5 = new Pieza("CiudadD",-1,0);
+		pieza6 = new Pieza("CiudadO",-2,0);
+		pieza7 = new Pieza("Cruce4",-2,-1);
+
+		ladron = new Seguidor(8,"ladron",1);
+		ladron2 = new Seguidor(6,"ladron",1);
+		
+		pieza3.seguidores.push(ladron);
+		pieza6.seguidores.push(ladron2);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4);
+		tablero.posiciones.push(pieza5);
+		tablero.posiciones.push(pieza6);
+		tablero.posiciones.push(pieza7);
+
+		resultado = cerrarCamino(tablero.posiciones[0],false,tablero);
+		console.log(resultado);
+		expect(resultado[0]).toBe(7);
+	});
 });
