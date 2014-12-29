@@ -3,6 +3,7 @@ CierraMonasterio = function (pieza, final) {
 
 		var puntos = 0;
 		var monje;
+		var seguidoresEncontrados = [];
 		var piezasTotales = 0;
 		var fichaAux;
 		this.sumar = function () {
@@ -24,6 +25,7 @@ CierraMonasterio = function (pieza, final) {
 		    ficha.seguidores.forEach(function(seguidor){
 		        if(seguidor.tipo=='Monje'){
 		            monje = seguidor;
+		            seguidoresEncontrados.push(seguidor);
 		            TenemosMonje = true;
 		            FichasCercanas++;
 		        }  
@@ -92,5 +94,5 @@ CierraMonasterio = function (pieza, final) {
 		    if ((ficha.tipo == "MonCamino") || (ficha.tipo == "MonGranja"))
 		    { cerrarMon(ficha); }
 		}
-
+        return [puntos, seguidoresEncontrados];
 }
