@@ -27,15 +27,12 @@ cerrarCamino = function(pieza,final,tablero){
 		if(pieza.Arriba == 'Camino' && tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Camino' && vengode!='Arriba'){
 			//Primero compruebo que en esa pieza no hay ladrones
 			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
-			console.log("Arriba "+aux.tipo);
 			if(aux.caminoCerrado){
 				return false;
 			}
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='ladron'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCamino.indexOf(aux.tipo)<0){
@@ -57,15 +54,13 @@ cerrarCamino = function(pieza,final,tablero){
 			//Primero compruebo que en esa pieza no hay ladrones
 			
 			var aux =tablero.piezaenposiciones(pieza.x,pieza.y-1);
-			console.log("Abajo "+aux.tipo);
+			
 			if(aux.caminoCerrado){
 				return false;
 			}
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='ladron'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCamino.indexOf(aux.tipo)<0){
@@ -86,15 +81,13 @@ cerrarCamino = function(pieza,final,tablero){
 			//Primero compruebo que en esa pieza no hay ladrones
 			
 			var aux =tablero.piezaenposiciones(pieza.x+1,pieza.y);
-			console.log("Derecha "+aux.tipo);
+			
 			if(aux.caminoCerrado){
 				return false;
 			}
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='ladron'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCamino.indexOf(aux.tipo)<0){
@@ -115,20 +108,18 @@ cerrarCamino = function(pieza,final,tablero){
 		if(pieza.Izquierda == 'Camino' && tablero.piezaenposiciones(pieza.x-1,pieza.y) && tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Camino' && vengode!='Izquierda'){
 			//Primero compruebo que en esa pieza no hay ladrones
 			var aux =tablero.piezaenposiciones(pieza.x-1,pieza.y);
-			console.log("Izquierda "+aux.tipo);
 			if(aux.caminoCerrado){
 				return false;
 			}
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='ladron'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
+					/*i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);*/
 				}
 			});
 			if(finalesCamino.indexOf(aux.tipo)<0){
 				puntos++;
-				console.log("Equiscu")
 				//llamada recursiva para seguir comprobando el camino
 				return cerrarCaminoRecur(aux,'Derecha');
 			}else{
@@ -159,7 +150,15 @@ cerrarCamino = function(pieza,final,tablero){
 			this.sumar();
 			piezasRecorridas.forEach(function(pieza){
 				pieza.caminoCerrado = true;
+				for(i=0;i<seguidoresEncontrados.length;i++){
+					for(j=0;j<pieza.seguidores.length;j++){
+						if(seguidoresEncontrados[i]==pieza.seguidores[j]){
+							pieza.seguidores.splice(j,1);
+						}
+					}
+				}
 			});
+
 			
 		}else{
 			puntuacion=0;
@@ -171,6 +170,13 @@ cerrarCamino = function(pieza,final,tablero){
 			this.sumar();
 			piezasRecorridas.forEach(function(pieza){
 				pieza.caminoCerrado = true;
+				for(i=0;i<seguidoresEncontrados.length;i++){
+					for(j=0;j<pieza.seguidores.length;j++){
+						if(seguidoresEncontrados[i]==pieza.seguidores[j]){
+							pieza.seguidores.splice(j,1);
+						}
+					}
+				}
 			});
 			
 		}else{
