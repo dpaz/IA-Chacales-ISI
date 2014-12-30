@@ -414,39 +414,40 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 					for(i=0;i<aux.seguidores.length;i++){
 						if(aux.seguidores[i].tipo== 'granjero'){otro = true; return otro}
 					}
-					otro=piezaArriba(aux,posSeg,tablero,otro);//falta recursividad
+					otro=piezaDerecha(aux,posSeg,tablero,otro);//falta recursividad
 				//solo granja 3ª fila
 				}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'|| aux.tipo =='Cruce3'){
 					otro=compruebaSeg(aux,1,4,7);
 					if(otro==true){return otro}
-					//mas campo derecha e izquierda 
+					otro=piezaArriba(aux,posSeg,tablero,otro);
+					otro=piezaAbajo(aux,posSeg,tablero,otro);
 				}else if(aux.tipo == 'CiudadJ'){
 					otro=compruebaSeg(aux,1,3,4,7);
 					if(otro==true){return otro}
-					//mas campo arriba(hecho) y derecha			
+					otro=piezaDerecha(aux,posSeg,tablero,otro);			
 					otro=piezaAbajo(aux,posSeg,tablero,otro);
 				}else if(aux.tipo == 'CiudadK'){
 					otro=compruebaSeg(aux,1,4,7,9);
 					if(otro==true){return otro}
-					//mas campo arriba(hecho) e izquierda			
-					otro=piezaAbajo(aux,posSeg,tablero,otro);
+					otro=piezaArriba(aux,posSeg,tablero,otro);
+					otro=piezaDerecha(aux,posSeg,tablero,otro);
 				}else if(aux.tipo == 'Curva'){
 					if(aux.Abajo == 'Camino'){
 						otro=compruebaSeg(aux,1,2,3,4,7);
 						if(otro==true){return otro}
-						//mas campo abajo(hecho) derecha e izquierda
+						otro=piezaDerecha(aux,posSeg,tablero,otro);
 						otro=piezaAbajo(aux,posSeg,tablero,otro);
+						otro=piezaArriba(aux,posSeg,tablero,otro);
 					}else if(aux.Arriba == 'Camino'){
 						otro=compruebaSeg(aux,1,4,7,8,9);
 						if(otro==true){return otro}
-						//mas campo abajo(hecho) derecha e izquierda
+						otro=piezaDerecha(aux,posSeg,tablero,otro);
 						otro=piezaAbajo(aux,posSeg,tablero,otro);
+						otro=piezaArriba(aux,posSeg,tablero,otro);
 					}
 				}	
 			}else if (pieza.Abajo == 'Camino'){
-				
 				var auxSeg=posSeg;
-				//coloca el seguidor en 1 o 3 para comparar con la pieza de abajo
 				if(pieza.tipo== 'CiudadJ'||pieza.tipo== 'CiudadK' || pieza.tipo== 'CiudadO'||pieza.tipo=='CiudadP'      			         ||pieza.tipo== 'Curva'){
 					if(pieza.Abajo == 'Camino' && posSeg== 7){
 						auxSeg=3;
@@ -477,90 +478,95 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 					if(auxSeg==3){
 						otro=compruebaSeg(aux,1,2,3);
 						if(otro==true){return otro}
+						otro=piezaDerecha(aux,3,tablero,otro);
 						otro=piezaAbajo(aux,3,tablero,otro);
+						otro=piezaArriba(aux,3,tablero,otro);
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7,8,9);
 						if(otro==true){return otro}
+						otro=piezaDerecha(aux,9,tablero,otro);
 						otro=piezaAbajo(aux,9,tablero,otro);
-					}//siguen por derecha e izquierda tambien(ciudad D por derecha no)
+						otro=piezaArriba(aux,9,tablero,otro);
+					}//(ciudad D MAL)
 					
 				}else if(aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					 aux.tipo =='CiudadP'){  
 					if(auxSeg==3){	
 						if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,1,2,3,7,9);
-							if(otro==true){return otro}
-							//izq 
+							if(otro==true){return otro}//aqui algunos no
+							otro=piezaDerecha(aux,3,tablero,otro);
+							otro=piezaAbajo(aux,3,tablero,otro);
+							otro=piezaArriba(aux,3,tablero,otro);
 						}else if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
-							//derecha todos
-							//izq K y Curva
-							if(aux.tipo =='Curva'|| aux.tipo =='CiudadJ'){
-								otro=piezaAbajo(aux,7,tablero,otro);
-							}
+							otro=piezaArriba(aux,1,tablero,otro);
 						} 
 					}else if(auxSeg==9){
 						if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,3,6,7,8,9);
-							if(otro==true){return otro}
-							// der ciudad J y curva
-							//IZQ todos
-							if(aux.tipo =='Curva'|| aux.tipo =='CiudadK'){
-								otro=piezaAbajo(aux,9,tablero,otro);
-							}
+							if(otro==true){return otro}//aqui algunos no
+							otro=piezaDerecha(aux,7,tablero,otro);
+							otro=piezaAbajo(aux,7,tablero,otro);
+							otro=piezaArriba(aux,7,tablero,otro);
 						}else if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
-							//solo der
+							otro=piezaAbajo(aux,7,tablero,otro);
 						}
 					}
 				}else if(aux.tipo =='Cruce4'){
 					if(auxSeg==3){
 						otro=compruebaSeg(aux,1);
 						if(otro==true){return otro}
-						//izquierda
+						otro=piezaArriba(aux,1,tablero,otro);
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7);
 						if(otro==true){return otro}
-						//derecha
+						otro=piezaAbajo(aux,7,tablero,otro);
 					}
-				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){
+				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){//ciudadL mal recursividad
 					if(aux.Derecha != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
-							//izquierda
+							otro=piezaArriba(aux,1,tablero,otro);
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
-							//derecha
+							otro=piezaAbajo(aux,7,tablero,otro);
 						}
 					}else if(aux.Arriba != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1,2,3);
 							if(otro==true){return otro}
-							//izquierda
+							otro=piezaDerecha(aux,1,tablero,otro);
+							otro=piezaArriba(aux,1,tablero,otro);
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
-							//derecha
+							otro=piezaAbajo(aux,7,tablero,otro);
 						}
 					}else if(aux.Abajo != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
-							//izquierda
+							otro=piezaArriba(aux,1,tablero,otro);
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7,8,9);
 							if(otro==true){return otro}
-							//derecha
+							otro=piezaDerecha(aux,7,tablero,otro);
+							otro=piezaAbajo(aux,7,tablero,otro);
 						}
 					}
 				}else if(aux.tipo=='MonCamino'){
 					otro=compruebaSeg(aux,1,2,3,6,7,8,9);
 					if(otro==true){return otro}
-					otro=piezaAbajo(aux,posSeg,tablero,otro);//no viene de ningun lado para que vaya para abajo
+					//otro=piezaIzquierda(aux,7,tablero,otro); cambiar posSeg para la recursividad
+					otro=piezaDerecha(aux,7,tablero,otro);
+					otro=piezaAbajo(aux,7,tablero,otro);
+					otro=piezaArriba(aux,7,tablero,otro);
 				}
 			}
 		}
@@ -568,4 +574,4 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 	return otro;
 }
 
-//SEGUIR POR RECURSIVIDAD . PENSAR LO DE CAMBIAR POSSEG  en todas las piezas
+//SEGUIR POR RECURSIVIDAD . PENSAR LO DE CAMBIAR POSSEG  en todas las piezas. primer if granja mal recursividad
