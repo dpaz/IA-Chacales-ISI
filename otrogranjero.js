@@ -1,6 +1,7 @@
 otrogranjero= function(pieza,posSeg,tablero){//aux tiene que ser false
 	var valido=false;
 	var valido2=false;
+	var valido3=false;
 
 	if(pieza.Arriba!= 'Ciudad'){
 		valido = piezaArriba(pieza,posSeg,tablero,valido);
@@ -10,7 +11,11 @@ otrogranjero= function(pieza,posSeg,tablero){//aux tiene que ser false
 		valido2 = piezaAbajo(pieza,posSeg,tablero,valido);	
 	}
 
-	if(valido==true || valido2==true){
+	if(pieza.Derecha!= 'Ciudad'){
+		valido3 = piezaDerecha(pieza,posSeg,tablero,valido);	
+	}
+
+	if(valido==true || valido2==true || valido3==true){
 		return true;
 	}else{
 		return false;
