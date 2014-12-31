@@ -367,4 +367,87 @@ describe("Pruebas relacionadas con posible granjero",function(){
 
 
 	});
+
+	it("Pieza derecha camino-camino",function(){
+
+		//primer y segundo if
+
+		var tablero1 = new Tablero(1);
+
+		var seguidor = new Seguidor(1,'granjero')
+		var seguidor1 = new Seguidor(7,'granjero')
+
+		var pieza_1 = new Pieza('CiudadJ',5,5)
+		
+		var pieza_3 = new Pieza('Recto',6,5);
+		pieza_3 = pieza_3.girar();
+
+		var pieza_2 = new Pieza('Curva',7,5);
+
+		tablero1.posiciones.push(pieza_2);
+		tablero1.posiciones.push(pieza_3);
+
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(false);
+		pieza_2.seguidores.push(seguidor);
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(true);
+
+		pieza_2.seguidores.pop();
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(false);
+		pieza_2.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(false);
+		expect(otrogranjero(pieza_1,9,tablero1)).toBe(true);
+		
+		
+
+		//tercer if
+
+		var tablero2 = new Tablero(2);
+
+		var seguidor1 = new Seguidor(7,'granjero')
+		var seguidor2 = new Seguidor(1,'granjero')
+		pieza_1 = new Pieza('Recto',5,5)
+		pieza_1 = pieza_1.girar();
+		
+		pieza_3 = new Pieza('Recto',6,5);
+		pieza_3 = pieza_3.girar();
+
+		pieza_2 = new Pieza('CiudadL',7,5);
+		pieza_2 = pieza_2.girar();
+		pieza_2 = pieza_2.girar();
+		pieza_2 = pieza_2.girar();
+
+		tablero2.posiciones.push(pieza_2);
+		tablero2.posiciones.push(pieza_3);
+
+		expect(otrogranjero(pieza_1,1,tablero2)).toBe(false);
+		pieza_2.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,1,tablero2)).toBe(false);
+
+		pieza_2.seguidores.pop();
+		expect(otrogranjero(pieza_1,1,tablero2)).toBe(false);
+		pieza_2.seguidores.push(seguidor2);
+		expect(otrogranjero(pieza_1,1,tablero2)).toBe(true);
+
+		//MonCamino sin recursividad hacia abajo
+
+		var tablero2 = new Tablero(2);
+
+		var seguidor1 = new Seguidor(3,'granjero')
+		pieza_1 = new Pieza('Recto',5,5)
+		pieza_1 = pieza_1.girar();
+		
+		pieza_3 = new Pieza('Recto',6,5);
+		pieza_3 = pieza_3.girar();
+
+		pieza_2 = new Pieza('MonCamino',7,5);
+		pieza_2 = pieza_2.girar();
+
+		tablero2.posiciones.push(pieza_2);
+		tablero2.posiciones.push(pieza_3);
+
+		expect(otrogranjero(pieza_1,3,tablero2)).toBe(false);
+		pieza_2.seguidores.push(seguidor1);
+		expect(otrogranjero(pieza_1,1,tablero2)).toBe(true);
+		
+	});
 });
