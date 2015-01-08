@@ -145,6 +145,13 @@ cerrarCamino = function(pieza,final,tablero){
 	};
 
 	if(finalesCamino.indexOf(pieza.tipo)<0){
+
+		pieza.seguidores.forEach(function(seguidor){
+			if(seguidor.tipo=='ladron'){
+				seguidoresEncontrados.push(seguidor);
+			}
+		});
+
 		cerrarCaminoRecur(pieza);
 		if(cerrado>=2 || final){
 			this.sumar();
