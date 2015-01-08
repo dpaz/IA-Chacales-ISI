@@ -144,14 +144,14 @@ cerrarCamino = function(pieza,final,tablero){
 		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}
 	};
 
+	pieza.seguidores.forEach(function(seguidor){
+		if(seguidor.tipo=='ladron'){
+			seguidoresEncontrados.push(seguidor);
+		}
+	});
+
 	if(finalesCamino.indexOf(pieza.tipo)<0){
-
-		pieza.seguidores.forEach(function(seguidor){
-			if(seguidor.tipo=='ladron'){
-				seguidoresEncontrados.push(seguidor);
-			}
-		});
-
+		
 		cerrarCaminoRecur(pieza);
 		if(cerrado>=2 || final){
 			this.sumar();
