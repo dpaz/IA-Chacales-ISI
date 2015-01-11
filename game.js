@@ -112,6 +112,21 @@ Meteor.methods({
 		}
 	},
 	
+	finalizarPartida: function (id_game)
+	{
+	    if (ArrPartidas[id_game]) {
+	        var puntuacion = [];
+
+
+
+
+	    } else {
+	        return undefined;
+	    }
+
+
+	},
+
 	colocarSeguidor: function (id_game, id_jugador, posicion, seguidor) {
 	    if (ArrPartidas[id_game]) {
 	        Partida = ArrPartidas[id_game];
