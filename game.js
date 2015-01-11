@@ -85,9 +85,10 @@ Meteor.methods({
 		}
 	},
 
-	//Coloca una ficha en una posición, devuelve true si se ha conseguido false si no
-	colocarFicha: function(id_game,pieza,posicion,giros){
-		if(ArrPartidas[id_game]){
+	//Coloca una ficha en una posición, devuelve la lista de posiciones donde se puede colocar un seguidor si se ha conseguido, 0 en caso de que no se pueda
+	colocarFicha: function (id_game, pieza, posicion, giros, id_jugador) {
+	    if (ArrPartidas[id_game]) {
+	        var encaja = false;
 			Partida = ArrPartidas[id_game];
 			//giro la pieza
 			for(i=0;i<giros;i++){
@@ -95,14 +96,39 @@ Meteor.methods({
 			}
 			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
 			if(Partida.posiblelugar(pieza).indexof(posicion)<=0){
-				Partida.coloco(pieza);
+				encaja = Partida.coloco(pieza);
 			}
-			return true;
+			if (encaja == false) { return 0 }
+			var seguidores = [];
+			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id.user_id == id_jugador) })
+			if (jugador.seguidores != 0) {
+			    var seguidores = Partida.posibleseguidor(pieza);
+			}
+			ArrPartidas[id_game] = Partida;
+			return seguidores;
+
 		}else{
 			return undefined;
 		}
 	},
 	
+	colocarSeguidor: function (id_game, id_jugador, posicion, seguidor) {
+	    if (ArrPartidas[id_game]) {
+	        Partida = ArrPartidas[id_game];
+	        var pieza = Partida.piezaenposiciones(posicion.x, posicion.y);
+	        if (seguidor > 0)
+	        {
+	           var colocado = Partida.colocarseguidor(pieza, seguidor);
+	        }
+	        cerrarMonasterio(pieza,false,Partida); //Metodo que llama para mirar si es cierre Monasterio
+	        ArrPartidas[id_game] = Partida;
+	        return Partida.listaJugadores;
+
+	    } else {
+	        return undefined;
+	    }
+	},
+
 	eliminarPartida: function(id_game){
 		if(ArrPartidas[id_game]){
 			delete ArrPartidas[id_game];
@@ -117,12 +143,12 @@ Meteor.methods({
         var ColocoFicha = false;
         while (ColocoFicha == false)
         { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
-            var Jugador = jugadorIA(id_jugador);
+            var Jugada = jugadorIA(id_jugador);
             var Piezanueva = new Pieza(0, 0, 0, x[0]);
-            for (var i = 0; i < Jugador[1].giros; i++) {
+            for (var i = 0; i < Jugada[1].giros; i++) {
                 Piezanueva = Piezanueva.girar()
             }
-            ColocoFicha = Tablero.coloco(Piezanueva, Jugador[1].coorx, Jugador[1].coory);
+            ColocoFicha = Tablero.coloco(Piezanueva, Jugada[1].coorx, Jugada[1].coory);
             console.log("¿Ha sido Colocada?", ColocoFicha);
         }
         var nuevoSeguidor = {tipoSeguidor:undefined, PosEnFicha:undefined, IdJugador:undefined, TipoFicha:undefined}
