@@ -116,8 +116,18 @@ Meteor.methods({
 	{
 	    if (ArrPartidas[id_game]) {
 	        var puntuacion = [];
-
-
+            Partida= ArrPartidas[id_game];
+            for(var i =0; i< Partida.posiciones.length; i++)
+            {
+                pieza = Partida.posiciones[i];
+                	if (pieza.seguidores.length != 0){
+					 		
+						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Granjero")})){cerrarGranja(pieza,true,Partida);}
+                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Ladron")})){cerrarCamino(pieza,true,Partida);}
+						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Monje")})){cerrarMonasterio(pieza,true,Partida);}
+                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Caballero")})){cerrarCiudad(pieza,true,Partida);}
+                        }
+            }
 
 
 	    } else {
