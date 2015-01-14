@@ -87,7 +87,7 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 
 	});
 	
-	it("Cerrar ciudad (no fin)",function(){
+	it("Cerrar ciudad (no fin) (caso especial de ciudad de dos trocitos)",function(){
 		tablero = new Tablero(5)
 		pieza1 = new Pieza("CiudadJ",0,0);
 		caba = new Seguidor(8,"caballero",1);
@@ -119,22 +119,6 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		expect(resultado[0]).toBe(6);		
 	});
 	
-	it("Cerrar ciudad (no fin) (3 piezas unidas)",function(){
-		tablero = new Tablero(5)
-		pieza1 = new Pieza("CiudadJ",0,0);
-		caba = new Seguidor(8,"caballero",1);
-		pieza2 = new Pieza("CiudadH",0,2);
-		pieza3 = new Pieza("CiudadF",0,1);
-		pieza2.seguidores.push(caba);
-		pieza3 = pieza3.girar()
-
-		tablero.posiciones.push(pieza1);
-		tablero.posiciones.push(pieza2);
-		tablero.posiciones.push(pieza3);
-		
-		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
-		expect(resultado[0]).toBe(8);		
-	});
 	
 	it("Cerrar ciudad (fin) (2 piezas unidas)",function(){
 		tablero = new Tablero(5)
@@ -143,7 +127,7 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		//pieza2 = new Pieza("CiudadH",0,2);
 		pieza3 = new Pieza("CiudadF",0,1);
 		pieza3.seguidores.push(caba);
-		pieza3 = pieza3.girar()
+		pieza3 = pieza3.girar();
 
 		tablero.posiciones.push(pieza1);
 		//tablero.posiciones.push(pieza2);
@@ -153,19 +137,40 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		expect(resultado[0]).toBe(3);		
 	});
 	
-	it("Cerrar ciudad (fin) (varias piezas unidas)",function(){
+	it("Cerrar ciudad (no fin) (3 cierres)",function(){
 		tablero = new Tablero(5)
-		pieza1 = new Pieza("CiudadH",10,10);
-		caba = new Seguidor(8,"caballero",1);
+		pieza1 = new Pieza("CiudadT",1,1);
+		caba = new Seguidor(2,"caballero",1);
 		pieza1.seguidores.push(caba);
-		pieza2 = new Pieza("CiudadM",10,9);
-		pieza2 = pieza2.girar();
-		pieza3 = new Pieza("CiudadG",11,9);
-		pieza4 = new Pieza("CiudadC", 12,9);
-		pieza5 = new Pieza("CiudadH", 12,10);
-		pieza6 = new Pieza("CiudadH", 13,9);
-		pieza6 = pieza6.girar();
-		pieza7 = new Pieza("CiudadJ", 12,8);
+		pieza2 = new Pieza("CiudadH",1,2);
+		pieza3 = new Pieza("CiudadH",2,1);
+		pieza3 = pieza3.girar();
+		pieza4 = new Pieza("CiudadH",0,1);
+		pieza4 = pieza4.girar();
+		
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(8);		
+	});
+	
+	it("Cerrar ciudad (no fin) (varias piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadT",1,1);
+		caba = new Seguidor(2,"caballero",1);
+		pieza1.seguidores.push(caba);
+		pieza2 = new Pieza("CiudadH",1,2);
+		pieza3 = new Pieza("CiudadF",2,1);
+		pieza4 = new Pieza("CiudadH",0,1);
+		pieza4 = pieza4.girar();
+		pieza5 = new Pieza("CiudadC",3,1);
+		pieza6 = new Pieza("CiudadH",3,2);
+		pieza7 = new Pieza("CiudadH",3,0);
+		pieza8 = new Pieza("CiudadH",4,1);
+		pieza8 = pieza8.girar();
 		
 		tablero.posiciones.push(pieza1);
 		tablero.posiciones.push(pieza2);
@@ -174,8 +179,38 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		tablero.posiciones.push(pieza5);
 		tablero.posiciones.push(pieza6);
 		tablero.posiciones.push(pieza7);
+		tablero.posiciones.push(pieza8);
 		
 		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(20);		
+	});
+	
+	it("Cerrar ciudad (fin) (varias piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadT",1,1);
+		caba = new Seguidor(2,"caballero",1);
+		pieza1.seguidores.push(caba);
+		pieza2 = new Pieza("CiudadH",1,2);
+		pieza3 = new Pieza("CiudadF",2,1);
+		pieza4 = new Pieza("CiudadH",0,1);
+		pieza4 = pieza4.girar();
+		pieza5 = new Pieza("CiudadC",3,1);
+		pieza6 = new Pieza("CiudadH",3,2);
+		pieza7 = new Pieza("CiudadH",3,0);
+		//pieza8 = new Pieza("CiudadH",4,1);
+		//pieza8 = pieza8.girar();
+		
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4);
+		tablero.posiciones.push(pieza5);
+		tablero.posiciones.push(pieza6);
+		tablero.posiciones.push(pieza7);
+		//tablero.posiciones.push(pieza8);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],true,tablero);	
 		expect(resultado[0]).toBe(9);		
 	});
+	
 });

@@ -63,9 +63,25 @@ cerrarCiudad = function(pieza,final,tablero){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Abajo');
 			}else{
+				if(final){
+					puntos = puntos + 1;
+					cerrado++;
+					piezasRecorridas.push(aux);
+					return true;
+				}else{
+					puntos = puntos + 2;
+					cerrado++;
+					piezasRecorridas.push(aux);
+					console.log("ARRIBAAAAAAAA");
+					console.log(puntos);
+					return true;					
+				}	
+				/*	
 				if(piezasRecorridas.length == 1){
 					puntos = 2;
 					cerrado++;
+					piezasRecorridas.push(aux);
+					console.log("ARRIBA");
 					return true;
 				}else{
 					puntos = puntos + 2;
@@ -73,6 +89,8 @@ cerrarCiudad = function(pieza,final,tablero){
 					return true;
 					//En caso de que sea un final de ciudad no recursividad
 				}
+				*/
+				//final de pieza = no recur
 			}
 		}
 	};
@@ -111,16 +129,17 @@ cerrarCiudad = function(pieza,final,tablero){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Arriba');
 			}else{
-				if(piezasRecorridas.length == 1){
-					puntos = 2;
+				if(final){
+					puntos = puntos + 1;
 					cerrado++;
+					piezasRecorridas.push(aux);
 					return true;
 				}else{
 					puntos = puntos + 2;
 					cerrado++;
-					return true;
-					//En caso de que sea un final de ciudad no recursividad
-				}
+					piezasRecorridas.push(aux);
+					return true;					
+				}	
 			}
 		}
 	};
@@ -159,16 +178,17 @@ cerrarCiudad = function(pieza,final,tablero){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Izquierda');
 			}else{
-				if(piezasRecorridas.length == 1){
-					puntos = 2;
+				if(final){
+					puntos = puntos + 1;
 					cerrado++;
+					piezasRecorridas.push(aux);
 					return true;
 				}else{
 					puntos = puntos + 2;
 					cerrado++;
-					return true;
-					//En caso de que sea un final de ciudad no recursividad
-				}
+					piezasRecorridas.push(aux);
+					return true;					
+				}	
 			}
 		}
 	};
@@ -207,16 +227,17 @@ cerrarCiudad = function(pieza,final,tablero){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Derecha');
 			}else{
-				if(piezasRecorridas.length == 1){
-					puntos = 2;
+				if(final){
+					puntos = puntos + 1;
 					cerrado++;
+					piezasRecorridas.push(aux);
 					return true;
 				}else{
 					puntos = puntos + 2;
 					cerrado++;
-					return true;
-					//En caso de que sea un final de ciudad no recursividad
-				}
+					piezasRecorridas.push(aux);
+					return true;					
+				}	
 			}
 		}
 	};				
@@ -275,6 +296,10 @@ cerrarCiudad = function(pieza,final,tablero){
 			puntos=0;
 			seguidoresEncontrados = [];
 		}
+	}
+	///CASO ESPECIAL DE CIUDAD CON SOLO DOS TROZOS CERRADOS//
+	if(!final && piezasRecorridas.length == 2){
+		puntos = 2;
 	}
 	return [puntos, seguidoresEncontrados];
 }
