@@ -118,4 +118,64 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
 		expect(resultado[0]).toBe(6);		
 	});
+	
+	it("Cerrar ciudad (no fin) (3 piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadJ",0,0);
+		caba = new Seguidor(8,"caballero",1);
+		pieza2 = new Pieza("CiudadH",0,2);
+		pieza3 = new Pieza("CiudadF",0,1);
+		pieza2.seguidores.push(caba);
+		pieza3 = pieza3.girar()
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(8);		
+	});
+	
+	it("Cerrar ciudad (fin) (2 piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadJ",0,0);
+		caba = new Seguidor(8,"caballero",1);
+		//pieza2 = new Pieza("CiudadH",0,2);
+		pieza3 = new Pieza("CiudadF",0,1);
+		pieza3.seguidores.push(caba);
+		pieza3 = pieza3.girar()
+
+		tablero.posiciones.push(pieza1);
+		//tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],true,tablero);	
+		expect(resultado[0]).toBe(3);		
+	});
+	
+	it("Cerrar ciudad (fin) (varias piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadH",10,10);
+		caba = new Seguidor(8,"caballero",1);
+		pieza1.seguidores.push(caba);
+		pieza2 = new Pieza("CiudadM",10,9);
+		pieza2 = pieza2.girar();
+		pieza3 = new Pieza("CiudadG",11,9);
+		pieza4 = new Pieza("CiudadC", 12,9);
+		pieza5 = new Pieza("CiudadH", 12,10);
+		pieza6 = new Pieza("CiudadH", 13,9);
+		pieza6 = pieza6.girar();
+		pieza7 = new Pieza("CiudadJ", 12,8);
+		
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		tablero.posiciones.push(pieza4);
+		tablero.posiciones.push(pieza5);
+		tablero.posiciones.push(pieza6);
+		tablero.posiciones.push(pieza7);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(9);		
+	});
 });
