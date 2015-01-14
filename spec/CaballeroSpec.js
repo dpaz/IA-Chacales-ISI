@@ -86,4 +86,36 @@ describe("Pruebas relacionadas con caballeros y ciudades",function(){
 		expect(otrocaballero(tablero3,tablero3.posiciones[2],8)).toBe(true);
 
 	});
+	
+	it("Cerrar ciudad (no fin)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadJ",0,0);
+		caba = new Seguidor(8,"caballero",1);
+		pieza2 = new Pieza("CiudadH",0,1);
+		//pieza3 = new Pieza("Curva",0,2);
+		pieza2.seguidores.push(caba);
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(2);		
+	});
+	
+	it("Cerrar ciudad (no fin) (3 piezas unidas)",function(){
+		tablero = new Tablero(5)
+		pieza1 = new Pieza("CiudadJ",0,0);
+		caba = new Seguidor(8,"caballero",1);
+		pieza2 = new Pieza("CiudadH",0,2);
+		pieza3 = new Pieza("CiudadG",0,1);
+		pieza2.seguidores.push(caba);
+		pieza3 = pieza3.girar()
+
+		tablero.posiciones.push(pieza1);
+		tablero.posiciones.push(pieza2);
+		tablero.posiciones.push(pieza3);
+		
+		resultado = cerrarCiudad(tablero.posiciones[0],false,tablero);	
+		expect(resultado[0]).toBe(6);		
+	});
 });

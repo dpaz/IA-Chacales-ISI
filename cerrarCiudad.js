@@ -1,7 +1,7 @@
-cerrarCiudad = function(pieza,final){
+cerrarCiudad = function(pieza,final,tablero){
 	var finalesCiudad = ["CiudadD", "CiudadE", "CiudadH", "CiudadI", "CiudadJ", "CiudadK", "CiudadL"];
 	var seguidoresEncontrados = [];
-	var puntos = 0;
+	var puntos = 2;
 	var cerrado = 0;
 	var piezasRecorridas = [];
 
@@ -10,21 +10,25 @@ cerrarCiudad = function(pieza,final){
 		var sumados = [];
 		seguidoresEncontrados.forEach(function(seguidor){
 
-			jugador = Tablero.listaSeguidores.find(function(jug){jug == seguidor.jugador;});
-			if(jugador.indexOf(sumados)>=0){
-				jugador.puntuacion += puntos;
-				sumados.push(jugador);
+		jugador = tablero.listaJugadores.find(function(jug){jug == seguidor.jugador;});
+			if(jugador == undefined){
+				console.log("PRUEBA");
+			}else{
+				if(jugador.indexOf(sumados)>=0){
+					jugador.puntos += puntos;
+					sumados.push(jugador);
+				}
+				jugador.seguidores++;
 			}
-			jugador.seguidores++;
 		});
 		
 	};
 	
 	this.piezaArriba = function(pieza,vengode){
 		//Pieza de arriba
-		if(pieza.Arriba == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Ciudad' && vengode!='Arriba'){
+		if(pieza.Arriba == 'Ciudad' && tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Ciudad' && vengode!='Arriba'){
 			//Primero compruebo que en esa pieza no hay caballeros
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 			if(aux.ciudadCerrada){
 				return false;
 			}
@@ -46,19 +50,25 @@ cerrarCiudad = function(pieza,final){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Abajo');
 			}else{
-				puntos = puntos + 2;
-				cerrado++;
-				return true;
-				//En caso de que sea un final de ciudad no recursividad
+				if(piezasRecorridas.length == 1){
+					puntos = 2;
+					cerrado++;
+					return true;
+				}else{
+					puntos = puntos + 2;
+					cerrado++;
+					return true;
+					//En caso de que sea un final de ciudad no recursividad
+				}
 			}
 		}
 	};
 	
 	this.piezaAbajo = function(pieza,vengode){
 		//Pieza de arriba
-		if(pieza.Abajo == 'Ciudad' && Tablero.piezaenposiciones(pieza.x,pieza.y-1).Arriba=='Ciudad' && vengode!='Abajo'){
+		if(pieza.Abajo == 'Ciudad' && tablero.piezaenposiciones(pieza.x,pieza.y-1).Arriba=='Ciudad' && vengode!='Abajo'){
 			//Primero compruebo que en esa pieza no hay caballeros
-			var aux =Tablero.piezaenposiciones(pieza.x,pieza.y-1);
+			var aux =tablero.piezaenposiciones(pieza.x,pieza.y-1);
 			if(aux.ciudadCerrada){
 				return false;
 			}
@@ -80,19 +90,25 @@ cerrarCiudad = function(pieza,final){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Arriba');
 			}else{
-				puntos = puntos + 2;
-				cerrado++;
-				return true;
-				//En caso de que sea un final de ciudad no recursividad
+				if(piezasRecorridas.length == 1){
+					puntos = 2;
+					cerrado++;
+					return true;
+				}else{
+					puntos = puntos + 2;
+					cerrado++;
+					return true;
+					//En caso de que sea un final de ciudad no recursividad
+				}
 			}
 		}
 	};
 	
 	this.piezaDerecha = function(pieza,vengode){
 		//Pieza de arriba
-		if(pieza.Derecha == 'Ciudad' && Tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Ciudad' && vengode!='Derecha'){
+		if(pieza.Derecha == 'Ciudad' && tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Ciudad' && vengode!='Derecha'){
 			//Primero compruebo que en esa pieza no hay caballeros
-			var aux =Tablero.piezaenposiciones(pieza.x+1,pieza.y);
+			var aux =tablero.piezaenposiciones(pieza.x+1,pieza.y);
 			if(aux.ciudadCerrada){
 				return false;
 			}
@@ -114,19 +130,25 @@ cerrarCiudad = function(pieza,final){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Izquierda');
 			}else{
-				puntos = puntos + 2;
-				cerrado++;
-				return true;
-				//En caso de que sea un final de ciudad no recursividad
+				if(piezasRecorridas.length == 1){
+					puntos = 2;
+					cerrado++;
+					return true;
+				}else{
+					puntos = puntos + 2;
+					cerrado++;
+					return true;
+					//En caso de que sea un final de ciudad no recursividad
+				}
 			}
 		}
 	};
 	
 	this.piezaIzquierda = function(pieza,vengode){
 		//Pieza de arriba
-		if(pieza.Izquierda == 'Ciudad' && Tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Ciudad' && vengode!='Izquierda'){
+		if(pieza.Izquierda == 'Ciudad' && tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Ciudad' && vengode!='Izquierda'){
 			//Primero compruebo que en esa pieza no hay caballeros
-			var aux =Tablero.piezaenposiciones(pieza.x-1,pieza.y);
+			var aux =tablero.piezaenposiciones(pieza.x-1,pieza.y);
 			if(aux.ciudadCerrada){
 				return false;
 			}
@@ -148,10 +170,16 @@ cerrarCiudad = function(pieza,final){
 				//llamada recursiva para seguir comprobando la ciudad (igual que camino)
 				return cerrarCiudadRecur(aux,'Derecha');
 			}else{
-				puntos = puntos + 2;
-				cerrado++;
-				return true;
-				//En caso de que sea un final de ciudad no recursividad
+				if(piezasRecorridas.length == 1){
+					puntos = 2;
+					cerrado++;
+					return true;
+				}else{
+					puntos = puntos + 2;
+					cerrado++;
+					return true;
+					//En caso de que sea un final de ciudad no recursividad
+				}
 			}
 		}
 	};				
@@ -170,7 +198,7 @@ cerrarCiudad = function(pieza,final){
 		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}
 	};
 	
-	if(finalesCiudad.idexOf(pieza.tipo)<0){
+	if(finalesCiudad.indexOf(pieza.tipo)<0){
 	//esto significa que la pieza no es un final de ciudad por lo tanto tendrá que cerrarse por varios lados (minimo 2 lados)
 		cerrarCiudadRecur(pieza);
 		if(cerrado >= 2 || final){
@@ -187,7 +215,7 @@ cerrarCiudad = function(pieza,final){
 			});
 			
 		}else{
-			puntuacion=0;
+			puntos=0;
 			seguidoresEncontrados = [];
 		}
 	}else{
@@ -207,9 +235,9 @@ cerrarCiudad = function(pieza,final){
 			});
 			
 		}else{
-			puntuacion=0;
+			puntos=0;
 			seguidoresEncontrados = [];
 		}
 	}
-	return [puntuacion, seguidoresEncontrados];
+	return [puntos, seguidoresEncontrados];
 }
