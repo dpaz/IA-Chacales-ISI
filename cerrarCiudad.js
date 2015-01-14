@@ -31,8 +31,9 @@ cerrarCiudad = function(pieza,final){
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='caballero'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
+					//FALLO AQUI
+					//i = aux.seguidores.indexOf(seguidor);
+					//aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCiudad.indexOf(aux.tipo)<0){
@@ -64,8 +65,9 @@ cerrarCiudad = function(pieza,final){
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='caballero'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
+					//FALLO AQUI
+					//i = aux.seguidores.indexOf(seguidor);
+					//aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCiudad.indexOf(aux.tipo)<0){
@@ -97,8 +99,9 @@ cerrarCiudad = function(pieza,final){
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='caballero'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
+					//FALLO AQUI
+					//i = aux.seguidores.indexOf(seguidor);
+					//aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCiudad.indexOf(aux.tipo)<0){
@@ -130,8 +133,9 @@ cerrarCiudad = function(pieza,final){
 			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='caballero'){
 					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
+					//FALLO AQUI
+					//i = aux.seguidores.indexOf(seguidor);
+					//aux.seguidores.splice(i,1);
 				}
 			});
 			if(finalesCiudad.indexOf(aux.tipo)<0){
@@ -173,6 +177,13 @@ cerrarCiudad = function(pieza,final){
 			this.sumar();
 			piezasRecorridas.forEach(function(pieza){
 				pieza.ciudadCerrada = true;
+				for(i=0;i<seguidoresEncontrados.length;i++){
+					for(j=0;j<pieza.seguidores.length;j++){
+						if(seguidoresEncontrados[i]==pieza.seguidores[j]){
+							pieza.seguidores.splice(j,1);
+						}
+					}
+				}
 			});
 			
 		}else{
@@ -186,6 +197,13 @@ cerrarCiudad = function(pieza,final){
 			this.sumar();
 			piezasRecorridas.forEach(function(pieza){
 				pieza.ciudadCerrada = true;
+				for(i=0;i<seguidoresEncontrados.length;i++){
+					for(j=0;j<pieza.seguidores.length;j++){
+						if(seguidoresEncontrados[i]==pieza.seguidores[j]){
+							pieza.seguidores.splice(j,1);
+						}
+					}
+				}
 			});
 			
 		}else{
