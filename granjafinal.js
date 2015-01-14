@@ -2,224 +2,385 @@ granjafinal = function(pieza,tablero){
 
 	var seguidoresEncontrados = [];
 	var piezasRecorridas = [];
-/*
-	piezaArriba = function(pieza,vengode){
-		var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 
-		if(aux != undefined && vengode != "Arriba" && pieza.Arriba!="Ciudad"){
-			
-			aux.seguidores.forEach(function(seguidor){
-				if(seguidor.tipo=='granjero'){
-					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
-				}
-			});
-
-			//
-		}else {
-			return true;
-		}
-	}
-	piezaAbajo = function(pieza,vengode){
-		var aux =tablero.piezaenposiciones(pieza.x,pieza.y-1);
-
-		if(aux != undefined && vengode != "Abajo" && pieza.Abajo!="Ciudad"){
-			
-			aux.seguidores.forEach(function(seguidor){
-				if(seguidor.tipo=='granjero'){
-					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
-				}
-			});
-
-		}else {
-			return true;
-		}
-	}
-	piezaDerecha = function(pieza,vengode){
-		var aux =tablero.piezaenposiciones(pieza.x+1,pieza.y);
-
-		if(aux != undefined && vengode != "Derecha" && pieza.Derecha!="Ciudad"){
-			
-			aux.seguidores.forEach(function(seguidor){
-				if(seguidor.tipo=='granjero'){
-					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
-				}
-			});
-
-		}else{
-			return true;
-		}
-	}
-	piezaIzquierda = function(pieza,vengode){
-		var aux =tablero.piezaenposiciones(pieza.x-1,pieza.y);
-
-		if(aux != undefined && vengode != "Izquierda" && pieza.Izquierda!="Ciudad"){
-			
-			aux.seguidores.forEach(function(seguidor){
-				if(seguidor.tipo=='granjero'){
-					seguidoresEncontrados.push(seguidor);
-					i = aux.seguidores.indexOf(seguidor);
-					aux.seguidores.splice(i,1);
-				}
-			});
-
-		}else{
-			return true;
-		}
-	}
-
-	granjarecur = function(pieza,vengode){
-		var ok = new Array(4);
-		piezasRecorridas.push(pieza);
-		ok[0] = this.piezaAbajo(pieza,vengode);
-
-		ok[1] = this.piezaArriba(pieza,vengode);
-
-		ok[2] = this.piezaDerecha(pieza,vengode);
-
-		ok[3] = this.piezaIzquierda(pieza,vengode);
-		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}
-	}
-*/
 
 	monCaminoGranja = function(pieza,vengode){
-		var ok = new Array(4);
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza;
+
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos pieza al array
 		piezasRecorridas.push(pieza);
-		pieza.seguidores.forEach(function(seguidor){
+
+		//Miramos si existe seguidor
+		aux.seguidores.forEach(function(seguidor){
 			if(seguidor.tipo=='granjero'){
 				seguidoresEncontrados.push(seguidor);
-				i = pieza.seguidores.indexOf(seguidor);
-			pieza.seguidores.splice(i,1);
+				i = aux.seguidores.indexOf(seguidor);
+			aux.seguidores.splice(i,1);
 			}
 		});
 
-		var auxAr =tablero.piezaenposiciones(pieza.x+1,pieza.y);
-		var auxAb = tablero.piezaenposiciones(pieza.x-1,pieza.y);
-		var auxDer = tablero.piezaenposiciones(pieza.x,pieza.y+1);
-		var auxIzq = tablero.piezaenposiciones(pieza.x,pieza.y-1);
+		//Llamadas recursivas
+		if(auxAr!= undefined && vengode!="Arriba"){ ok[0] = seleccionar(auxAr,"Abajo");}
+		if(auxAb!= undefined && vengode!="Abajo" || "AbajoDerecha" || "AbajoIzquierda"){ ok[1] = seleccionar(auxAb,"Arriba");}
+		if(auxDer!= undefined && vengode!="Derecha"){ok[2] = seleccionar(auxDer,"Izquierda");}
+		if(auxIzq!= undefined && vengode!="Izquierda"){ok[3] = seleccionar(auxIzq,"Derecha");}
 
-		if(auxAr!= undefined && vengode!="Arriba"){ ok[0] = seleccionar(auxAr,"Abajo");}else{ok[0]= true;}
-		if(auxAb!= undefined && vengode!="Abajo"){ ok[1] = seleccionar(auxAb,"Arriba");}else{ok[1] = true;}
-		if(auxDer!= undefined && vengode!="Derecha"){ok[2] = seleccionar(auxDer,"Izquierda");}else{ok[2]= true;}
-		if(auxIzq!= undefined && vengode!="Izquierda"){ok[3] = seleccionar(auxIzq,"Derecha");}else{ok[3]= true;}
-
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
 		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 
 	ciudadD = function(pieza,vengode){
 		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
 		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas
 		if(vengode=="Abajo" ){
-			pieza.seguidores.forEach(function(seguidor){
+			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='granjero'){
 					if(seguidor.posicion==7 || seguidor.posicion==8 || seguidor.posicion==9){
 						seguidoresEncontrados.push(seguidor);
-						i = pieza.seguidores.indexOf(seguidor);
-						pieza.seguidores.splice(i,1);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
 					}
 				}
 			});
-
-			var auxDer = tablero.piezaenposiciones(pieza.x,pieza.y+1);
-			var auxIzq = tablero.piezaenposiciones(pieza.x,pieza.y-1);
 
 			if(auxDer!= undefined ){ok[0] = seleccionar(auxDer,"AbajoIzquierda");}
 			if(auxIzq!= undefined ){ok[1] = seleccionar(auxIzq,"AbajoDerecha");}
 
 		}else if(vengode=="AbajoDerecha"){
-			pieza.seguidores.forEach(function(seguidor){
+			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='granjero'){
 					if(seguidor.posicion==7 || seguidor.posicion==8 || seguidor.posicion==9){
 						seguidoresEncontrados.push(seguidor);
-						i = pieza.seguidores.indexOf(seguidor);
-						pieza.seguidores.splice(i,1);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
 					}
 				}
 			});
-
-			var auxAb = tablero.piezaenposiciones(pieza.x-1,pieza.y);
-			var auxIzq = tablero.piezaenposiciones(pieza.x,pieza.y-1);
 
 			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"Arriba");}
 			if(auxIzq!= undefined ){ok[1] = seleccionar(auxIzq,"AbajoDerecha");}
 
 		}else if(vengode=="AbajoIzquierda"){
-			pieza.seguidores.forEach(function(seguidor){
+			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='granjero'){
 					if(seguidor.posicion==7 || seguidor.posicion==8 || seguidor.posicion==9){
 						seguidoresEncontrados.push(seguidor);
-						i = pieza.seguidores.indexOf(seguidor);
-						pieza.seguidores.splice(i,1);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
 					}
 				}
 			});
-
-			var auxAb = tablero.piezaenposiciones(pieza.x-1,pieza.y);
-			var auxDer = tablero.piezaenposiciones(pieza.x,pieza.y+1);
 
 			if(auxDer!= undefined ){ok[0] = seleccionar(auxDer,"AbajoIzquierda");}
 			if(auxAb!= undefined ){ok[1] = seleccionar(auxAb,"Arriba");}
 
 		}else if(vengode=="ArribaDerecha"){
-			pieza.seguidores.forEach(function(seguidor){
+			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='granjero'){
 					if(seguidor.posicion==1 || seguidor.posicion==3){
 						seguidoresEncontrados.push(seguidor);
-						i = pieza.seguidores.indexOf(seguidor);
-						pieza.seguidores.splice(i,1);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
 					}
 				}
 			});
-
-			var auxIzq = tablero.piezaenposiciones(pieza.x,pieza.y-1);
 
 			if(auxIzq!= undefined ){ok[0] = seleccionar(auxIzq,"ArribaDerecha");}
 
 		}else if(vengode=="ArribaIzquierda"){
-			pieza.seguidores.forEach(function(seguidor){
+			aux.seguidores.forEach(function(seguidor){
 				if(seguidor.tipo=='granjero'){
 					if(seguidor.posicion==1 || seguidor.posicion==3){
 						seguidoresEncontrados.push(seguidor);
-						i = pieza.seguidores.indexOf(seguidor);
-						pieza.seguidores.splice(i,1);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
 					}
 				}
 			});
-
-			var auxDer = tablero.piezaenposiciones(pieza.x,pieza.y+1);
 
 			if(auxDer!= undefined ){ok[0] = seleccionar(auxDer,"ArribaIzquierda");}
 
 		}else{
 			console.log("De donde vienes tu: "vengode);
 		}
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadE = function(pieza,vengode){
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
+		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas
+		if(vengode=="Abajo" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){		
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxDer!= undefined ){ok[0] = seleccionar(auxDer,"Izquierda");}
+			if(auxIzq!= undefined ){ok[1] = seleccionar(auxIzq,"Derecha");}
+
+		}else if(vengode=="Derecha" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"Arriba");}
+			if(auxIzq!= undefined ){ok[1] = seleccionar(auxIzq,"Derecha");}
+
+		}else if(vengode=="Izquierda" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"Arriba");}
+			if(auxDerecha!= undefined ){ok[1] = seleccionar(auxDer,"Izquierda");}
+
+		}
+
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadFG = function(pieza,vengode){
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
+		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas no existen en estas piezas
+	
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadH = function(pieza,vengode){
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
+		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas
+		if(vengode=="Derecha" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){		
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxIzq!= undefined ){ok[0] = seleccionar(auxIzq,"Derecha");}
+
+		}else if(vengode=="Izquierda" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){		
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxDer!= undefined ){ok[0] = seleccionar(auxDer,"Izquierda");}
+
+		}
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadI = function(pieza,vengode){
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
+		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas
+		if(vengode=="Izquierda" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){		
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"Arriba");}
+
+		}else if(vengode=="Abajo" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){		
+					seguidoresEncontrados.push(seguidor);
+					i = aux.seguidores.indexOf(seguidor);
+					aux.seguidores.splice(i,1);
+				}
+			});
+
+			if(auxIzq!= undefined ){ok[0] = seleccionar(auxIzq,"Derecha");}
+
+		}
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadJ = function(pieza,vengode){
+		var ok = [true,true,true,true];
+		var fronteras;
+		aux = pieza
 
+		//Enderezamos la pieza
+		fronteras =  giros(pieza);
+		auxAr = fronteras[0];auxAb = fronteras[1];auxDer = fronteras[2]; auxIzq = fronteras[3];
+		for(i=pieza.ngiros;i<4;i++){
+			aux = aux.girar;
+		}
+
+		//Comprobamos si la pieza esta en el array
+		if(piezasRecorridas.indexOf(pieza)>=0){return true}
+
+		//Añadimos al array
+		piezasRecorridas.push(pieza);
+
+		//Llamadas recursivas
+
+		if(vengode=="Izquierda" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){	
+					if(seguidor.posicion==1 || seguidor.posicion== 3 || seguidor.posicion==4 || seguidor.posicion==7){
+						seguidoresEncontrados.push(seguidor);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
+					}	
+				}
+			});
+
+			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"ArribaIzquierda");}
+			if(auxDer!= undefined ){ok[1] = seleccionar(auxDer,"ArribaIzquierda");}
+		}else if(vengode=="AbajoIzquierda" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){	
+					if(seguidor.posicion==1 || seguidor.posicion== 3 || seguidor.posicion==4 || seguidor.posicion==7){
+						seguidoresEncontrados.push(seguidor);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
+					}	
+				}
+			});
+
+			if(auxIzq!= undefined ){ok[0] = seleccionar(auxIzq,"Derecha");}
+			if(auxDer!= undefined ){ok[1] = seleccionar(auxDer,"ArribaIzquierda");}
+		}else if(vengode=="ArribaDerecha" ){
+			aux.seguidores.forEach(function(seguidor){
+				if(seguidor.tipo=='granjero'){	
+					if(seguidor.posicion==1 || seguidor.posicion== 3 || seguidor.posicion==4 || seguidor.posicion==7){
+						seguidoresEncontrados.push(seguidor);
+						i = aux.seguidores.indexOf(seguidor);
+						aux.seguidores.splice(i,1);
+					}	
+				}
+			});
+
+			if(auxAb!= undefined ){ok[0] = seleccionar(auxAb,"ArribaIzquierda");}
+			if(auxIzq!= undefined ){ok[1] = seleccionar(auxIzq,"Derecha");}
+		}
+
+		//Si todas las llamadas recursivas han sido true seguimos devolvemos true
+		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}	
 	}
 
 	ciudadK = function(pieza,vengode){
@@ -260,6 +421,33 @@ granjafinal = function(pieza,tablero){
 
 	cruce4 = function(pieza,vengode){
 
+	}
+
+	giros = function(pieza){
+		piezasFronterizas = new Array(4);
+		//[Arriba,Abajo,Derecha,Izquierda]
+		if(pieza.ngiros==1){
+			piezasFronterizas[0] = tablero.piezaenposiciones(pieza.x-1,pieza.y);
+			piezasFronterizas[1] = tablero.piezaenposiciones(pieza.x+1,pieza.y);
+			piezasFronterizas[2] = tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			piezasFronterizas[3] = tablero.piezaenposiciones(pieza.x,pieza.y-1);
+		}else if(pieza.ngiros==2){
+			piezasFronterizas[0] = tablero.piezaenposiciones(pieza.x,pieza.y-1);
+			piezasFronterizas[1] = tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			piezasFronterizas[2] = tablero.piezaenposiciones(pieza.x-1,pieza.y);
+			piezasFronterizas[3] = tablero.piezaenposiciones(pieza.x+1,pieza.y);
+		}else if(pieza.ngiros==3){
+			piezasFronterizas[0] = tablero.piezaenposiciones(pieza.x+1,pieza.y);
+			piezasFronterizas[1] = tablero.piezaenposiciones(pieza.x-1,pieza.y);
+			piezasFronterizas[2] = tablero.piezaenposiciones(pieza.x,pieza.y-1);
+			piezasFronterizas[3] = tablero.piezaenposiciones(pieza.x,pieza.y+1);
+		}else{
+			piezasFronterizas[0] = tablero.piezaenposiciones(pieza.x,pieza.y+1);
+			piezasFronterizas[1] = tablero.piezaenposiciones(pieza.x,pieza.y-1);
+			piezasFronterizas[2] = tablero.piezaenposiciones(pieza.x+1,pieza.y);
+			piezasFronterizas[3] = tablero.piezaenposiciones(pieza.x-1,pieza.y);
+		}
+		return piezasFronterizas;
 	}
 
 	seleccionar = function(pieza,vengode){
