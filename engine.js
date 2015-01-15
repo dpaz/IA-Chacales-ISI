@@ -74,6 +74,7 @@ Pieza = function(tipo,x,y){
 	this.Arriba = TPiezas[this.tipo].Arriba;
 	this.Derecha = TPiezas[this.tipo].Derecha;
 	this.Izquierda = TPiezas[this.tipo].Izquierda;
+	this.Escudo = TPiezas[this.tipo].Escudo;
 
 	this.caminoCerrado = false;
 	this.ciudadCerrada = false;
