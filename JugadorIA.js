@@ -1,6 +1,7 @@
 jugadorIA=function(id_jugador){
 
     this.robar = function () {
+		
         var robado = Tablero.saca_pieza();
         this.nuevaficha = new Pieza(robado, 0, 0);
         var posicion = Tablero.posiblelugar(this.nuevaficha);

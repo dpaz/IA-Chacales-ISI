@@ -1,33 +1,33 @@
 var TPiezas = {
-	Recto:        {Arriba: 'Camino' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
-	Curva:        {Arriba: 'Granja' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Camino' , Escudo: 0},
-	Cruce3:       {Arriba: 'Granja' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
-	Cruce4:       {Arriba: 'Camino' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
-	MonCamino:    {Arriba: 'Granja' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
-	MonGranja:    {Arriba: 'Granja' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
-	CiudadC:      {Arriba: 'Ciudad' , Abajo : 'Ciudad' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadD:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
-	CiudadE:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
-	CiudadF:      {Arriba: 'Granja' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadG:      {Arriba: 'Granja' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
-	CiudadH:      {Arriba: 'Ciudad' , Abajo : 'Ciudad' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
-	CiudadI:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Granja' , Escudo: 0},
-	CiudadJ:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Granja' , Escudo: 0},
-	CiudadK:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Camino' , Escudo: 0},
-	CiudadL:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
-	CiudadM:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadN:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
-	CiudadO:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadP:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
-	CiudadQ:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadR:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
-	CiudadS:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadT:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0}
+	Recto:        {Arriba: 'Camino' , Abajo: 'Camino' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
+	Curva:        {Arriba: 'Granja' , Abajo: 'Camino' , Derecha: 'Granja' , Izquierda: 'Camino' , Escudo: 0},
+	Cruce3:       {Arriba: 'Granja' , Abajo: 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	Cruce4:       {Arriba: 'Camino' , Abajo: 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	MonCamino:    {Arriba: 'Granja' , Abajo: 'Camino' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
+	MonGranja:    {Arriba: 'Granja' , Abajo: 'Granja' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
+	CiudadC:      {Arriba: 'Ciudad' , Abajo: 'Ciudad' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadD:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	CiudadE:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
+	CiudadF:      {Arriba: 'Granja' , Abajo: 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadG:      {Arriba: 'Granja' , Abajo: 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadH:      {Arriba: 'Ciudad' , Abajo: 'Ciudad' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	CiudadI:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Granja' , Escudo: 0},
+	CiudadJ:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Camino' , Izquierda: 'Granja' , Escudo: 0},
+	CiudadK:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Granja' , Izquierda: 'Camino' , Escudo: 0},
+	CiudadL:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	CiudadM:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadN:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadO:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Camino' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadP:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadQ:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadR:      {Arriba: 'Ciudad' , Abajo: 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadS:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
+	CiudadT:      {Arriba: 'Ciudad' , Abajo: 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0}
 
 }
 
 
-var Jugador = function(user_id,nombre){
+Jugador = function(user_id,nombre){
 	this.puntuacion = 0;
 	this.nombre = nombre;
 	this.seguidores = 7;
@@ -35,7 +35,7 @@ var Jugador = function(user_id,nombre){
 	this.IA = false;
 }
 
-var Piezas = function(piezas,npiezas){	
+Piezas = function(piezas,npiezas){	
 	//Tipos de pieza
 	this.piezas =piezas || Object.keys(TPiezas)
 	//Numero de piezas por Tipo
@@ -49,13 +49,13 @@ var Piezas = function(piezas,npiezas){
 	} 
 }
 
-var Seguidor = function(posicion,tipo, jugador){
+Seguidor = function(posicion,tipo, jugador){
 	this.posicion = posicion || undefined;
 	this.tipo = tipo || undefined;
 	this.jugador = jugador || undefined;
 }
 
-var Pieza = function(tipo,x,y){
+Pieza = function(tipo,x,y){
 
 	if(x!=undefined){
 		this.x=x
@@ -68,13 +68,12 @@ var Pieza = function(tipo,x,y){
 		this.y=undefined
 	}
 	
-	this.tipo = tipo
+	this.tipo = tipo;
 	this.lleno = false;
-	this.Abajo = TPiezas[tipo].Abajo;
-	this.Arriba = TPiezas[tipo].Arriba;
-	this.Derecha = TPiezas[tipo].Derecha;
-	this.Izquierda = TPiezas[tipo].Izquierda;
-	this.Escudo = TPiezas[tipo].Escudo;
+	this.Abajo = TPiezas[this.tipo].Abajo;
+	this.Arriba = TPiezas[this.tipo].Arriba;
+	this.Derecha = TPiezas[this.tipo].Derecha;
+	this.Izquierda = TPiezas[this.tipo].Izquierda;
 
 	this.caminoCerrado = false;
 	this.ciudadCerrada = false;
@@ -106,14 +105,23 @@ var Coor = function(x,y){
 	}
 }
 
-var Tablero = function(id_game, npiezas, piezas){
+Tablero = function(id_game){
 	this.id_game = id_game;
-        this.listaJugadores = [];	
-        this.turno = 0;
-	
-	if(piezas && npiezas) { this.piezas = new Piezas(piezas,npiezas);} 
-	else { this.piezas = new Piezas();}
-						   
+    this.listaJugadores = [];	
+    this.turno = 0;
+	this.iniciar = function(){
+	 
+    this.totalFichas = 72;
+
+	this.piezas = ['Recto','Curva','Cruce3','Cruce4','MonCamino','MonGranja','CiudadC','CiudadD','CiudadL','CiudadK','CiudadJ','CiudadI','CiudadH','CiudadG',
+					'CiudadF','CiudadE','CiudadM','CiudadN','CiudadO','CiudadP','CiudadQ','CiudadR','CiudadS','CiudadT',];
+	this.npiezas = {Recto: 8, Curva: 9, Cruce3: 4, Cruce4: 1, MonCamino: 2, MonGranja: 2, CiudadC: 1, CiudadD: 4,    
+				  CiudadE: 5, CiudadF: 2, CiudadG: 1, CiudadH: 3, CiudadI: 2, CiudadJ: 3, CiudadK: 3, CiudadL: 3,
+				  CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS:2,CiudadT:1};		
+
+		console.log("LLEGAMOS AQUI");
+}
+			   
     	
 	this.aleatorio = function(numero){
  		for(i=0; i< this.piezas.piezas.length;i++){ 
@@ -126,18 +134,22 @@ var Tablero = function(id_game, npiezas, piezas){
 	} 
 			       
 	this.saca_pieza = function (){
-		if(this.piezas.totalPiezas>0){
-			indice = this.aleatorio(Math.floor(Math.random()*this.piezas.totalPiezas));
-	 		var pieza = new Pieza(this.piezas.piezas[indice]);
-			 
-			//restamos del total de piezas y de las piezas restantes de ese tipo
-			this.piezas.totalPiezas--;
-			this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
 
+		if(this.totalFichas>0){
+			//var indice = this.aleatorio(Math.floor(Math.random()*this.piezas.length()));
+	 		//var pieza = new Pieza(this.piezas.piezas[indice]);
+			 if (this.totalFichas == 72) { var indice = 17}
+				else {var indice = Math.floor(Math.random() * this.piezas.length);}
+			var pieza = this.piezas[indice];
+			this.npiezas[indice] = this.npiezas[indice] - 1;
+			//restamos del total de piezas y de las piezas restantes de ese tipo
+			this.totalFichas--;
+		//	this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
+			if (this.npiezas[indice] == 0){this.piezas.pop(this.piezas[indice]);}
 			//Si no quedan de ese tipo las eliminamos
-			if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
+			/*if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
 				this.piezas.piezas.pop(this.piezas.piezas[indice]);	
-			}
+			}*/
 			//Pasar el turno al siguiente
 			
 			return pieza
@@ -145,10 +157,7 @@ var Tablero = function(id_game, npiezas, piezas){
 			console.log("No quedan piezas");
 			return undefined;
 		}
-	}
-
-
-	
+	}	
 	this.posiciones = [] //relaci�n de piezas con coordenadas puestas
 	this.piezaenposiciones = function(x,y){
 		var i;

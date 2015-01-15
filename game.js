@@ -9,11 +9,29 @@ Meteor.methods({
 	nuevaPartida: function(id_game){
 		if(ArrPartidas[id_game]== undefined){
 			Partida = new Tablero(id_game);
+			Partida.iniciar();
 			ArrPartidas[id_game]= Partida;
-			return true;
+			Jugadores_ID= Partidas.findOne({_id: id_game}).jugadores;
+	
+			for(i=0;i<Jugadores_ID.length;i++){
+			
+			if (Jugadores_ID[i].user_id.slice(0,10) == "Jugador_IA"){
+					Partida.listaJugadores.push(new Jugador(Jugadores_ID[i],Jugadores_ID[i].user_id));
+					console.log("TENEMOS UNA IA");
+			}else{
+				var player =resolverUser(Jugadores_ID[i]);
+				Partida.listaJugadores.push(new Jugador(Jugadores_ID[i],player.nombre));
+			}
+		}
+			
+			
+			console.log("Tenemos los jugadores");
+			ArrPartidas[id_game] =  Partida;
+			return Partida.listaJugadores;
 		}else{
 			console.log("Esa id ya pertenece a una partida creada");
-			return false;
+			Partida=ArrPartidas[id_game];
+			return Partida.listaJugadores;
 		}
 	},
 
@@ -51,9 +69,12 @@ Meteor.methods({
 	robarFicha: function(id_game){
 		if(ArrPartidas[id_game]){
 			Partida = ArrPartidas[id_game];
-			ficha = Partida.saca_pieza();
+			var ficharobada = Partida.saca_pieza();
+			var ficha = new Pieza(ficharobada,0,0)
+			console.log("ROBAMOS!!");
 			lugares = Partida.posiblelugar(ficha);
 			var resultado = [ficha,lugares];
+			ArrPartidas[id_game] =  Partida;
 			return resultado;
 		}else{
 			return false;
@@ -122,14 +143,15 @@ Meteor.methods({
                 pieza = Partida.posiciones[i];
                 	if (pieza.seguidores.length != 0){
 					 		
-						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Granjero")})){cerrarGranja(pieza,true,Partida);}
+						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Granjero")})){cerrarGranja(pieza,Partida);}
                         if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Ladron")})){cerrarCamino(pieza,true,Partida);}
 						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Monje")})){cerrarMonasterio(pieza,true,Partida);}
                         if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Caballero")})){cerrarCiudad(pieza,true,Partida);}
                         }
             }
     	for (i=0; i< Tablero.listaJugadores.length; i++){
-			puntuacion.push({user_id: Partida.listaJugadores[i].id.user_id, puntos: Partida.listaJugadores[i].puntos});
+    	    puntuacion.push({ user_id: Partida.listaJugadores[i].id.user_id, puntos: Partida.listaJugadores[i].puntos });
+            
 		}
 
 	    } else {
@@ -165,12 +187,12 @@ Meteor.methods({
 	},
 
     JugadorArtificial: function(id_partida,id_jugador){
-        Tablero = ArrPartidas[id_partida];
+        Partida = ArrPartidas[id_partida];
         
         var ColocoFicha = false;
         while (ColocoFicha == false)
         { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
-            var Jugada = jugadorIA(id_jugador);
+            var Jugada = jugadorIA(id_jugador, Partida);
             var Piezanueva = new Pieza(0, 0, 0, x[0]);
             for (var i = 0; i < Jugada[1].giros; i++) {
                 Piezanueva = Piezanueva.girar()
