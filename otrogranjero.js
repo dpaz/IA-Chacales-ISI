@@ -614,49 +614,69 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 						otro=compruebaSeg(aux,7);
 						if(otro==true){return otro}
 					}
-//////////////////////////////seguir por aqui
+
 				}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'){
 					if(auxSeg==3){
 						otro=compruebaSeg(aux,1,2,3);
 						if(otro==true){return otro}
 						otro=piezaDerecha(aux,3,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaArriba(aux,3,tablero,otro);
+						if(aux.Arriba!= 'Ciudad'){
+							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+						}
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7,8,9);
 						if(otro==true){return otro}
 						otro=piezaDerecha(aux,9,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaAbajo(aux,9,tablero,otro);
-						if(otro==true){return otro}
-						otro=piezaArriba(aux,9,tablero,otro);
-					}//(ciudad D MAL)
+						if(aux.Abajo != 'Ciudad'){
+							otro=piezaAbajo(aux,9,tablero,otro);
+							if(otro==true){return otro}
+						}
+					}
 					
 				}else if(aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					 aux.tipo =='CiudadP'){  
 					if(auxSeg==3){	
 						if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,1,2,3,6,9);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaDerecha(aux,3,tablero,otro);
-							otro=piezaAbajo(aux,3,tablero,otro);
-							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaAbajo(aux,9,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Derecha != 'Ciudad'){
+								otro=piezaDerecha(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Arriba != 'Ciudad'){
+								otro=piezaArriba(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
 						} 
 					}else if(auxSeg==9){
 						if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,3,6,7,8,9);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaDerecha(aux,7,tablero,otro);
-							otro=piezaAbajo(aux,7,tablero,otro);
-							otro=piezaArriba(aux,7,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Derecha != 'Ciudad'){
+								otro=piezaDerecha(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Abajo != 'Ciudad'){
+								otro=piezaAbajo(aux,7,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
+							if(otro==true){return otro}
 						}
 					}
 				}else if(aux.tipo =='Cruce4'){
@@ -664,10 +684,12 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 						otro=compruebaSeg(aux,1);
 						if(otro==true){return otro}
 						otro=piezaArriba(aux,1,tablero,otro);
+						if(otro==true){return otro}
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7);
 						if(otro==true){return otro}
 						otro=piezaAbajo(aux,7,tablero,otro);
+						if(otro==true){return otro}
 					}
 				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){
 					if(aux.Derecha != 'Camino'){
@@ -675,17 +697,24 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaDerecha(aux,9,tablero,otro);
+							if(otro==true){return otro}
 						}
 					}else if(aux.Arriba != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1,2,3);
 							if(otro==true){return otro}
-							otro=piezaDerecha(aux,1,tablero,otro);
+							otro=piezaDerecha(aux,3,tablero,otro);
+							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
+							//seguir por aquii
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
