@@ -604,4 +604,30 @@ describe("Pruebas relacionadas con posible granjero",function(){
 		expect(otrogranjero(pieza_1,1,tablero2)).toBe(true);
 		
 	});
+
+	it("Recursividad MonCamino",function(){
+
+		//primer y segundo if
+
+		var tablero1 = new Tablero(1);
+
+		var seguidor = new Seguidor(1,'granjero')
+		var seguidor1 = new Seguidor(9,'granjero')
+
+		var pieza_1 = new Pieza('Recto',5,5);
+		
+		var pieza_3 = new Pieza('Recto',6,5);
+		
+		var pieza_4 = new Pieza('Recto',7,5);
+
+		var pieza_2 = new Pieza('MonCamino',8,5);
+
+		tablero1.posiciones.push(pieza_2);
+		tablero1.posiciones.push(pieza_3);
+		tablero1.posiciones.push(pieza_4);
+		
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(false);
+		pieza_3.seguidores.push(seguidor);
+		expect(otrogranjero(pieza_1,3,tablero1)).toBe(true);
+	});
 });
